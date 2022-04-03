@@ -11,7 +11,7 @@ struct HomeView: View {
     var body: some View {
         
         NavigationView {
-            
+            ScrollView {
                 LazyVStack {
                     ZStack {
                         
@@ -66,8 +66,6 @@ struct HomeView: View {
                             Image("tacho")
                                 .resizable()
                                 .frame(width: 172, height: 65, alignment: .top)
-                            
-                            Text("Formempfehlung")
                                 
                         }
                     }
@@ -75,7 +73,7 @@ struct HomeView: View {
                 .padding()
                 .accentColor(.black)
                     .navigationTitle("Home")
-            
+            }
         }
     }
 }
