@@ -6,41 +6,27 @@
 //
 
 import SwiftUI
+import SwiftUICharts
 
 struct HomeView: View {
+    var HRData: [Double] = [48, 50, 52, 51, 49, 50, 48]
     var body: some View {
         
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    ZStack {
+                    
+                    NavigationLink(
+                        destination: {
+                        HRView()
+                        },
+                        label: {
                         
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .aspectRatio(CGSize(width: 335, height: 150), contentMode: .fit)
-                            .shadow(radius: 5)
-                        VStack {
-                            Image("diagram")
-                                .resizable()
-                                .frame(width: 300, height: 130)
-                            Text("Ruheherzfrequenz letzte 7 Tage")
+                            LineChartView(data: HRData, title: "RHF 7 Tage", form: ChartForm.extraLarge, rateValue: 0)
                         }
-                    }
-                    ZStack {
+                    )
+                        LineChartView(data: HRData, title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
                         
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .aspectRatio(CGSize(width: 335, height: 150), contentMode: .fit)
-                            .shadow(radius: 5)
-                        VStack {
-                            Image("diagram")
-                                .resizable()
-                                .frame(width: 300, height: 130)
-                            Text("HRV letzte 7 Tage")
-                        }
-                    }
                     ZStack {
                         
                         Rectangle()
