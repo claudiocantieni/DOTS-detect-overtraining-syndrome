@@ -10,14 +10,18 @@ import SwiftUICharts
 
 struct HRView: View {
     
-    var title = "Ruheherzfrequenz"
+    var title: String
     @State var selectedTimeRange = 0
-    var HRData: [Double] = [48, 50, 52, 51, 49, 50, 48]
+    var HRData: [Double]
+    var today: String
+    var av7days: String
+    var delta7days: String
     var body: some View {
         VStack {
             
             Text(title)
-                .font(.title)
+                .font(.largeTitle)
+                .bold()
             
             Picker("", selection: $selectedTimeRange)
             {
@@ -37,7 +41,7 @@ struct HRView: View {
                     HStack {
                         Text("Heute :")
                             .bold()
-                        Text("48 bpm")
+                        Text(today)
                             .bold()
                     }
                     .padding()
@@ -45,7 +49,7 @@ struct HRView: View {
                     HStack {
                         Text("Ø 7 Tage :")
                             .bold()
-                        Text("49 bpm")
+                        Text(av7days)
                             .bold()
                     }
                     .padding()
@@ -53,7 +57,7 @@ struct HRView: View {
                     HStack {
                         Text("∆ letze 7 Tage:")
                             .bold()
-                        Text("+2 bpm")
+                        Text(delta7days)
                             .bold()
                     }
                     .padding()
@@ -61,10 +65,5 @@ struct HRView: View {
                 .padding(.top, 200)
             }
         }
-    }
-}
-struct HRView_Previews: PreviewProvider {
-    static var previews: some View {
-        HRView()
     }
 }
