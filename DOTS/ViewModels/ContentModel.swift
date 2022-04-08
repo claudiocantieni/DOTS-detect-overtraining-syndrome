@@ -5,8 +5,28 @@
 //  Created by Claudio Cantieni on 06.04.22.
 //
 
-/*import Foundation
-import ObjcFIT
+import Foundation
+import SwiftUI
+
+class ContentModel: ObservableObject {
+    
+    @Published var modules = [Model]()
+    
+    static func getTimeData(selectedRange: Int, HRData:[Float]) -> [Double] {
+        
+        var HRDataDouble:[Double] = []
+        
+        for item in HRData[0..<selectedRange] {
+            HRDataDouble.append(Double(item))
+        
+        }
+        return HRDataDouble
+    }
+    
+                
+        
+}
+/*import ObjcFIT
 import SwiftFIT
 
 

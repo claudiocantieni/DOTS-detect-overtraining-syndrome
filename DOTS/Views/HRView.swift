@@ -10,9 +10,11 @@ import SwiftUICharts
 
 struct HRView: View {
     
+    @EnvironmentObject var model: ContentModel
+    
     var title: String
-    @State var selectedTimeRange = 0
-    var HRData: [Double]
+    @State var selectedTimeRange:Int = 7
+    var HRData:[Float]
     var today: String
     var av7days: String
     var delta7days: String
@@ -25,16 +27,17 @@ struct HRView: View {
             
             Picker("", selection: $selectedTimeRange)
             {
-                Text("7 Tage").tag(0)
-                Text("4 Wochen").tag(1)
-                Text("1 Jahr").tag(2)
+                Text("7 Tage").tag(7)
+                Text("4 Wochen").tag(28)
+                Text("1 Jahr").tag(HRData.count)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal, 40)
             .padding()
             
             ZStack {
-                LineView(data: HRData)
+                
+                LineView(data: ContentModel.getTimeData(selectedRange: selectedTimeRange, HRData: HRData))
                     .padding(.horizontal)
                 
                 VStack {

@@ -9,8 +9,12 @@ import SwiftUI
 import SwiftUICharts
 
 struct HomeView: View {
-    var RHRData: [Double] = [48, 50, 52, 51, 49, 50, 48]
+    
+    @EnvironmentObject var model: ContentModel
+    var RHRData: [Double] = [48, 50, 52, 51, 49, 50, 48, 51, 49, 50, 48]
     var HRVData: [Double] = [170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64]
+    var RHRData1:[Float] = [48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48]
+    var HRVData1:[Float] = [170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64]
     var body: some View {
         
         NavigationView {
@@ -19,7 +23,7 @@ struct HomeView: View {
                     
                     NavigationLink(
                         destination: {
-                        HRView(title: "Ruheherzfrequenz", HRData: RHRData, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                        HRView(title: "Ruheherzfrequenz", HRData: RHRData1, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
                         
@@ -28,7 +32,7 @@ struct HomeView: View {
                     )
                     NavigationLink(
                         destination: {
-                            HRView(title: "Herzfrequenzvariabilität", HRData: HRVData, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
+                            HRView(title: "Herzfrequenzvariabilität", HRData: HRVData1, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
                         },
                         label: {
                         

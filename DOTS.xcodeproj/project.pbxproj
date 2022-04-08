@@ -10,6 +10,7 @@
 		6B5BCBFE27FA0A3D000243DD /* AnalisisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5BCBFD27FA0A3D000243DD /* AnalisisView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B76CCAA27FEEF0500E9CD88 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 6B76CCA927FEEF0500E9CD88 /* SwiftUICharts */; };
+		6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCAB2800B1E900E9CD88 /* Model.swift */; };
 		6B773B7A27FE0CF40016B16B /* FIT in Frameworks */ = {isa = PBXBuildFile; productRef = 6B773B7927FE0CF40016B16B /* FIT */; };
 		6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B773B8127FE0D600016B16B /* ContentModel.swift */; };
 		6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3527FA06C80023A867 /* DOTSApp.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		6B5BCBFD27FA0A3D000243DD /* AnalisisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalisisView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
+		6B76CCAB2800B1E900E9CD88 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6B773B7727FE0CE70016B16B /* objcpp */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = objcpp; path = ../../../../../Downloads/FitSDKRelease_21.78.00/objcpp; sourceTree = "<group>"; };
 		6B773B8127FE0D600016B16B /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		6BFFFE3227FA06C80023A867 /* DOTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				6B773B8127FE0D600016B16B /* ContentModel.swift */,
+				6BFFFE4627FA07570023A867 /* Models */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -84,7 +87,6 @@
 			children = (
 				6BFFFE3527FA06C80023A867 /* DOTSApp.swift */,
 				6BFFFE4427FA07420023A867 /* Views */,
-				6BFFFE4627FA07570023A867 /* Models */,
 				6B773B8027FE0D410016B16B /* ViewModels */,
 				6BFFFE4727FA07660023A867 /* Data */,
 				6BFFFE3927FA06C90023A867 /* Assets.xcassets */,
@@ -117,6 +119,7 @@
 		6BFFFE4627FA07570023A867 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6B76CCAB2800B1E900E9CD88 /* Model.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */,
 				6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */,
 				6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */,
+				6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
