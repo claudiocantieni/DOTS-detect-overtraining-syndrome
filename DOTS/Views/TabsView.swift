@@ -10,11 +10,11 @@ import SwiftUI
 struct TabsView: View {
     
     @EnvironmentObject var model: ContentModel
-    
+    var modules:Model
     var body: some View {
         TabView {
             
-            HomeView()
+            HomeView(module:Model())
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -31,6 +31,7 @@ struct TabsView: View {
                     }
                 }
             
+            
             SettingsView()
                 .tabItem {
                     VStack {
@@ -44,6 +45,6 @@ struct TabsView: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        TabsView()
+        TabsView(modules: Model())
     }
 }

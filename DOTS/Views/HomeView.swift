@@ -10,11 +10,8 @@ import SwiftUICharts
 
 struct HomeView: View {
     
-    @EnvironmentObject var model: ContentModel
-    var RHRData: [Double] = [48, 50, 52, 51, 49, 50, 48, 51, 49, 50, 48]
-    var HRVData: [Double] = [170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64]
-    var RHRData1:[Float] = [48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48, 48, 50, 52, 51, 49, 50, 48]
-    var HRVData1:[Float] = [170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64, 170.11, 300.89, 250.51, 200.22, 150.15, 189.69, 166.64]
+    var module:Model
+    
     var body: some View {
         
         NavigationView {
@@ -23,20 +20,20 @@ struct HomeView: View {
                     
                     NavigationLink(
                         destination: {
-                        HRView(title: "Ruheherzfrequenz", HRData: RHRData1, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                            HRView(title: "Ruheherzfrequenz", HRData: module.RHRData, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
                         
-                            LineChartView(data: RHRData, title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                            LineChartView(data:  ContentModel.getTimeData(selectedRange: 7, HRData: module.RHRData), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
                         }
                     )
                     NavigationLink(
                         destination: {
-                            HRView(title: "Herzfrequenzvariabilität", HRData: HRVData1, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
+                            HRView(title: "Herzfrequenzvariabilität", HRData: module.HRVData, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
                         },
                         label: {
                         
-                            LineChartView(data: HRVData, title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
+                            LineChartView(data:ContentModel.getTimeData(selectedRange: 7, HRData: module.HRVData), title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
                         }
                     )
                         
@@ -81,6 +78,7 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+    
+        HomeView(module: Model())
     }
 }

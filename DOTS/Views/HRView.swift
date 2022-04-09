@@ -10,8 +10,6 @@ import SwiftUICharts
 
 struct HRView: View {
     
-    @EnvironmentObject var model: ContentModel
-    
     var title: String
     @State var selectedTimeRange:Int = 7
     var HRData:[Float]
@@ -29,7 +27,7 @@ struct HRView: View {
             {
                 Text("7 Tage").tag(7)
                 Text("4 Wochen").tag(28)
-                Text("1 Jahr").tag(HRData.count)
+                Text("1 Jahr").tag(HRData.count < 365 ? HRData.count : 365 )
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal, 40)
