@@ -7,7 +7,7 @@
 
 import SwiftUI
 import SwiftUICharts
-
+import GaugeProgressViewStyle
 struct HomeView: View {
     
     var module:Model
@@ -57,14 +57,24 @@ struct HomeView: View {
                         Rectangle()
                             .foregroundColor(.white)
                             .cornerRadius(20)
-                            .aspectRatio(CGSize(width: 335, height: 100), contentMode: .fit)
+                            .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                             .shadow(radius: 5)
                             .padding(.horizontal, 12)
                         VStack {
-                            Image("tacho")
-                                .resizable()
-                                .frame(width: 172, height: 65, alignment: .top)
-                                
+                            ProgressView(value: 0.75) {
+                                Text("Form-Zustand")
+                                    .bold()
+                            }
+                            .progressViewStyle(
+                                .gauge(thickness: 25, lowerLabel: {
+                                    Text("belastet")
+                                }, upperLabel: {
+                                    Text("erholt")
+                                })
+                              )
+                            
+                            
+                                .padding(.top)
                         }
                     }
                 }

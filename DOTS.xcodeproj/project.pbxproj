@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B4F07BF281D53B500E4CC31 /* GaugeProgressViewStyle in Frameworks */ = {isa = PBXBuildFile; productRef = 6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */; };
 		6B5BCBFE27FA0A3D000243DD /* AnalisisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5BCBFD27FA0A3D000243DD /* AnalisisView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B76CCAA27FEEF0500E9CD88 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 6B76CCA927FEEF0500E9CD88 /* SwiftUICharts */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "GaugeProgressViewStyle-develop"; path = "../../../Downloads/GaugeProgressViewStyle-develop"; sourceTree = "<group>"; };
 		6B5BCBFD27FA0A3D000243DD /* AnalisisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalisisView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
 		6B76CCAB2800B1E900E9CD88 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -41,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B4F07BF281D53B500E4CC31 /* GaugeProgressViewStyle in Frameworks */,
 				6B773B7A27FE0CF40016B16B /* FIT in Frameworks */,
 				6B76CCAA27FEEF0500E9CD88 /* SwiftUICharts in Frameworks */,
 			);
@@ -52,6 +55,7 @@
 		6B773B7827FE0CF40016B16B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -150,6 +154,7 @@
 			packageProductDependencies = (
 				6B773B7927FE0CF40016B16B /* FIT */,
 				6B76CCA927FEEF0500E9CD88 /* SwiftUICharts */,
+				6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */,
 			);
 			productName = DOTS;
 			productReference = 6BFFFE3227FA06C80023A867 /* DOTS.app */;
@@ -347,6 +352,7 @@
 				DEVELOPMENT_TEAM = 7M33666T7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DOTS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -376,6 +382,7 @@
 				DEVELOPMENT_TEAM = 7M33666T7S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DOTS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -429,6 +436,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GaugeProgressViewStyle;
+		};
 		6B76CCA927FEEF0500E9CD88 /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6B76CCA827FEEF0500E9CD88 /* XCRemoteSwiftPackageReference "ChartView" */;
