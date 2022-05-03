@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct TabsView: View {
-    
-    @EnvironmentObject var model: ContentModel
-    var modules:Model
+    let persistenceController = PersistenceController.shared
+    // @EnvironmentObject var model: ContentModel
+    var module:Model
     var body: some View {
         TabView {
             
-            HomeView(module:Model())
+            HomeView()
                 .tabItem {
                     VStack {
                         Image(systemName: "house")
@@ -22,12 +22,13 @@ struct TabsView: View {
                     }
                     
                 }
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             
-            AnalisisView()
+            InputView()
                 .tabItem {
                     VStack {
-                        Image(systemName: "waveform.path.ecg.rectangle")
-                        Text("Analisis")
+                        Image(systemName: "square.and.pencil")
+                        Text("Data")
                     }
                 }
             
@@ -45,6 +46,6 @@ struct TabsView: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        TabsView(modules: Model())
+        TabsView(module: Model())
     }
 }

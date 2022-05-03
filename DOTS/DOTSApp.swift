@@ -9,10 +9,13 @@ import SwiftUI
 
 @main
 struct DOTSApp: App {
+    
+    
     var body: some Scene {
         WindowGroup {
-            TabsView(modules:Model())
+            TabsView(module:Model())
                 .environmentObject(ContentModel())
+                
         }
     }
 }

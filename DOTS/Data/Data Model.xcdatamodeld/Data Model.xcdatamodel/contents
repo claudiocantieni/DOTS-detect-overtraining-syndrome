@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Datasets" representedClassName="Datasets" syncable="YES" codeGenerationType="class">
+        <attribute name="hrvData" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[Float]"/>
+        <attribute name="rhrData" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[Float]"/>
+    </entity>
+    <elements>
+        <element name="Datasets" positionX="-63" positionY="-18" width="128" height="59"/>
+    </elements>
+</model>

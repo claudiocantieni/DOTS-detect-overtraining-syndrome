@@ -10,30 +10,39 @@ import SwiftUICharts
 import GaugeProgressViewStyle
 struct HomeView: View {
     
-    var module:Model
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [])
+    private var datasets: FetchedResults<Datasets>
+    
+    //var module:Model
     
     var body: some View {
         
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    
+                    // module.rhrData to be replaced by datasets.rhrData
+                    if datasets.rhrData.count > 2 {
+                        NavigationLink(
+                            destination: {
+                                HRView(title: "Ruheherzfrequenz", HRData: datasets.rhrData, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                            },
+                            label: {
+                            
+                                LineChartView(data:  ContentModel.getTimeData(selectedRange: 7, HRData: datasets.rhrData), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                            }
+                        )
+                    }
+                        
                     NavigationLink(
                         destination: {
-                            HRView(title: "Ruheherzfrequenz", HRData: module.RHRData, today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                            HRView(title: "Herzfrequenzvariabilität", HRData: datasets.hrvData, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
                         },
                         label: {
                         
-                            LineChartView(data:  ContentModel.getTimeData(selectedRange: 7, HRData: module.RHRData), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
-                        }
-                    )
-                    NavigationLink(
-                        destination: {
-                            HRView(title: "Herzfrequenzvariabilität", HRData: module.HRVData, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
-                        },
-                        label: {
-                        
-                            LineChartView(data:ContentModel.getTimeData(selectedRange: 7, HRData: module.HRVData), title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
+                            LineChartView(data:ContentModel.getTimeData(selectedRange: 7, HRData: datasets.hrvData), title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
                         }
                     )
                         
@@ -89,6 +98,6 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
     
-        HomeView(module: Model())
+        HomeView()
     }
 }

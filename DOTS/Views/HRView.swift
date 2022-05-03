@@ -25,8 +25,8 @@ struct HRView: View {
             
             Picker("", selection: $selectedTimeRange)
             {
-                Text("7 Tage").tag(7)
-                Text("4 Wochen").tag(28)
+                Text("7 Tage").tag(HRData.count < 7 ? HRData.count : 7 )
+                Text("4 Wochen").tag(HRData.count < 28 ? HRData.count : 28 )
                 Text("1 Jahr").tag(HRData.count < 365 ? HRData.count : 365 )
             }
             .pickerStyle(SegmentedPickerStyle())
