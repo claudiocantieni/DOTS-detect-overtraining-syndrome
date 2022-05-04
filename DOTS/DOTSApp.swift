@@ -9,13 +9,13 @@ import SwiftUI
 
 @main
 struct DOTSApp: App {
-    
+    let persistenceController = PersistenceController.shared
     
     var body: some Scene {
         WindowGroup {
             TabsView(module:Model())
                 .environmentObject(ContentModel())
-                
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

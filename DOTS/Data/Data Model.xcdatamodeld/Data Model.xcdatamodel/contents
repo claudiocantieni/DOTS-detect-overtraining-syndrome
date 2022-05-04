@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="Datasets" representedClassName="Datasets" syncable="YES" codeGenerationType="class">
-        <attribute name="hrvData" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[Float]"/>
-        <attribute name="rhrData" optional="YES" attributeType="Transformable" valueTransformerName="" customClassName="[Float]"/>
+    <entity name="Datasets" representedClassName="Datasets" syncable="YES">
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
+    <entity name="Entity1" representedClassName="Entity1" syncable="YES" codeGenerationType="class"/>
+    <entity name="Hrv" representedClassName="Hrv" syncable="YES">
+        <attribute name="hrv" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="datasets" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Datasets"/>
+    </entity>
+    <entity name="Rhr" representedClassName="Rhr" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="datasets" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Datasets"/>
     </entity>
     <elements>
-        <element name="Datasets" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Rhr" positionX="-63" positionY="-18" width="128" height="59"/>
+        <element name="Hrv" positionX="-45" positionY="18" width="128" height="74"/>
+        <element name="Datasets" positionX="-27" positionY="45" width="128" height="59"/>
+        <element name="Entity" positionX="-9" positionY="63" width="128" height="29"/>
+        <element name="Entity1" positionX="9" positionY="72" width="128" height="29"/>
     </elements>
 </model>

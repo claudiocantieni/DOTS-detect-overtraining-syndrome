@@ -10,7 +10,42 @@ import SwiftUI
 
 class ContentModel: ObservableObject {
     
+    let managedObjectContext = PersistenceController.shared.container.viewContext
+    
     @Published var modules = [Model]()
+    
+//    init() {
+//        checkLoadedData()
+//    }
+//
+//    func checkLoadedData() {
+//
+//        let status = UserDefaults.standard.bool(forKey: Constants.isDataPreloaded)
+//
+//        if status == false {
+//            preloadLocalData()
+//
+//        }
+//
+//    }
+//    func preloadLocalData() {
+//        //Create arrays
+//        for _ in 0...1 {
+//            let hearts = Hearts(context: managedObjectContext)
+//
+//            hearts.rhr = 50
+//            hearts.hrv = 100
+//            hearts.timestamp = Date()
+//        }
+//        //Save to Core Data
+//        do {
+//            try managedObjectContext.save()
+//
+//            UserDefaults.standard.setValue(true, forKey: Constants.isDataPreloaded)
+//        }
+//        catch {
+//        }
+//    }
     
     static func getTimeData(selectedRange: Int, HRData:[Float]) -> [Double] {
         
@@ -22,9 +57,6 @@ class ContentModel: ObservableObject {
         }
         return HRDataDouble
     }
-    
-                
-        
 }
 /*import ObjcFIT
 import SwiftFIT

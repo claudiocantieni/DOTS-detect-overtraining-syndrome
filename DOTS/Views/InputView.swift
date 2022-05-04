@@ -9,10 +9,11 @@ import SwiftUI
 
 struct InputView: View {
     
-    @Environment(\.managedObjectContext) private var viewContext
+ @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: []) var hearts: FetchedResults<Hearts>
     // TODO: change to :Float
-    @State private var rhrData = ""
-    @State private var hrvData = ""
+    @State private var rhr1 = ""
+    @State private var hrv1 = ""
     
     var body: some View {
         
@@ -38,30 +39,38 @@ struct InputView: View {
                     //TODO: textfields with value
                     HStack {
                         Text("Ruheherzfrequenz:")
-                        TextField("50", text: $rhrData)
+                        TextField("50", text: $rhr1)
+                        
                         
                     }
                     
                     HStack {
                         Text("Herzfrequenzvariabilität:")
-                        TextField("101.18", text: $hrvData)
+                        TextField("101.18", text: $hrv1)
                     }
+                    
                 }
             }
+            
         }
         .padding(.horizontal)
     }
     
     func clear() {
-        rhrData = ""
-        hrvData = ""
+        rhr1 = ""
+        hrv1 = ""
     }
     
     func addData() {
         //TODO: adapt to textfields
-        let datasets = Datasets(context: viewContext)
-        datasets.rhrData.append(Float(rhrData)!)
-        datasets.hrvData.append(Float(hrvData)!)
+        
+        let hearts = Hearts(context: viewContext)
+        hearts.timestamp = Date()
+        hearts.rhr = Float(rhr1) ?? 1
+        hearts.hrv = Float(hrv1) ?? 1
+    
+       
+       
         
         do {
             try viewContext.save()
@@ -76,4 +85,6 @@ struct InputView_Previews: PreviewProvider {
     static var previews: some View {
         InputView()
     }
+    
 }
+

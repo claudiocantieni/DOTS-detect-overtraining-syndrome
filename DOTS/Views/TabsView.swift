@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabsView: View {
-    let persistenceController = PersistenceController.shared
+    
     // @EnvironmentObject var model: ContentModel
     var module:Model
     var body: some View {
@@ -20,9 +20,9 @@ struct TabsView: View {
                         Image(systemName: "house")
                         Text("Home")
                     }
-                    
+
                 }
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+           
             
             InputView()
                 .tabItem {
