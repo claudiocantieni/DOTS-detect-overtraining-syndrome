@@ -6,16 +6,15 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 import GaugeProgressViewStyle
 struct HomeView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(sortDescriptors: []) var hearts: FetchedResults<Hearts>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)]) var hearts: FetchedResults<Hearts>
     
-    
-  //  var module:Model
+    @State var isInputViewShowing = false
+    //  var module:Model
     
     var body: some View {
         
@@ -23,27 +22,67 @@ struct HomeView: View {
             ScrollView {
                 LazyVStack {
                     // module.rhrData to be replaced by datasets.rhrData
-                        NavigationLink(
-                            destination: {
-                                HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
-                            },
-                            label: {
-                                
-                                LineChartView(data:  ContentModel.getTimeData(selectedRange: 7, HRData: createArray()), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
-                            }
-                        )
-                    }
-                        
                     NavigationLink(
                         destination: {
-                   //         HRView(title: "Herzfrequenzvariabilität", HRData: datasets.hrvData, today: "166.64 ms", av7days: "203.21 ms", delta7days: "+20 ms")
+                            HRChartView(data: createArrayRhr(), timestamps: createTimestamps(), height: 250, width: 350)
+                            //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
-                        
-                 //           LineChartView(data:ContentModel.getTimeData(selectedRange: 7, HRData: datasets.hrvData), title: "HRV 7 Tage", form: ChartForm.large, rateValue: 0)
+                            
+                            ZStack {
+                                
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                    .cornerRadius(20)
+                                    .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
+                                    .shadow(radius: 5)
+                                    .padding(.horizontal, 12)
+                                VStack {
+                                    Text("Ruheherzfrequenz")
+                                        .font(.largeTitle)
+                                        .bold()
+                                    
+                                    HRChartView(data: createArrayRhr(), timestamps: createTimestamps(), height: 150, width: 335)
+                                    
+                                    
+                                }
+                                //LineChartView(data:48), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                            }
+                            
                         }
                     )
-                        
+                    
+                    
+                    NavigationLink(
+                        destination: {
+                            HRChartView(data: createArrayHrv(), timestamps: createTimestamps(), height: 250, width: 350)
+                            //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                        },
+                        label: {
+                            
+                            ZStack {
+                                
+                                Rectangle()
+                                    .foregroundColor(.white)
+                                    .cornerRadius(20)
+                                    .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
+                                    .shadow(radius: 5)
+                                    .padding(.horizontal, 12)
+                                VStack {
+                                    Text("Ruheherzfrequenz")
+                                        .font(.largeTitle)
+                                        .bold()
+                                    
+                                    HRChartView(data: createArrayHrv(), timestamps: createTimestamps(), height: 150, width: 335)
+                                    
+                                    
+                                }
+                                //LineChartView(data:48), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                            }
+                            
+                        }
+                    )
+                    
                     ZStack {
                         
                         Rectangle()
@@ -58,6 +97,32 @@ struct HomeView: View {
                                 .font(.largeTitle)
                                 .bold()
                         }
+                    }
+                    
+                    Button(action: {
+                        self.isInputViewShowing = true
+                    }, label: {
+                        ZStack {
+                            
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .cornerRadius(20)
+                                .aspectRatio(CGSize(width: 335, height: 80), contentMode: .fit)
+                                .shadow(radius: 5)
+                                .padding(.horizontal, 12)
+                                
+                                Text("Eingeben")
+                                    .font(.largeTitle)
+                                    .bold()
+                        }
+                    })
+                        .sheet(isPresented: $isInputViewShowing) {
+                            
+                            InputView()
+                        }
+                        .buttonStyle(PlainButtonStyle())
+
+                        
                     }
                     ZStack {
                         
@@ -78,38 +143,57 @@ struct HomeView: View {
                                 }, upperLabel: {
                                     Text("erholt")
                                 })
-                              )
+                            )
                             
                             
-                                .padding(.top)
+                            .padding(.top)
                         }
                     }
                 }
-                
             }
-        .padding()
-        .accentColor(.black)
-        .navigationTitle("Home")
+                .padding()
+                .accentColor(.black)
+                .navigationTitle("Home")
+    }
+        
+        
+        
+        
+        
+        func createArrayRhr() -> [Double]{
+            var hrArray:[Double] = []
+            if hearts.count >= 1 {
+                for f in hearts {
+                    hrArray.append(f.rhr)
+                }
+            }
+            return hrArray
+        }
+        func createArrayHrv() -> [Double]{
+            var hrArray:[Double] = []
+            if hearts.count >= 1 {
+                for f in hearts {
+                    hrArray.append(f.hrv)
+                }
+            }
+            return hrArray
+        }
+        func createTimestamps() -> [Date]{
+            var timestamps:[Date] = []
+            if hearts.count >= 1 {
+                for t in hearts {
+                    timestamps.append(t.timestamp)
+                }
+            
+            }
+            return timestamps
         }
         
-    
-    
-        
-        
-    func createArray() -> [Float]{
-        var hrArray:[Float] = []
-        if hearts.count >= 1 {
-            for f in hearts {
-                hrArray.append(f.rhr)
-            }
+    }
+    struct HomeView_Previews: PreviewProvider {
+        static var previews: some View {
+            
+            HomeView()
         }
-        return hrArray
     }
-}
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
     
-        HomeView()
-    }
-}
-

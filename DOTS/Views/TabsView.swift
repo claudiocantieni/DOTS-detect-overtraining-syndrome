@@ -23,14 +23,7 @@ struct TabsView: View {
 
                 }
            
-            
-            InputView()
-                .tabItem {
-                    VStack {
-                        Image(systemName: "square.and.pencil")
-                        Text("Data")
-                    }
-                }
+
             
             
             SettingsView()

@@ -66,8 +66,8 @@ struct InputView: View {
         
         let hearts = Hearts(context: viewContext)
         hearts.timestamp = Date()
-        hearts.rhr = Float(rhr1) ?? 1
-        hearts.hrv = Float(hrv1) ?? 1
+        hearts.rhr = Double(rhr1) ?? 1
+        hearts.hrv = Double(hrv1) ?? 1
     
        
        
