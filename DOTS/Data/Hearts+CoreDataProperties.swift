@@ -2,7 +2,7 @@
 //  Hearts+CoreDataProperties.swift
 //  DOTS
 //
-//  Created by Claudio Cantieni on 06.05.22.
+//  Created by Claudio Cantieni on 09.05.22.
 //
 //
 
@@ -16,8 +16,8 @@ extension Hearts {
         return NSFetchRequest<Hearts>(entityName: "Hearts")
     }
 
-    @NSManaged public var hrv: Double
-    @NSManaged public var rhr: Double
+    @NSManaged public var hrv: NSNumber?
+    @NSManaged public var rhr: NSNumber?
     @NSManaged public var timestamp: Date
 
 }

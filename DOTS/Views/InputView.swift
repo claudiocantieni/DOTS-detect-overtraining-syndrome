@@ -20,10 +20,6 @@ struct InputView: View {
         VStack {
             
             HStack {
-                Button("Clear") {
-                    
-                    clear()
-                }
                 Spacer()
                 
                 Button("Speichern") {
@@ -51,9 +47,9 @@ struct InputView: View {
                     
                 }
             }
-            
+        Spacer()
         }
-        .padding(.horizontal)
+        .padding(15)
     }
     
     func clear() {
@@ -66,8 +62,8 @@ struct InputView: View {
         
         let hearts = Hearts(context: viewContext)
         hearts.timestamp = Date()
-        hearts.rhr = Double(rhr1) ?? 1
-        hearts.hrv = Double(hrv1) ?? 1
+        hearts.rhr = Double(rhr1) as NSNumber?
+        hearts.hrv = Double(hrv1) as NSNumber?
     
        
        

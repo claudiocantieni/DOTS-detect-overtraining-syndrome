@@ -13,13 +13,13 @@
 		6B4F07BF281D53B500E4CC31 /* GaugeProgressViewStyle in Frameworks */ = {isa = PBXBuildFile; productRef = 6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */; };
 		6B4F07F9281F18C200E4CC31 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4F07F8281F18C200E4CC31 /* InputView.swift */; };
 		6B577F8C28255F8B00F513D6 /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B577F8B28255F8B00F513D6 /* LineChartView */; };
-		6B577F8F2825618B00F513D6 /* Hearts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B577F8D2825618B00F513D6 /* Hearts+CoreDataClass.swift */; };
-		6B577F902825618B00F513D6 /* Hearts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B577F8E2825618B00F513D6 /* Hearts+CoreDataProperties.swift */; };
 		6B577F92282569C300F513D6 /* HRChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B577F91282569C300F513D6 /* HRChartView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCAB2800B1E900E9CD88 /* Model.swift */; };
 		6B773B7A27FE0CF40016B16B /* FIT in Frameworks */ = {isa = PBXBuildFile; productRef = 6B773B7927FE0CF40016B16B /* FIT */; };
 		6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B773B8127FE0D600016B16B /* ContentModel.swift */; };
+		6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */; };
+		6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */; };
 		6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3527FA06C80023A867 /* DOTSApp.swift */; };
 		6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3727FA06C80023A867 /* TabsView.swift */; };
 		6BFFFE3A27FA06C90023A867 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3927FA06C90023A867 /* Assets.xcassets */; };
@@ -35,13 +35,13 @@
 		6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "GaugeProgressViewStyle-develop"; path = "../../../Downloads/GaugeProgressViewStyle-develop"; sourceTree = "<group>"; };
 		6B4F07F8281F18C200E4CC31 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		6B577F8A28255F8600F513D6 /* LineChartView-main */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "LineChartView-main"; path = "../../../Downloads/LineChartView-main"; sourceTree = "<group>"; };
-		6B577F8D2825618B00F513D6 /* Hearts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6B577F8E2825618B00F513D6 /* Hearts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B577F91282569C300F513D6 /* HRChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRChartView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
 		6B76CCAB2800B1E900E9CD88 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6B773B7727FE0CE70016B16B /* objcpp */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = objcpp; path = ../../../../../Downloads/FitSDKRelease_21.78.00/objcpp; sourceTree = "<group>"; };
 		6B773B8127FE0D600016B16B /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BFFFE3227FA06C80023A867 /* DOTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BFFFE3527FA06C80023A867 /* DOTSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOTSApp.swift; sourceTree = "<group>"; };
 		6BFFFE3727FA06C80023A867 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
@@ -157,8 +157,8 @@
 			children = (
 				6B281F0B2822B2CA0079DE7E /* Persistence.swift */,
 				6B281F282822B4AC0079DE7E /* Core Data Model.xcdatamodeld */,
-				6B577F8D2825618B00F513D6 /* Hearts+CoreDataClass.swift */,
-				6B577F8E2825618B00F513D6 /* Hearts+CoreDataProperties.swift */,
+				6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */,
+				6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -241,15 +241,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B577F8F2825618B00F513D6 /* Hearts+CoreDataClass.swift in Sources */,
+				6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */,
 				6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */,
 				6B281EDA2821E8DC0079DE7E /* Constants.swift in Sources */,
 				6B577F92282569C300F513D6 /* HRChartView.swift in Sources */,
 				6BFFFE4927FA07FB0023A867 /* HomeView.swift in Sources */,
+				6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */,
 				6BFFFE4B27FA082D0023A867 /* SettingsView.swift in Sources */,
 				6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */,
 				6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */,
-				6B577F902825618B00F513D6 /* Hearts+CoreDataProperties.swift in Sources */,
 				6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */,
 				6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */,
 				6B281F2A2822B4AC0079DE7E /* Core Data Model.xcdatamodeld in Sources */,

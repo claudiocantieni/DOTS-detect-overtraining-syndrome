@@ -13,59 +13,54 @@ struct HRView: View {
     
     
     var title: String
-//    @State var selectedTimeRange:Int = 7
-//    var HRData:[Float]
-//    var today: String
-//    var av7days: String
+    
+    var data: [Double]
+    var dataSuffix: String
+    var timestamps: [Date]
+    @Binding var selectedTimeRange: Int
+    var indicatorPointColor: Color
+    var lineColor: Color
+    var lineSecondColor: Color
+    var today: Double
+    var av7days: Double
 //    var delta7days: String
     
-//    var data: [Double]
-//    var timestamps: [Date]
-//    var height: CGFloat
     var body: some View {
         VStack {
+
+            Picker("", selection: $selectedTimeRange)
+            {
+                Text("7 Tage").tag(7)
+                Text("4 Wochen").tag(28)
+                Text("1 Jahr").tag(365)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal, 40)
+            .padding()
             
-            Text(title)
-                .font(.largeTitle)
-                .bold()
             
-//            Picker("", selection: $selectedTimeRange)
-//            {
-//                Text("7 Tage").tag(HRData.count < 7 ? HRData.count : 7 )
-//                Text("4 Wochen").tag(HRData.count < 28 ? HRData.count : 28 )
-//                Text("1 Jahr").tag(HRData.count < 365 ? HRData.count : 365 )
-//            }
-//            .pickerStyle(SegmentedPickerStyle())
-//            .padding(.horizontal, 40)
-//            .padding()
-            
-            ZStack {
-//                let chartParameters = LineChartParameters(data: data,
-//                                                                  dataTimestamps: timestamps,
-//                                                                  dataLabels: timestamps.map({ $0.formatted(date: .numeric, time: .standard) }), dotsWidth: 10)
-//                        LineChartView(lineChartParameters: chartParameters)
-//                            .frame(height: height)
+            HRChartView(data: data, timestamps: timestamps, height: 250, width: 350, dotsWidth: 10, dataSuffix: dataSuffix, indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor)
                     
                // LineView(data: ContentModel.getTimeData(selectedRange: selectedTimeRange, HRData: HRData))
                    // .padding(.horizontal)
                 
-//                VStack {
-//                    HStack {
-//                        Text("Heute :")
-//                            .bold()
-//                        Text(today)
-//                            .bold()
-//                    }
-//                    .padding()
-//
-//                    HStack {
-//                        Text("Ø 7 Tage :")
-//                            .bold()
-//                        Text(av7days)
-//                            .bold()
-//                    }
-//                    .padding()
-//
+                
+            HStack {
+                Text("Heute :")
+                    .bold()
+                Text(today>0 ? String(today)+String(dataSuffix): "-")
+                    .bold()
+            }
+            .padding()
+
+            HStack {
+                Text("Ø 7 Tage :")
+                    .bold()
+                Text(String(av7days)+String(dataSuffix))
+                    .bold()
+            }
+            .padding()
+
 //                    HStack {
 //                        Text("∆ letze 7 Tage:")
 //                            .bold()
@@ -73,9 +68,11 @@ struct HRView: View {
 //                            .bold()
 //                    }
 //                    .padding()
-//                }
-//                .padding(.top, 200)
-            }
+                
+                
+            
+            Spacer()
         }
+        .navigationTitle(title)
     }
 }
