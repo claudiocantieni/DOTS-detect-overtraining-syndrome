@@ -10,21 +10,10 @@ import GaugeProgressViewStyle
 struct HomeView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(sortDescriptors: []) var hearts1: FetchedResults<Hearts>
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)]) var hearts: FetchedResults<Hearts>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())) var hearts0: FetchedResults<Hearts>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())) var hearts7: FetchedResults<Hearts>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -28, to: NSDate() as Date)!) as CVarArg, NSDate())) var hearts28: FetchedResults<Hearts>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(key: "timestamp", ascending: true)], predicate: NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -365, to: NSDate() as Date)!) as CVarArg, NSDate())) var hearts365: FetchedResults<Hearts>
-    
+    @EnvironmentObject var model:ContentModel
     
     @State var isInputViewShowing = false
     @State var selectedTimeRange: Int = 7
-    
     var body: some View {
         
         NavigationView {
@@ -33,7 +22,7 @@ struct HomeView: View {
                     NavigationLink(
                         destination: {
         
-                            HRView(title: "Herzfrequenz", data: createArrayRhr(selectedTimeRange: selectedTimeRange), dataSuffix: " bpm", timestamps: createTimestamps(selectedTimeRange: selectedTimeRange), selectedTimeRange: $selectedTimeRange, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: createTodayRhr(), av7days: calculateMeanRhr())
+                            HRView(title: "Herzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRange), dataSuffix: " bpm", timestamps: model.createTimestamps(selectedTimeRange: selectedTimeRange), selectedTimeRange: selectedTimeRange, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: model.createTodayRhr(), av7days: model.calculateMeanRhr())
                             //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
@@ -51,7 +40,7 @@ struct HomeView: View {
                                         .font(.title)
                                         .bold()
                                     
-                                    HRChartView(data: createArrayRhr(selectedTimeRange: 7), timestamps: createTimestamps(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " bpm", indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red)
+                                    HRChartView(data: model.createArrayRhr(selectedTimeRange: 7), timestamps: model.createTimestamps(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " bpm", indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red)
                                     
                                     
                                 }
@@ -63,7 +52,7 @@ struct HomeView: View {
                     
                     NavigationLink(
                         destination: {
-                            HRView(title: "Herzfrequenzvariabilität", data: createArrayHrv(selectedTimeRange: selectedTimeRange), dataSuffix: " ms", timestamps: createTimestamps(selectedTimeRange: selectedTimeRange), selectedTimeRange: $selectedTimeRange ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: createTodayHrv(), av7days: calculateMeanHrv())
+                            HRView(title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRange), dataSuffix: " ms", timestamps: model.createTimestamps(selectedTimeRange: selectedTimeRange), selectedTimeRange: selectedTimeRange ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: model.createTodayHrv(), av7days: model.calculateMeanHrv())
                             //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
@@ -81,7 +70,7 @@ struct HomeView: View {
                                         .font(.title)
                                         .bold()
                                     
-                                    HRChartView(data: createArrayHrv(selectedTimeRange: 7), timestamps: createTimestamps(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " ms", indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue)
+                                    HRChartView(data: model.createArrayHrv(selectedTimeRange: 7), timestamps: model.createTimestamps(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " ms", indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue)
                                     
                                     
                                 }
@@ -90,6 +79,7 @@ struct HomeView: View {
                             
                         }
                     )
+                    
                     
                     ZStack {
                         
@@ -126,7 +116,7 @@ struct HomeView: View {
                     })
                         .sheet(isPresented: $isInputViewShowing) {
                             
-                            InputView()
+                            InputView(isInputViewShowing: $isInputViewShowing, model: model)
                         }
                         .buttonStyle(PlainButtonStyle())
 
@@ -164,144 +154,13 @@ struct HomeView: View {
                 .navigationTitle("Home")
             }
         }
+        
+        
                 
     }
         
-        
-        
-        
-        
-    func createArrayRhr(selectedTimeRange: Int) -> [Double]{
-        var hrArray:[Double] = []
-        
-        if hearts.count >= 1 {
-            if selectedTimeRange == 7 {
-                for f in hearts7 {
-                    if f.rhr != nil {
-                        hrArray.append(f.rhr as! Double)
-                    }
-                }
-            }
-            else if selectedTimeRange == 28 {
-                for f in hearts28 {
-                    if f.rhr != nil {
-                        hrArray.append(f.rhr as! Double)
-                    }
-                }
-            }
-            else if selectedTimeRange == 365 {
-                for f in hearts365 {
-                    if f.rhr != nil {
-                        hrArray.append(f.rhr as! Double)
-                    }
-                }
-            }
-        }
-        return hrArray
-    }
-    func createArrayHrv(selectedTimeRange:Int) -> [Double]{
-        var hrArray:[Double] = []
-        if hearts.count >= 1 {
-            if selectedTimeRange == 7 {
-                for f in hearts7 {
-                    if f.hrv != nil {
-                        hrArray.append(f.hrv as! Double)
-                    }
-                    
-                }
-            }
-            else if selectedTimeRange == 28 {
-                for f in hearts28 {
-                    if f.hrv != nil {
-                        hrArray.append(f.hrv as! Double)
-                    }
-                }
-            }
-            else if selectedTimeRange == 365 {
-                for f in hearts365 {
-                    if f.hrv != nil {
-                        hrArray.append(f.hrv as! Double)
-                    }
-                }
-            }
-        }
-        return hrArray
-    }
-func createTimestamps(selectedTimeRange: Int) -> [Date]{
-        var timestamps:[Date] = []
-        if hearts.count >= 1 {
-            if selectedTimeRange == 7 {
-                for f in hearts7 {
-                    timestamps.append(f.timestamp)
-                }
-            }
-            else if selectedTimeRange == 28 {
-                for f in hearts28 {
-                    timestamps.append(f.timestamp)
-                }
-            }
-            else if selectedTimeRange == 365 {
-                for f in hearts365 {
-                    timestamps.append(f.timestamp)
-                }
-            }
-        }
-        return timestamps
-    }
-    func createTodayRhr() -> Double {
-    var HrToday:Double = 0
-        for f in hearts0 {
-            if f.rhr != nil {
-                HrToday = f.rhr as! Double
-            }
-        }
-        return HrToday
-    }
-    func createTodayHrv() -> Double {
-    var HrToday:Double = 0
-        for f in hearts0 {
-            if f.hrv != nil {
-                HrToday = f.hrv as! Double
-            }
-        }
-        return HrToday
-    }
-    func calculateMeanRhr() -> Double {
-        var array:[Double] = []
-        for f in hearts7 {
-            if f.rhr != nil {
-                array.append(f.rhr as! Double)
-            }
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        return Double(mean)
-    }
-    func calculateMeanHrv() -> Double {
-        var array:[Double] = []
-        for f in hearts7 {
-            if f.hrv != nil {
-                array.append(f.hrv as! Double)
-            }
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        return Double(mean)
-    }
+
         
 }
-    struct HomeView_Previews: PreviewProvider {
-        static var previews: some View {
-            
-            HomeView()
-        }
-    }
+
     

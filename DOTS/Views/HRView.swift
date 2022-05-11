@@ -17,7 +17,7 @@ struct HRView: View {
     var data: [Double]
     var dataSuffix: String
     var timestamps: [Date]
-    @Binding var selectedTimeRange: Int
+    @State var selectedTimeRange: Int
     var indicatorPointColor: Color
     var lineColor: Color
     var lineSecondColor: Color

@@ -9,8 +9,7 @@ import SwiftUI
 
 struct TabsView: View {
     
-    // @EnvironmentObject var model: ContentModel
-    var module:Model
+     
     var body: some View {
         TabView {
             
@@ -22,6 +21,7 @@ struct TabsView: View {
                     }
 
                 }
+                
            
 
             
@@ -39,6 +39,7 @@ struct TabsView: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        TabsView(module: Model())
+        TabsView()
+            .environmentObject(ContentModel())
     }
 }
