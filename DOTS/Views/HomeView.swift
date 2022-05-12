@@ -11,9 +11,10 @@ struct HomeView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var model:ContentModel
-    
     @State var isInputViewShowing = false
+    @State var isQuestionnaireViewShowing = false
     @State var selectedTimeRange: Int = 7
+
     var body: some View {
         
         NavigationView {
@@ -81,21 +82,28 @@ struct HomeView: View {
                     )
                     
                     
-                    ZStack {
-                        
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                            .aspectRatio(CGSize(width: 335, height: 80), contentMode: .fit)
-                            .shadow(radius: 5)
-                            .padding(.horizontal, 12)
-                        VStack {
+                    Button(action: {
+                        self.isQuestionnaireViewShowing = true
+                    }, label: {
+                        ZStack {
                             
-                            Text("EBF")
-                                .font(.largeTitle)
-                                .bold()
+                            Rectangle()
+                                .foregroundColor(.white)
+                                .cornerRadius(20)
+                                .aspectRatio(CGSize(width: 335, height: 80), contentMode: .fit)
+                                .shadow(radius: 5)
+                                .padding(.horizontal, 12)
+                                
+                                Text("Fragebogen")
+                                    .font(.largeTitle)
+                                    .bold()
                         }
-                    }
+                    })
+                        .sheet(isPresented: $isQuestionnaireViewShowing) {
+                            
+                            QuestionnaireView(isQuestionnaireViewShowing: $isQuestionnaireViewShowing)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
                         self.isInputViewShowing = true
@@ -133,7 +141,7 @@ struct HomeView: View {
                             .padding(.horizontal, 12)
                         VStack {
                             ProgressView(value: 0.75) {
-                                Text("Form-Zustand")
+                                Text("Belastungszustand")
                                     .bold()
                             }
                             .progressViewStyle(

@@ -18,6 +18,13 @@
 		6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCAB2800B1E900E9CD88 /* Model.swift */; };
 		6B773B7A27FE0CF40016B16B /* FIT in Frameworks */ = {isa = PBXBuildFile; productRef = 6B773B7927FE0CF40016B16B /* FIT */; };
 		6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B773B8127FE0D600016B16B /* ContentModel.swift */; };
+		6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */; };
+		6B885278282BFF05006EE3A4 /* questions.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B885277282BFF05006EE3A4 /* questions.json */; };
+		6B88527A282C0C5A006EE3A4 /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885279282C0C5A006EE3A4 /* QuestionView.swift */; };
+		6B885283282D49F2006EE3A4 /* Questionnaire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88527F282D49F2006EE3A4 /* Questionnaire+CoreDataClass.swift */; };
+		6B885284282D49F2006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885280282D49F2006EE3A4 /* Questionnaire+CoreDataProperties.swift */; };
+		6B885285282D49F2006EE3A4 /* Answers+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885281282D49F2006EE3A4 /* Answers+CoreDataClass.swift */; };
+		6B885286282D49F2006EE3A4 /* Answers+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885282282D49F2006EE3A4 /* Answers+CoreDataProperties.swift */; };
 		6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */; };
 		6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */; };
 		6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3527FA06C80023A867 /* DOTSApp.swift */; };
@@ -40,6 +47,13 @@
 		6B76CCAB2800B1E900E9CD88 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6B773B7727FE0CE70016B16B /* objcpp */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = objcpp; path = ../../../../../Downloads/FitSDKRelease_21.78.00/objcpp; sourceTree = "<group>"; };
 		6B773B8127FE0D600016B16B /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireView.swift; sourceTree = "<group>"; };
+		6B885277282BFF05006EE3A4 /* questions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = questions.json; sourceTree = "<group>"; };
+		6B885279282C0C5A006EE3A4 /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
+		6B88527F282D49F2006EE3A4 /* Questionnaire+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6B885280282D49F2006EE3A4 /* Questionnaire+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6B885281282D49F2006EE3A4 /* Answers+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Answers+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6B885282282D49F2006EE3A4 /* Answers+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Answers+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BFFFE3227FA06C80023A867 /* DOTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,6 +154,8 @@
 				6B76CCA627FEE3A100E9CD88 /* HRView.swift */,
 				6B4F07F8281F18C200E4CC31 /* InputView.swift */,
 				6B577F91282569C300F513D6 /* HRChartView.swift */,
+				6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */,
+				6B885279282C0C5A006EE3A4 /* QuestionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -159,6 +175,11 @@
 				6B281F282822B4AC0079DE7E /* Core Data Model.xcdatamodeld */,
 				6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */,
 				6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */,
+				6B885277282BFF05006EE3A4 /* questions.json */,
+				6B88527F282D49F2006EE3A4 /* Questionnaire+CoreDataClass.swift */,
+				6B885280282D49F2006EE3A4 /* Questionnaire+CoreDataProperties.swift */,
+				6B885281282D49F2006EE3A4 /* Answers+CoreDataClass.swift */,
+				6B885282282D49F2006EE3A4 /* Answers+CoreDataProperties.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -229,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B885278282BFF05006EE3A4 /* questions.json in Resources */,
 				6BFFFE3D27FA06C90023A867 /* Preview Assets.xcassets in Resources */,
 				6BFFFE3A27FA06C90023A867 /* Assets.xcassets in Resources */,
 			);
@@ -241,19 +263,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B88527A282C0C5A006EE3A4 /* QuestionView.swift in Sources */,
 				6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */,
 				6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */,
+				6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */,
 				6B281EDA2821E8DC0079DE7E /* Constants.swift in Sources */,
 				6B577F92282569C300F513D6 /* HRChartView.swift in Sources */,
 				6BFFFE4927FA07FB0023A867 /* HomeView.swift in Sources */,
 				6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */,
+				6B885285282D49F2006EE3A4 /* Answers+CoreDataClass.swift in Sources */,
 				6BFFFE4B27FA082D0023A867 /* SettingsView.swift in Sources */,
 				6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */,
 				6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */,
+				6B885284282D49F2006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */,
 				6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */,
+				6B885286282D49F2006EE3A4 /* Answers+CoreDataProperties.swift in Sources */,
 				6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */,
 				6B281F2A2822B4AC0079DE7E /* Core Data Model.xcdatamodeld in Sources */,
 				6B4F07F9281F18C200E4CC31 /* InputView.swift in Sources */,
+				6B885283282D49F2006EE3A4 /* Questionnaire+CoreDataClass.swift in Sources */,
 				6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

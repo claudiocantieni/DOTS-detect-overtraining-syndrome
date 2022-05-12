@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Answers" representedClassName="Answers" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="questionnaire" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Questionnaire" inverseName="answer" inverseEntity="Questionnaire"/>
+    </entity>
     <entity name="Hearts" representedClassName="Hearts" syncable="YES">
         <attribute name="hrv" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
         <attribute name="rhr" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="Questionnaire" representedClassName="Questionnaire" syncable="YES">
+        <attribute name="answers" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="answer" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answers" inverseName="questionnaire" inverseEntity="Answers"/>
+    </entity>
     <elements>
+        <element name="Answers" positionX="0" positionY="72" width="128" height="74"/>
         <element name="Hearts" positionX="-9" positionY="36" width="128" height="74"/>
+        <element name="Questionnaire" positionX="-9" positionY="63" width="128" height="74"/>
     </elements>
 </model>

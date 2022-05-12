@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DOTSApp: App {
     let persistenceController = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
             TabsView()

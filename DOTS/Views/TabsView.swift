@@ -9,7 +9,6 @@ import SwiftUI
 
 struct TabsView: View {
     
-     
     var body: some View {
         TabView {
             
@@ -37,9 +36,3 @@ struct TabsView: View {
     }
 }
 
-struct TabView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabsView()
-            .environmentObject(ContentModel())
-    }
-}

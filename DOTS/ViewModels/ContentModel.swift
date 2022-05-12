@@ -16,8 +16,14 @@ class ContentModel: ObservableObject {
     @Published var hearts0: [Hearts] = []
     @Published var hearts28: [Hearts] = []
     @Published var hearts365: [Hearts] = []
+    @Published var questions: [Questionnaire] = []
+ //   @Published var models = [Model]()
     init() {
+       // self.models = ContentModel.getLocalData()
+        
         fetchHearts()
+        
+        fetchQuestionnaire()
     }
     func fetchHearts() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
@@ -51,13 +57,27 @@ class ContentModel: ObservableObject {
             
         }
         request.sortDescriptors = [sort]
-                request.predicate = predicate365
-                do {
-                    hearts365 = try managedObjectContext.fetch(request)
-                }
-                catch {
-                    
-                }
+        request.predicate = predicate365
+        do {
+            hearts365 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+    }
+    
+    func fetchQuestionnaire() {
+        let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
+        let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+        let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())
+        request.sortDescriptors = [sort]
+        request.predicate = predicate
+        do {
+             questions = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
     }
     
     func createArrayRhr(selectedTimeRange: Int) -> [Double]{
@@ -186,7 +206,57 @@ func createTimestamps(selectedTimeRange: Int) -> [Date]{
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
+    
+    func calculateTotalQuestionnaire() -> Int {
+        var sum:Int = 0
+        for i in questions {
+            for item in i.answers {
+                sum += item
+            }
+        }
+        
+        
+        return sum
+        
+        
+    }
+    func 
+//    static func getLocalData() -> [Model] {
+//
+//        let pathString = Bundle.main.path(forResource: "questions", ofType: "json")
+//
+//        guard pathString != nil else {
+//            return [Model]()
+//        }
+//
+//        let url = URL(fileURLWithPath: pathString!)
+//
+//        do {
+//            let data = try Data(contentsOf: url)
+//
+//                let decoder = JSONDecoder()
+//            do {
+//
+//                let questionData = try decoder.decode([Model].self, from: data)
+//
+//                for r in questionData {
+//                    r.id = UUID()
+//
+//                }
+//                return questionData
+//            }
+//            catch {
+//                print(error)
+//            }
+//        }
+//        catch {
+//
+//            print(error)
+//        }
+//        return [Model]()
+//    }
 }
+
 /*import ObjcFIT
 import SwiftFIT
 
