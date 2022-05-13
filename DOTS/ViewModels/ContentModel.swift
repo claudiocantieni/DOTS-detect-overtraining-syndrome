@@ -16,10 +16,15 @@ class ContentModel: ObservableObject {
     @Published var hearts0: [Hearts] = []
     @Published var hearts28: [Hearts] = []
     @Published var hearts365: [Hearts] = []
+    @Published var heartsfirst: [Hearts] = []
+    @Published var heartsrhrbase: [Hearts] = []
+    @Published var heartshrvbase: [Hearts] = []
     @Published var questions: [Questionnaire] = []
+    
  //   @Published var models = [Model]()
     init() {
        // self.models = ContentModel.getLocalData()
+        fetchHeartsFirst()
         
         fetchHearts()
         
@@ -28,10 +33,13 @@ class ContentModel: ObservableObject {
     func fetchHearts() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+        
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -28, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -365, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate0 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicatebaserhr = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputRhr(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputRhr() as Date)!) as CVarArg)
+        let predicatebasehrv = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputHrv(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputHrv() as Date)!) as CVarArg)
         request.sortDescriptors = [sort]
         request.predicate = predicate7
         do {
@@ -64,14 +72,47 @@ class ContentModel: ObservableObject {
         catch {
             
         }
+        
+        request.sortDescriptors = [sort]
+        request.predicate = predicatebaserhr
+        do {
+            heartsrhrbase = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicatebasehrv
+        do {
+            heartshrvbase = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+    }
+    
+    func fetchHeartsFirst() {
+        let request = NSFetchRequest<Hearts>(entityName: "Hearts")
+        let sortfirst = NSSortDescriptor(key: "timestamp", ascending: true)
+        
+        request.sortDescriptors = [sortfirst]
+        request.fetchLimit = 1
+        do {
+             heartsfirst = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
     }
     
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
-        let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+        let sort = NSSortDescriptor(key: "timestamp", ascending: false)
         let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())
+        
         request.sortDescriptors = [sort]
         request.predicate = predicate
+        request.fetchLimit = 1
         do {
              questions = try managedObjectContext.fetch(request)
         }
@@ -135,27 +176,60 @@ class ContentModel: ObservableObject {
         
         return hrArray
     }
-func createTimestamps(selectedTimeRange: Int) -> [Date]{
+func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         var timestamps:[Date] = []
         
             if selectedTimeRange == 7 {
                 for f in hearts7 {
-                    timestamps.append(f.timestamp)
+                    if f.rhr != nil {
+                        timestamps.append(f.timestamp)
+                    }
                 }
             }
             else if selectedTimeRange == 28 {
                 for f in hearts28 {
-                    timestamps.append(f.timestamp)
+                    if f.rhr != nil {
+                        timestamps.append(f.timestamp)
+                    }
                 }
             }
             else if selectedTimeRange == 365 {
                 for f in hearts365 {
-                    timestamps.append(f.timestamp)
+                    if f.rhr != nil {
+                        timestamps.append(f.timestamp)
+                    }
                 }
             }
         
         return timestamps
     }
+    func createTimestampsHrv(selectedTimeRange: Int) -> [Date]{
+            var timestamps:[Date] = []
+            
+                if selectedTimeRange == 7 {
+                    for f in hearts7 {
+                        if f.hrv != nil {
+                            timestamps.append(f.timestamp)
+                        }
+                    }
+                }
+                else if selectedTimeRange == 28 {
+                    for f in hearts28 {
+                        if f.hrv != nil {
+                            timestamps.append(f.timestamp)
+                        }
+                    }
+                }
+                else if selectedTimeRange == 365 {
+                    for f in hearts365 {
+                        if f.hrv != nil {
+                            timestamps.append(f.timestamp)
+                        }
+                    }
+                }
+            
+            return timestamps
+        }
     func createTodayRhr() -> Double {
     var HrToday:Double = 0
         for f in hearts0 {
@@ -206,6 +280,40 @@ func createTimestamps(selectedTimeRange: Int) -> [Date]{
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
+    func calculateRhrBase() -> Double {
+        var array:[Double] = []
+        for f in heartsrhrbase {
+            if f.rhr != nil {
+                array.append(f.rhr as! Double)
+            }
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+
+    func calculateHrvBase() -> Double{
+        var array:[Double] = []
+        for f in heartshrvbase {
+            if f.hrv != nil {
+                array.append(f.hrv as! Double)
+            }
+                
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
     
     func calculateTotalQuestionnaire() -> Int {
         var sum:Int = 0
@@ -220,7 +328,71 @@ func createTimestamps(selectedTimeRange: Int) -> [Date]{
         
         
     }
-    func 
+    func calculateLoad() -> Double {
+        var loadSum:Double = 0
+        if calculateTotalQuestionnaire() >= 25 {
+            loadSum += 1
+        }
+        else if calculateTotalQuestionnaire() >= 20 {
+            loadSum += 0.6666667
+        }
+        else if calculateTotalQuestionnaire() >= 15 {
+            loadSum += 0.3333333
+        }
+        else if calculateTotalQuestionnaire() < 15 {
+            loadSum += 0
+        }
+        if calculateMeanRhr() <= calculateRhrBase() {
+            loadSum += 1
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.05 {
+            loadSum += 0.6666667
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.07 {
+            loadSum += 0.3333333
+        }
+        else if calculateMeanRhr() > calculateRhrBase() * 1.07 {
+            loadSum += 0
+        }
+        if calculateMeanHrv() >= calculateHrvBase() {
+            loadSum += 1
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.05 {
+            loadSum += 0.6666667
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.07 {
+            loadSum += 0.3333333
+        }
+        else if calculateMeanHrv() < calculateHrvBase() / 1.07 {
+            loadSum += 0
+        }
+        let load = loadSum / 3
+        
+        return load
+    }
+// watch viedeo cwc preload data first time?
+ //get first date and insert it in top as byAdding(.day)
+    func firstInputRhr() -> NSDate {
+        var firstDate:Date?
+        for i in heartsfirst {
+            if i.rhr != nil {
+                firstDate = i.timestamp
+            }
+        }
+        return firstDate! as NSDate
+    }
+    func firstInputHrv() -> NSDate {
+        var firstDate:Date?
+        for i in heartsfirst {
+            if i.hrv != nil {
+                firstDate = i.timestamp
+            }
+        }
+        return firstDate! as NSDate
+    }
+    
+//
+    
 //    static func getLocalData() -> [Model] {
 //
 //        let pathString = Bundle.main.path(forResource: "questions", ofType: "json")

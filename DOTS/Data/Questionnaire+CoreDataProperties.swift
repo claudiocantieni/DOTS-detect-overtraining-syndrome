@@ -18,24 +18,6 @@ extension Questionnaire {
 
     @NSManaged public var answers: [Int]
     @NSManaged public var timestamp: Date
-    @NSManaged public var answer: NSSet?
-
-}
-
-// MARK: Generated accessors for answer
-extension Questionnaire {
-
-    @objc(addAnswerObject:)
-    @NSManaged public func addToAnswer(_ value: Answers)
-
-    @objc(removeAnswerObject:)
-    @NSManaged public func removeFromAnswer(_ value: Answers)
-
-    @objc(addAnswer:)
-    @NSManaged public func addToAnswer(_ values: NSSet)
-
-    @objc(removeAnswer:)
-    @NSManaged public func removeFromAnswer(_ values: NSSet)
 
 }
 

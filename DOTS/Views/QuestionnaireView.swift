@@ -10,7 +10,7 @@ import SwiftUI
 struct QuestionnaireView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
-    @Binding var isQuestionnaireViewShowing: Bool
+    //@Binding var isQuestionnaireViewShowing: Bool
     @EnvironmentObject var model:ContentModel
     @State private var value = 3.0
     @State private var isEditing = false
@@ -90,9 +90,9 @@ struct QuestionnaireView: View {
                 } label: {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                             .cornerRadius(10)
-                            .shadow(radius:5)
+                            .shadow(color: .gray, radius:5)
                             .frame(height: 48)
                             .padding()
                         Text("Weiter")
@@ -109,9 +109,9 @@ struct QuestionnaireView: View {
                 } label: {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                             .cornerRadius(10)
-                            .shadow(radius:5)
+                            .shadow(color: .gray, radius:5)
                             .frame(height: 48)
                             .padding()
                         Text("Beenden")
@@ -123,13 +123,13 @@ struct QuestionnaireView: View {
             else if index == 7 {
                 Button {
                     addData()
-                    isQuestionnaireViewShowing = false
+
                 } label: {
                     ZStack {
                         Rectangle()
-                            .foregroundColor(.white)
+                            .foregroundColor(.accentColor)
                             .cornerRadius(10)
-                            .shadow(radius:5)
+                            .shadow(color: .gray, radius:5)
                             .frame(height: 48)
                             .padding()
                         Text("Fertig")

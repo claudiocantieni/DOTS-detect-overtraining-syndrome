@@ -14,23 +14,19 @@ struct TabsView: View {
             
             HomeView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }
-
+                    Image(systemName: "house")
                 }
                 
-           
+           AddView()
+                .tabItem {
+                    Image(systemName: "plus.circle")
+                }
 
             
             
             SettingsView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "gearshape")
-                        Text("Settings")
-                    }
+                    Image(systemName: "gearshape")
                 }
         }
     }

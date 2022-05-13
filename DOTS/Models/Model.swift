@@ -8,6 +8,5 @@
 import Foundation
 
 class Model: Identifiable, Decodable {
-    var question: String
-    var id: UUID?
+ 
 }
