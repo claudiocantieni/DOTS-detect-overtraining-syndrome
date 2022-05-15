@@ -379,7 +379,12 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
                 firstDate = i.timestamp
             }
         }
-        return firstDate! as NSDate
+        if firstDate != nil {
+            return firstDate! as NSDate
+        }
+        else {
+            return NSDate()
+        }
     }
     func firstInputHrv() -> NSDate {
         var firstDate:Date?
@@ -388,9 +393,41 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
                 firstDate = i.timestamp
             }
         }
-        return firstDate! as NSDate
+        if firstDate != nil {
+            return firstDate! as NSDate
+        }
+        else {
+            return NSDate()
+        }
     }
     
+    func timestampQuestionnaire() -> Date {
+        var timestamp:Date?
+        for i in questions {
+            
+            timestamp = i.timestamp
+            
+        }
+        return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
+    }
+    func lastTimestampRhr() -> Date {
+        var timestamp:Date?
+        for i in hearts365 {
+            if i.rhr != nil {
+                timestamp = i.timestamp
+            }
+        }
+        return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
+    }
+    func lastTimestampHrv() -> Date {
+        var timestamp:Date?
+        for i in hearts365 {
+            if i.hrv != nil {
+                timestamp = i.timestamp
+            }
+        }
+        return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
+    }
 //
     
 //    static func getLocalData() -> [Model] {

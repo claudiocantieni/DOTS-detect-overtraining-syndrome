@@ -20,7 +20,7 @@ struct AddView: View {
                         InputView(model: model)
                     } label: {
                         HStack(spacing: 20.0) {
-                            Image(systemName: "waveform.path.ecg")
+                            Image(systemName: "heart")
                             Text("Ruheherzfrequenz eingeben")
                                 .font(.title2)
                                 .foregroundColor(.accentColor)
@@ -62,6 +62,7 @@ struct AddView: View {
                 }
             }
             .navigationTitle("Daten erfassen")
+            
             
         }
         

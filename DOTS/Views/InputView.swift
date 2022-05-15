@@ -10,45 +10,62 @@ import SwiftUI
 struct InputView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
-  //  @FetchRequest(sortDescriptors: []) var hearts: FetchedResults<Hearts>
+    
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     // TODO: change to :Float
-    @State private var rhr1 = ""
-    //@Binding var isInputViewShowing: Bool
+    @State private var rhr = ""
+
     var model:ContentModel
     
-    var body: some View {
+    var SaveButton: some View {
         
-        VStack {
+        Button("Speichern") {
             
-            HStack {
-                Spacer()
-                
-                Button("Speichern") {
-                    
-                    addData()
-                    
-                    clear()
-                    
-                    model.fetchHearts()
-                    
-                    
-                    
-                }
-            }
-            //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
-            HStack {
-                Text("Ruheherzfrequenz:")
-                TextField("50", text: $rhr1)
-                    .keyboardType(.decimalPad)    
-            }
-
-        Spacer()
+            addData()
+            
+            clear()
+            
+            model.fetchHearts()
+            
+            model.fetchHeartsFirst()
+            
+            self.presentationMode.wrappedValue.dismiss()
+            
+            
         }
-        .padding(15)
+        .disabled(rhr.isEmpty)
+    }
+    var body: some View {
+        if model.lastTimestampRhr() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
+            
+                Text("Ruheherzfrequenz morgen eingeben")
+        }
+        else {
+            VStack {
+                
+                //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
+                HStack {
+                    Text("Ruheherzfrequenz:")
+                        .padding()
+                    
+                    TextField("..........", text: $rhr)
+                        .keyboardType(.decimalPad)
+                        .frame(width: 30)
+                        
+                    Text("bpm")
+                        .padding([.top, .trailing, .bottom])
+                }
+
+            Spacer()
+            }
+            
+            .navigationBarItems(trailing:SaveButton)
+            .padding()
+        }
     }
     
     func clear() {
-        rhr1 = ""
+        rhr = ""
  
     }
     func addData() {
@@ -56,7 +73,7 @@ struct InputView: View {
         
         let hearts = Hearts(context: viewContext)
         hearts.timestamp = Date()
-        hearts.rhr = Double(rhr1) as NSNumber?
+        hearts.rhr = Double(rhr) as NSNumber?
 
         
         

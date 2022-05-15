@@ -17,7 +17,7 @@ struct HRView: View {
     var data: [Double]
     var dataSuffix: String
     var timestamps: [Date]
-    @State var selectedTimeRange: Int
+    @Binding var selectedTimeRange: Int
     var indicatorPointColor: Color
     var lineColor: Color
     var lineSecondColor: Color
@@ -27,6 +27,9 @@ struct HRView: View {
     
     var body: some View {
         VStack {
+            Text(title)
+                .font(.title)
+                .bold()
 
             Picker("", selection: $selectedTimeRange)
             {
@@ -73,6 +76,7 @@ struct HRView: View {
             
             Spacer()
         }
-        .navigationTitle(title)
+        
+        
     }
 }

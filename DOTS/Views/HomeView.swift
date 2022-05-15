@@ -12,8 +12,9 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var model:ContentModel
     
+    @Environment(\.colorScheme) var colorScheme
     
-    @State var selectedTimeRange: Int = 7
+    @State var selectedTimeRangeHome: Int = 7
 
     var body: some View {
         
@@ -23,7 +24,13 @@ struct HomeView: View {
                     NavigationLink(
                         destination: {
         
-                            HRView(title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRange), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRange), selectedTimeRange: selectedTimeRange, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: model.createTodayRhr(), av7days: model.calculateMeanRhr())
+                            HRView(title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: model.createTodayRhr(), av7days: model.calculateMeanRhr())
+                                .onDisappear{
+                                selectedTimeRangeHome = 7
+                                }
+                                
+                                
+                                
                             //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
@@ -31,13 +38,14 @@ struct HomeView: View {
                             ZStack {
                                 
                                 Rectangle()
-                                    .colorInvert()
+                                    .foregroundColor(Color(UIColor.systemBackground))
                                     .cornerRadius(20)
                                     .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
                                     .shadow(color: .gray, radius: 5)
                                     .padding(.horizontal, 12)
                                 VStack {
                                     Text("Ruheherzfrequenz")
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                         .font(.title)
                                         .bold()
                                         
@@ -52,9 +60,13 @@ struct HomeView: View {
                         }
                     )
                     
+                    
                     NavigationLink(
                         destination: {
-                            HRView(title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRange), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRange), selectedTimeRange: selectedTimeRange ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: model.createTodayHrv(), av7days: model.calculateMeanHrv())
+                            HRView(title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: model.createTodayHrv(), av7days: model.calculateMeanHrv())
+                                .onDisappear{
+                                selectedTimeRangeHome = 7
+                                }
                             //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
                         },
                         label: {
@@ -62,13 +74,14 @@ struct HomeView: View {
                             ZStack {
                                 
                                 Rectangle()
-                                    .colorInvert()
+                                    .foregroundColor(Color(UIColor.systemBackground))
                                     .cornerRadius(20)
                                     .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
                                     .shadow(color: .gray, radius: 5)
                                     .padding(.horizontal, 12)
                                 VStack {
                                     Text("Herzfrequenzvariabilität")
+                                        .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                         .font(.title)
                                         .bold()
                                     
@@ -95,31 +108,49 @@ struct HomeView: View {
                             .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                             .shadow(color: .gray, radius: 5)
                             .padding(.horizontal, 12)
-                        VStack {
+                        
                             ProgressView(value: model.calculateLoad()) {
                                 Text("Belastungszustand")
-                                    .bold()
+                                    .font(.title3)
                             }
                             .progressViewStyle(
-                                .gauge(thickness: 25, lowerLabel: {
-                                    Text("belastet")
-                                }, upperLabel: {
-                                    Text("erholt")
-                                })
+                                .gauge(thickness: 25)
                             )
                             .padding(.top)
                             
-                        }
+                           
+                        
                         VStack {
                             
-                            if model.firstInputRhr() as Date >= NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date >= NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                            if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                                 Text("Noch keine Referenzdaten")
+                                    .foregroundColor(Color.blue)
                                     .font(.title)
                                     .padding()
                                     
                         }
                             Spacer()
-                        
+                            
+                            HStack {
+                                
+                                if model.calculateLoad() >= 0.75 {
+                                    Text("erholt")
+                                        .foregroundColor(Color.mint)
+                                }
+                                else if model.calculateLoad() >= 0.5 {
+                                    Text("ziemlich erholt")
+                                        .foregroundColor(Color.green)
+                                }
+                                else if model.calculateLoad() >= 0.25 {
+                                    Text("etwas belastet")
+                                        .foregroundColor(Color.orange)
+                                }
+                                    else if model.calculateLoad() < 0.25 {
+                                    Text("belastet")
+                                            .foregroundColor(Color.red)
+                                }
+                            }
+                            .padding()
                                 
                         }
                         
@@ -128,7 +159,7 @@ struct HomeView: View {
                 }
                 .padding()
                 .accentColor(.black)
-                .navigationTitle("Home")
+                .navigationTitle("DOTS")
             }
         }
         

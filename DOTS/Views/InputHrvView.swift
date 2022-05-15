@@ -8,49 +8,70 @@
 import SwiftUI
 
 struct InputHrvView: View {
+    
     @Environment(\.managedObjectContext) private var viewContext
-  //  @FetchRequest(sortDescriptors: []) var hearts: FetchedResults<Hearts>
+  
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     // TODO: change to :Float
-    @State private var hrv1 = ""
-    //@Binding var isInputViewShowing: Bool
+    @State private var hrv = ""
+
     var model:ContentModel
     
+    var SaveButton: some View {
+        Button("Speichern") {
+            
+            addData()
+            
+            clear()
+            
+            model.fetchHearts()
+            model.fetchHeartsFirst()
+            
+            self.presentationMode.wrappedValue.dismiss()
+            
+        }
+        .disabled(hrv.isEmpty)
+    }
     var body: some View {
         
-        VStack {
-            
-            HStack {
-                Spacer()
-                
-                Button("Speichern") {
-                    
-                    addData()
-                    
-                    clear()
-                    
-                    model.fetchHearts()
-                    
-                    
-                    
+        
+            if model.lastTimestampHrv() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -2, to: NSDate() as Date)!) {
+                if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.lastTimestampHrv())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
+                    Text("Herzfrequenzvariabilität morgen eingeben")
                 }
-            }
-                    //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
-      
-            HStack {
-                Text("Herzfrequenzvariabilität:")
-                TextField("101.18", text: $hrv1)
-                    .keyboardType(.decimalPad)
-            }
-                    
+                else {
+                    Text("Herzfrequenzvariabilität in \(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.lastTimestampHrv())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up))) Tagen eingeben")
+                }
                 
+            }
+            else {
+                VStack {
+                    //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
+                    HStack {
+                        Text("Herzfrequenzvariabilität:")
+                            .padding()
+                        
+                        TextField("...................", text: $hrv)
+                            .keyboardType(.decimalPad)
+                            .frame(width: 60)
+                            
+                            
+                        
+                        Text("ms")
+                            .padding([.top, .trailing, .bottom])
+                    }
+
+                Spacer()
+                }
+                    .padding()
+                    .navigationBarItems(trailing: SaveButton)
+                
+            }
             
-        Spacer()
-        }
-        .padding(15)
     }
     
     func clear() {
-        hrv1 = ""
+        hrv = ""
     }
     func addData() {
         //TODO: adapt to textfields
@@ -58,7 +79,7 @@ struct InputHrvView: View {
         let hearts = Hearts(context: viewContext)
         hearts.timestamp = Date()
   
-        hearts.hrv = Double(hrv1) as NSNumber?
+        hearts.hrv = Double(hrv) as NSNumber?
         
         
        
