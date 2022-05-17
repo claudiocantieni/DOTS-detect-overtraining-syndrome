@@ -7,6 +7,26 @@
 
 import SwiftUI
 import GaugeProgressViewStyle
+
+class Theme {
+    static func navigationBarColors(background : UIColor?,
+       titleColor : UIColor? = nil, tintColor : UIColor? = nil ){
+        
+        let navigationAppearance = UINavigationBarAppearance()
+        navigationAppearance.configureWithOpaqueBackground()
+        navigationAppearance.backgroundColor = background ?? .clear
+        
+        navigationAppearance.titleTextAttributes = [.foregroundColor: titleColor ?? .black]
+        navigationAppearance.largeTitleTextAttributes = [.foregroundColor: titleColor ?? .black]
+       
+        UINavigationBar.appearance().standardAppearance = navigationAppearance
+        UINavigationBar.appearance().compactAppearance = navigationAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationAppearance
+
+        UINavigationBar.appearance().tintColor = tintColor ?? titleColor ?? .black
+    }
+}
+
 struct HomeView: View {
     
     @Environment(\.managedObjectContext) private var viewContext
@@ -15,12 +35,88 @@ struct HomeView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @State var selectedTimeRangeHome: Int = 7
-
+    
+    init(){
+        Theme.navigationBarColors(background: .systemYellow, titleColor: .black)
+        }
     var body: some View {
+        
         
         NavigationView {
             ScrollView {
                 LazyVStack {
+                    
+                    ZStack {
+                        
+                        Rectangle()
+                            .colorInvert()
+                            .cornerRadius(20)
+                            .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
+                            .shadow(color: .gray, radius: 5)
+                            .padding(.horizontal, 12)
+                        
+                        if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                            ProgressView(value: model.calculateLoad()) {
+                                Text("Belastungszustand")
+                                    .font(.title3)
+                            }
+                            .progressViewStyle(
+                                .gauge(thickness: 20, lineWidth: 0)
+                            )
+                            .padding(.top)
+                        }
+                        else {
+                            ProgressView(value: model.calculateLoad()) {
+                                Text("Belastungszustand")
+                                    .font(.title3)
+                            }
+                            .progressViewStyle(
+                                .gauge(thickness: 20, lineWidth: 6)
+                            )
+                            .padding(.top)
+                        }
+                            
+                           
+                        
+                        VStack {
+                            
+                            
+                            Spacer()
+                            
+                            HStack {
+                                if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                                    Text("Nicht genügend Referenzdaten")
+                                        .foregroundColor(Color.blue)
+                                        .font(.title3)
+                                        
+                                        
+                                }
+                                else {
+                                    if model.calculateLoad() >= 0.75 {
+                                        Text("erholt")
+                                            .foregroundColor(Color.mint)
+                                    }
+                                    else if model.calculateLoad() >= 0.5 {
+                                        Text("ziemlich erholt")
+                                            .foregroundColor(Color.green)
+                                    }
+                                    else if model.calculateLoad() >= 0.25 {
+                                        Text("etwas belastet")
+                                            .foregroundColor(Color.orange)
+                                    }
+                                        else if model.calculateLoad() < 0.25 {
+                                        Text("belastet")
+                                                .foregroundColor(Color.red)
+                                    }
+                                }
+                                
+                            }
+                            .padding()
+                                
+                        }
+                        
+                        
+                    }
                     NavigationLink(
                         destination: {
         
@@ -100,66 +196,13 @@ struct HomeView: View {
                         
                     
                     
-                    ZStack {
-                        
-                        Rectangle()
-                            .colorInvert()
-                            .cornerRadius(20)
-                            .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
-                            .shadow(color: .gray, radius: 5)
-                            .padding(.horizontal, 12)
-                        
-                            ProgressView(value: model.calculateLoad()) {
-                                Text("Belastungszustand")
-                                    .font(.title3)
-                            }
-                            .progressViewStyle(
-                                .gauge(thickness: 25)
-                            )
-                            .padding(.top)
-                            
-                           
-                        
-                        VStack {
-                            
-                            if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
-                                Text("Noch keine Referenzdaten")
-                                    .foregroundColor(Color.blue)
-                                    .font(.title)
-                                    .padding()
-                                    
-                        }
-                            Spacer()
-                            
-                            HStack {
-                                
-                                if model.calculateLoad() >= 0.75 {
-                                    Text("erholt")
-                                        .foregroundColor(Color.mint)
-                                }
-                                else if model.calculateLoad() >= 0.5 {
-                                    Text("ziemlich erholt")
-                                        .foregroundColor(Color.green)
-                                }
-                                else if model.calculateLoad() >= 0.25 {
-                                    Text("etwas belastet")
-                                        .foregroundColor(Color.orange)
-                                }
-                                    else if model.calculateLoad() < 0.25 {
-                                    Text("belastet")
-                                            .foregroundColor(Color.red)
-                                }
-                            }
-                            .padding()
-                                
-                        }
-                        
-                        
-                    }
+                    
                 }
                 .padding()
                 .accentColor(.black)
                 .navigationTitle("DOTS")
+                .navigationBarTitleDisplayMode(.inline)
+                
             }
         }
         

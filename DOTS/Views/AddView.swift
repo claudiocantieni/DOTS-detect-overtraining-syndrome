@@ -62,6 +62,7 @@ struct AddView: View {
                 }
             }
             .navigationTitle("Daten erfassen")
+            .navigationBarTitleDisplayMode(.inline)
             
             
         }

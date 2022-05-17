@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B0B18B52833DD65006D203A /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B0B18B42833DD65006D203A /* LineChartView */; };
+		6B0B18B72833DD7D006D203A /* GaugeProgressViewStyle in Frameworks */ = {isa = PBXBuildFile; productRef = 6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */; };
 		6B240E8A282EE14C00393EBE /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B240E89282EE14C00393EBE /* AddView.swift */; };
 		6B240E8C282EED8E00393EBE /* InputHrvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B240E8B282EED8E00393EBE /* InputHrvView.swift */; };
 		6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B281F0B2822B2CA0079DE7E /* Persistence.swift */; };
 		6B281F2A2822B4AC0079DE7E /* Core Data Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B281F282822B4AC0079DE7E /* Core Data Model.xcdatamodeld */; };
-		6B4F07BF281D53B500E4CC31 /* GaugeProgressViewStyle in Frameworks */ = {isa = PBXBuildFile; productRef = 6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */; };
 		6B4F07F9281F18C200E4CC31 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4F07F8281F18C200E4CC31 /* InputView.swift */; };
-		6B577F8C28255F8B00F513D6 /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B577F8B28255F8B00F513D6 /* LineChartView */; };
 		6B577F92282569C300F513D6 /* HRChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B577F91282569C300F513D6 /* HRChartView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B76CCAC2800B1E900E9CD88 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCAB2800B1E900E9CD88 /* Model.swift */; };
@@ -39,7 +39,6 @@
 		6B281F292822B4AC0079DE7E /* Core Data Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Core Data Model.xcdatamodel"; sourceTree = "<group>"; };
 		6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "GaugeProgressViewStyle-develop"; path = "../../../Downloads/GaugeProgressViewStyle-develop"; sourceTree = "<group>"; };
 		6B4F07F8281F18C200E4CC31 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
-		6B577F8A28255F8600F513D6 /* LineChartView-main */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "LineChartView-main"; path = "../../../Downloads/LineChartView-main"; sourceTree = "<group>"; };
 		6B577F91282569C300F513D6 /* HRChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRChartView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
 		6B76CCAB2800B1E900E9CD88 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -64,9 +63,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B4F07BF281D53B500E4CC31 /* GaugeProgressViewStyle in Frameworks */,
+				6B0B18B72833DD7D006D203A /* GaugeProgressViewStyle in Frameworks */,
+				6B0B18B52833DD65006D203A /* LineChartView in Frameworks */,
 				6B773B7A27FE0CF40016B16B /* FIT in Frameworks */,
-				6B577F8C28255F8B00F513D6 /* LineChartView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +82,6 @@
 		6B773B7827FE0CF40016B16B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6B577F8A28255F8600F513D6 /* LineChartView-main */,
 				6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */,
 			);
 			name = Frameworks;
@@ -97,11 +95,19 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		6BCC60852833D8C700EED809 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		6BFFFE2927FA06C80023A867 = {
 			isa = PBXGroup;
 			children = (
 				6BFFFE3427FA06C80023A867 /* DOTS */,
 				6BFFFE3327FA06C80023A867 /* Products */,
+				6BCC60852833D8C700EED809 /* Packages */,
 				6B773B7827FE0CF40016B16B /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -193,8 +199,8 @@
 			name = DOTS;
 			packageProductDependencies = (
 				6B773B7927FE0CF40016B16B /* FIT */,
-				6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */,
-				6B577F8B28255F8B00F513D6 /* LineChartView */,
+				6B0B18B42833DD65006D203A /* LineChartView */,
+				6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */,
 			);
 			productName = DOTS;
 			productReference = 6BFFFE3227FA06C80023A867 /* DOTS.app */;
@@ -225,7 +231,7 @@
 			);
 			mainGroup = 6BFFFE2927FA06C80023A867;
 			packageReferences = (
-				6B76CCA827FEEF0500E9CD88 /* XCRemoteSwiftPackageReference "ChartView" */,
+				6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */,
 			);
 			productRefGroup = 6BFFFE3327FA06C80023A867 /* Products */;
 			projectDirPath = "";
@@ -396,16 +402,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DOTS/Preview Content\"";
-				DEVELOPMENT_TEAM = 7M33666T7S;
+				DEVELOPMENT_TEAM = VZQQM83H7D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -413,11 +421,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ClaudioCantieni.DOTS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeiderCantieni.DOTS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -426,16 +435,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"DOTS/Preview Content\"";
-				DEVELOPMENT_TEAM = 7M33666T7S;
+				DEVELOPMENT_TEAM = VZQQM83H7D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -443,11 +454,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ClaudioCantieni.DOTS;
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeiderCantieni.DOTS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -475,9 +487,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6B76CCA827FEEF0500E9CD88 /* XCRemoteSwiftPackageReference "ChartView" */ = {
+		6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView";
+			repositoryURL = "https://github.com/Jonathan-Gander/LineChartView.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
@@ -486,13 +498,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6B4F07BE281D53B500E4CC31 /* GaugeProgressViewStyle */ = {
+		6B0B18B42833DD65006D203A /* LineChartView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */;
+			productName = LineChartView;
+		};
+		6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GaugeProgressViewStyle;
-		};
-		6B577F8B28255F8B00F513D6 /* LineChartView */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = LineChartView;
 		};
 		6B773B7927FE0CF40016B16B /* FIT */ = {
 			isa = XCSwiftPackageProductDependency;

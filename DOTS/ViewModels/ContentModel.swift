@@ -16,7 +16,8 @@ class ContentModel: ObservableObject {
     @Published var hearts0: [Hearts] = []
     @Published var hearts28: [Hearts] = []
     @Published var hearts365: [Hearts] = []
-    @Published var heartsfirst: [Hearts] = []
+    @Published var heartsfirstrhr: [Hearts] = []
+    @Published var heartsfirsthrv: [Hearts] = []
     @Published var heartsrhrbase: [Hearts] = []
     @Published var heartshrvbase: [Hearts] = []
     @Published var questions: [Questionnaire] = []
@@ -34,9 +35,9 @@ class ContentModel: ObservableObject {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
         
-        let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())
-        let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -28, to: NSDate() as Date)!) as CVarArg, NSDate())
-        let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -365, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate0 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicatebaserhr = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputRhr(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputRhr() as Date)!) as CVarArg)
         let predicatebasehrv = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputHrv(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputHrv() as Date)!) as CVarArg)
@@ -90,15 +91,27 @@ class ContentModel: ObservableObject {
             
         }
     }
-    
+    // Problem, gets only rhr and not hrv
     func fetchHeartsFirst() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sortfirst = NSSortDescriptor(key: "timestamp", ascending: true)
+        let predicaterhr = NSPredicate(format: "%K != nil", "rhr")
+        let predicatehrv = NSPredicate(format: "%K != nil", "hrv")
         
         request.sortDescriptors = [sortfirst]
         request.fetchLimit = 1
+        request.predicate = predicaterhr
         do {
-             heartsfirst = try managedObjectContext.fetch(request)
+             heartsfirstrhr = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sortfirst]
+        request.fetchLimit = 1
+        request.predicate = predicatehrv
+        do {
+             heartsfirsthrv = try managedObjectContext.fetch(request)
         }
         catch {
             
@@ -108,7 +121,8 @@ class ContentModel: ObservableObject {
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
         let sort = NSSortDescriptor(key: "timestamp", ascending: false)
-        let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)!) as CVarArg, NSDate())
+        // control in 2 days
+        let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
         
         request.sortDescriptors = [sort]
         request.predicate = predicate
@@ -370,11 +384,10 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         
         return load
     }
-// watch viedeo cwc preload data first time?
- //get first date and insert it in top as byAdding(.day)
+
     func firstInputRhr() -> NSDate {
         var firstDate:Date?
-        for i in heartsfirst {
+        for i in heartsfirstrhr {
             if i.rhr != nil {
                 firstDate = i.timestamp
             }
@@ -388,7 +401,7 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
     }
     func firstInputHrv() -> NSDate {
         var firstDate:Date?
-        for i in heartsfirst {
+        for i in heartsfirsthrv {
             if i.hrv != nil {
                 firstDate = i.timestamp
             }

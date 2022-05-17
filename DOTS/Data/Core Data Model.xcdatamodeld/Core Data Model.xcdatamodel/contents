@@ -7,7 +7,7 @@
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="Questionnaire" representedClassName="Questionnaire" syncable="YES">
-        <attribute name="answers" optional="YES" attributeType="Transformable" customClassName="[Int]"/>
+        <attribute name="answers" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[Int]"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <elements>

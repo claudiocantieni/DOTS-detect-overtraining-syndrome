@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 import LineChartView
 
 struct HRView: View {
@@ -30,6 +29,7 @@ struct HRView: View {
             Text(title)
                 .font(.title)
                 .bold()
+                .padding()
 
             Picker("", selection: $selectedTimeRange)
             {
