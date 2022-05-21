@@ -36,6 +36,9 @@ struct HomeView: View {
     
     @State var selectedTimeRangeHome: Int = 7
     
+    @State private var frameWidth: CGFloat = 175
+    @State private var frameHeight: CGFloat = 175
+    @State private var textSize = CGSize(width: 200, height: 100)
     init(){
         Theme.navigationBarColors(background: .systemYellow, titleColor: .black)
         }
@@ -59,6 +62,10 @@ struct HomeView: View {
                             ProgressView(value: model.calculateLoad()) {
                                 Text("Belastungszustand")
                                     .font(.title3)
+                                    .lineLimit(1)
+                                    .allowsTightening(true)
+                                    .minimumScaleFactor(0.5)
+                                    .padding(100)
                             }
                             .progressViewStyle(
                                 .gauge(thickness: 20, lineWidth: 0)
@@ -69,6 +76,10 @@ struct HomeView: View {
                             ProgressView(value: model.calculateLoad()) {
                                 Text("Belastungszustand")
                                     .font(.title3)
+                                    .lineLimit(1)
+                                    .allowsTightening(true)
+                                    .minimumScaleFactor(0.5)
+                                    .padding(100)
                             }
                             .progressViewStyle(
                                 .gauge(thickness: 20, lineWidth: 6)
@@ -88,8 +99,10 @@ struct HomeView: View {
                                     Text("Nicht genügend Referenzdaten")
                                         .foregroundColor(Color.blue)
                                         .font(.title3)
-                                        
-                                        
+                                        .lineLimit(1)
+                                        .allowsTightening(true)
+                                        .minimumScaleFactor(0.5)
+                                        .padding(.horizontal)
                                 }
                                 else {
                                     if model.calculateLoad() >= 0.75 {
@@ -127,7 +140,7 @@ struct HomeView: View {
                                 
                                 
                                 
-                            //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                            
                         },
                         label: {
                             
@@ -144,13 +157,17 @@ struct HomeView: View {
                                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                         .font(.title)
                                         .bold()
+                                        .lineLimit(1)
+                                        .allowsTightening(true)
+                                        .minimumScaleFactor(0.5)
+                                        .padding()
                                         
                                     
                                     HRChartView(data: model.createArrayRhr(selectedTimeRange: 7), timestamps: model.createTimestampsRhr(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " bpm", indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red)
                                     
                                     
                                 }
-                                //LineChartView(data:48), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                                
                             }
                             
                         }
@@ -163,7 +180,7 @@ struct HomeView: View {
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
                                 }
-                            //         HRView(title: "Ruheherzfrequenz", HRData: createArray(), today: "48 bpm", av7days: "49 bpm", delta7days: "+2 bpm")
+                        
                         },
                         label: {
                             
@@ -180,12 +197,15 @@ struct HomeView: View {
                                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                         .font(.title)
                                         .bold()
-                                    
+                                        .lineLimit(1)
+                                        .allowsTightening(true)
+                                        .minimumScaleFactor(0.5)
+                                        .padding()
                                     HRChartView(data: model.createArrayHrv(selectedTimeRange: 7), timestamps: model.createTimestampsHrv(selectedTimeRange: 7), height: 150, width: 335, dotsWidth: -1, dataSuffix: " ms", indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue)
                                     
                                     
                                 }
-                                //LineChartView(data:48), title: "RHF 7 Tage", form: ChartForm.large, rateValue: 0)
+                                
                             }
                             
                         }

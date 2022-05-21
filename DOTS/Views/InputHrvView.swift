@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct InputHrvView: View {
-    
+    enum FocusField: Hashable {
+            case field
+          }
+    @FocusState private var focusedField: FocusField?
+        
     @Environment(\.managedObjectContext) private var viewContext
   
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -16,6 +20,7 @@ struct InputHrvView: View {
     @State private var hrv = ""
 
     var model:ContentModel
+    @EnvironmentObject var manager:NotificationManager
     
     var SaveButton: some View {
         Button("Speichern") {
@@ -26,6 +31,8 @@ struct InputHrvView: View {
             
             model.fetchHearts()
             model.fetchHeartsFirst()
+            
+            manager.scheduleNotificationHrv()
             
             self.presentationMode.wrappedValue.dismiss()
             
@@ -48,13 +55,20 @@ struct InputHrvView: View {
                 VStack {
                     //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
                     HStack {
-                        Text("Herzfrequenzvariabilität:")
+                        Text("Herzfrequenzvariabilität (RMSSD):")
+                            .lineLimit(2)
+                            .allowsTightening(true)
+                            .minimumScaleFactor(0.5)
                             .padding()
                         
-                        TextField("...................", text: $hrv)
+                        TextField("xx.xx", text: $hrv)
                             .keyboardType(.decimalPad)
                             .frame(width: 60)
-                            
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .minimumScaleFactor(0.5)
+                            .focused($focusedField, equals: .field)
+                                                    
                             
                         
                         Text("ms")
@@ -63,6 +77,11 @@ struct InputHrvView: View {
 
                 Spacer()
                 }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            focusedField = .field
+                        }
+                    }
                     .padding()
                     .navigationBarItems(trailing: SaveButton)
                 

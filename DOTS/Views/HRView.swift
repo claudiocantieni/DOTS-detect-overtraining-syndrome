@@ -29,6 +29,9 @@ struct HRView: View {
             Text(title)
                 .font(.title)
                 .bold()
+                .lineLimit(1)
+                .allowsTightening(true)
+                .minimumScaleFactor(0.5)
                 .padding()
 
             Picker("", selection: $selectedTimeRange)
@@ -44,8 +47,7 @@ struct HRView: View {
             
             HRChartView(data: data, timestamps: timestamps, height: 250, width: 350, dotsWidth: 10, dataSuffix: dataSuffix, indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor)
                     
-               // LineView(data: ContentModel.getTimeData(selectedRange: selectedTimeRange, HRData: HRData))
-                   // .padding(.horizontal)
+
                 
                 
             HStack {
@@ -63,14 +65,6 @@ struct HRView: View {
                     .bold()
             }
             .padding()
-
-//                    HStack {
-//                        Text("∆ letze 7 Tage:")
-//                            .bold()
-//                        Text(delta7days)
-//                            .bold()
-//                    }
-//                    .padding()
                 
                 
             

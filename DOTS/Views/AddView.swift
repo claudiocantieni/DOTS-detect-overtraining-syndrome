@@ -10,8 +10,8 @@ import SwiftUI
 struct AddView: View {
     
     @EnvironmentObject var model:ContentModel
-//    @State var isInputViewShowing = false
-//    @State var isQuestionnaireViewShowing = false
+
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -24,6 +24,11 @@ struct AddView: View {
                             Text("Ruheherzfrequenz eingeben")
                                 .font(.title2)
                                 .foregroundColor(.accentColor)
+                                .lineLimit(2)
+                                .allowsTightening(true)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                                
                             Spacer()
                             Image(systemName: "chevron.right")
                                 
@@ -39,6 +44,10 @@ struct AddView: View {
                             Text("Herzfrequenzvariabilität eingeben")
                                 .font(.title2)
                                 .foregroundColor(.accentColor)
+                                .lineLimit(2)
+                                .allowsTightening(true)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
                             Spacer()
                             Image(systemName: "chevron.right")
                                 
@@ -53,6 +62,10 @@ struct AddView: View {
                             Text("Fragebogen ausfüllen")
                                 .font(.title2)
                                 .foregroundColor(.accentColor)
+                                .lineLimit(2)
+                                .allowsTightening(true)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
                             Spacer()
                             Image(systemName: "chevron.right")
                                 

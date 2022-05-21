@@ -14,6 +14,7 @@ struct QuestionnaireView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @EnvironmentObject var model:ContentModel
+    @EnvironmentObject var manager:NotificationManager
     
     @State private var value = 3.0
     @State private var isEditing = false
@@ -139,6 +140,8 @@ struct QuestionnaireView: View {
                         addData()
                         
                         model.fetchQuestionnaire()
+                        
+                        manager.scheduleNotificationQuestionnaire()
                         
                         self.presentationMode.wrappedValue.dismiss()
 

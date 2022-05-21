@@ -9,6 +9,11 @@ import SwiftUI
 
 struct InputView: View {
     
+    enum FocusField: Hashable {
+            case field
+          }
+        @FocusState private var focusedField: FocusField?
+        
     @Environment(\.managedObjectContext) private var viewContext
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -16,6 +21,7 @@ struct InputView: View {
     @State private var rhr = ""
 
     var model:ContentModel
+    @EnvironmentObject var manager:NotificationManager
     
     var SaveButton: some View {
         
@@ -29,6 +35,9 @@ struct InputView: View {
             
             model.fetchHeartsFirst()
             
+            manager.scheduleNotificationRhr()
+            
+            UIApplication.shared.applicationIconBadgeNumber = -1
             self.presentationMode.wrappedValue.dismiss()
             
             
@@ -46,11 +55,19 @@ struct InputView: View {
                 //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
                 HStack {
                     Text("Ruheherzfrequenz:")
+                        .lineLimit(2)
+                        .allowsTightening(true)
+                        .minimumScaleFactor(0.5)
                         .padding()
-                    
-                    TextField("..........", text: $rhr)
+                    // TODO: textxfield appear automatically
+                    TextField("xx", text: $rhr)
                         .keyboardType(.decimalPad)
                         .frame(width: 30)
+                        .lineLimit(1)
+                        .allowsTightening(true)
+                        .minimumScaleFactor(0.5)
+                        .focused($focusedField, equals: .field)
+                
                         
                     Text("bpm")
                         .padding([.top, .trailing, .bottom])
@@ -58,7 +75,11 @@ struct InputView: View {
 
             Spacer()
             }
-            
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    focusedField = .field
+                }
+            }
             .navigationBarItems(trailing:SaveButton)
             .padding()
         }
@@ -69,7 +90,6 @@ struct InputView: View {
  
     }
     func addData() {
-        //TODO: adapt to textfields
         
         let hearts = Hearts(context: viewContext)
         hearts.timestamp = Date()
@@ -91,4 +111,4 @@ struct InputView: View {
     }
     
 }
-
+ 
