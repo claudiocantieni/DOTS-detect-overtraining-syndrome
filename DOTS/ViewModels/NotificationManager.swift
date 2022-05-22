@@ -9,9 +9,11 @@ import Foundation
 import UserNotifications
 
 class NotificationManager: ObservableObject {
-//    init() {
-//        areNotificationsOn()
-//    }
+    init() {
+        scheduleNotificationHrv()
+        scheduleNotificationRhr()
+        scheduleNotificationQuestionnaire()
+    }
     var model = ContentModel()
     
 //    @Published var notificationsOn: Bool?
@@ -58,12 +60,12 @@ class NotificationManager: ObservableObject {
     
     func scheduleNotificationQuestionnaire() {
         
-        let center = UNUserNotificationCenter.current()
+//        let center = UNUserNotificationCenter.current()
 
-        let addRequest = {
+//        let addRequest = {
             let content = UNMutableNotificationContent()
             content.title = "DOTS"
-            content.body = "Fragebogen heute ausfüllen!"
+            content.body = "Fragebogen heute ausfüllen"
             content.sound = .default
             content.badge = 1
             
@@ -76,23 +78,23 @@ class NotificationManager: ObservableObject {
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
-        }
-        center.getNotificationSettings { settings in
-            if settings.authorizationStatus == .authorized {
-                addRequest()
-            } else {
-            }
-        }
+        
+//        center.getNotificationSettings { settings in
+//            if settings.authorizationStatus == .authorized {
+//                addRequest()
+//            } else {
+//            }
+//        }
         
         
     }
     func scheduleNotificationRhr() {
-        let center = UNUserNotificationCenter.current()
+//        let center = UNUserNotificationCenter.current()
 
-        let addRequest = {
+//        let addRequest = {
             let content = UNMutableNotificationContent()
             content.title = "DOTS"
-            content.body = "Ruheherzfrequenz eingeben!"
+            content.body = "Ruheherzfrequenz eingeben"
             content.sound = .default
             content.badge = 1
             
@@ -105,21 +107,21 @@ class NotificationManager: ObservableObject {
             
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
-        }
-        center.getNotificationSettings { settings in
-            if settings.authorizationStatus == .authorized {
-                addRequest()
-            } else {
-            }
-        }
+//        }
+//        center.getNotificationSettings { settings in
+//            if settings.authorizationStatus == .authorized {
+//                addRequest()
+//            } else {
+//            }
+//        }
     }
     func scheduleNotificationHrv() {
-        let center = UNUserNotificationCenter.current()
+//        let center = UNUserNotificationCenter.current()
 
-        let addRequest = {
+//        let addRequest = {
             let content = UNMutableNotificationContent()
             content.title = "DOTS"
-            content.body = "Herzfrequenzvariabilität eingeben!"
+            content.body = "Herzfrequenzvariabilität eingeben"
             content.sound = .default
             content.badge = 1
             
@@ -133,11 +135,11 @@ class NotificationManager: ObservableObject {
             let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request)
         }
-        center.getNotificationSettings { settings in
-            if settings.authorizationStatus == .authorized {
-                addRequest()
-            } else {
-            }
-        }
-    }
+//        center.getNotificationSettings { settings in
+//            if settings.authorizationStatus == .authorized {
+//                addRequest()
+//            } else {
+//            }
+//        }
+//    }
 }
