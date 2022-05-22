@@ -9,26 +9,36 @@ import SwiftUI
 
 struct TabsView: View {
     
+    @AppStorage("welcomeViewShown")
+    var welcomeViewShown: Bool = false
+    
     var body: some View {
-        TabView {
-            
-            HomeView()
-                .tabItem {
-                    Image(systemName: "house")
-                }
+        
+        if welcomeViewShown {
+            TabView {
                 
-           AddView()
-                .tabItem {
-                    Image(systemName: "plus.circle")
-                }
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house")
+                    }
+                    
+               AddView()
+                    .tabItem {
+                        Image(systemName: "plus.circle")
+                    }
 
-            
-            
-            SettingsView()
-                .tabItem {
-                    Image(systemName: "gearshape")
-                }
+                
+                
+                SettingsView()
+                    .tabItem {
+                        Image(systemName: "gearshape")
+                    }
+            }
         }
+        else {
+            WelcomeView(isButtonNeeded: true)
+        }
+        
     }
 }
 

@@ -362,10 +362,10 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         else if calculateMeanRhr() <= calculateRhrBase() * 1.05 {
             loadSum += 0.6666667
         }
-        else if calculateMeanRhr() <= calculateRhrBase() * 1.07 {
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.1 {
             loadSum += 0.3333333
         }
-        else if calculateMeanRhr() > calculateRhrBase() * 1.07 {
+        else if calculateMeanRhr() > calculateRhrBase() * 1.1 {
             loadSum += 0
         }
         if calculateMeanHrv() >= calculateHrvBase() {
@@ -374,10 +374,10 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         else if calculateMeanHrv() >= calculateHrvBase() / 1.05 {
             loadSum += 0.6666667
         }
-        else if calculateMeanHrv() >= calculateHrvBase() / 1.07 {
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.1 {
             loadSum += 0.3333333
         }
-        else if calculateMeanHrv() < calculateHrvBase() / 1.07 {
+        else if calculateMeanHrv() < calculateHrvBase() / 1.1 {
             loadSum += 0
         }
         let load = loadSum / 3

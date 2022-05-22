@@ -56,7 +56,7 @@ struct HomeView: View {
                             .cornerRadius(20)
                             .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                             .shadow(color: .gray, radius: 5)
-                            .padding(.horizontal, 12)
+                            
                         
                         if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                             ProgressView(value: model.calculateLoad()) {
@@ -151,7 +151,7 @@ struct HomeView: View {
                                     .cornerRadius(20)
                                     .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
                                     .shadow(color: .gray, radius: 5)
-                                    .padding(.horizontal, 12)
+                                    
                                 VStack {
                                     Text("Ruheherzfrequenz")
                                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
@@ -191,7 +191,7 @@ struct HomeView: View {
                                     .cornerRadius(20)
                                     .aspectRatio(CGSize(width: 335, height: 220), contentMode: .fit)
                                     .shadow(color: .gray, radius: 5)
-                                    .padding(.horizontal, 12)
+                                    
                                 VStack {
                                     Text("Herzfrequenzvariabilität")
                                         .foregroundColor(colorScheme == .dark ? Color.white : Color.black)

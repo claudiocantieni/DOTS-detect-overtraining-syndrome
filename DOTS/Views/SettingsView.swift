@@ -37,26 +37,45 @@ struct SettingsView: View {
                         }
                     }
                     label: {
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(Color(UIColor.systemBackground))
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                        
+                                
                             HStack(spacing: 20.0) {
                                 Image(systemName: "bell")
+
                                 Text("Mitteilungen anpassen")
                                     .font(.title2)
                                     .foregroundColor(.accentColor)
-                                    .lineLimit(2)
+                                    .lineLimit(1)
+                                    .allowsTightening(true)
+                                    .minimumScaleFactor(0.5)
+                                    .multilineTextAlignment(.leading)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    
+                            }
+                        
+                        
+                    }
+                    .padding()
+                    
+                    NavigationLink {
+                        WelcomeView(isButtonNeeded: false)
+                    } label: {
+                            HStack(spacing: 20.0) {
+                                Image(systemName: "book.closed")
+                                    
+                                Text("Benutzungsanleitung")
+                                    .font(.title2)
+                                    .foregroundColor(.accentColor)
+                                    .lineLimit(1)
                                     .allowsTightening(true)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
                                 
+                                Spacer()
+                                Image(systemName: "chevron.right")
                                     
                             }
-                        }
                         
                     }
                     .padding()
