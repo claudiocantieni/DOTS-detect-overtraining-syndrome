@@ -32,6 +32,9 @@ struct InputHrvView: View {
             model.fetchHearts()
             model.fetchHeartsFirst()
             
+            manager.badgeNumber -= 1
+            UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+            
             manager.scheduleNotificationHrv()
             
             self.presentationMode.wrappedValue.dismiss()

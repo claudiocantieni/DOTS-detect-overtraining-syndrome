@@ -35,9 +35,12 @@ struct InputView: View {
             
             model.fetchHeartsFirst()
             
+            manager.badgeNumber -= 1
+            UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+            
             manager.scheduleNotificationRhr()
             
-            UIApplication.shared.applicationIconBadgeNumber = -1
+            
             self.presentationMode.wrappedValue.dismiss()
             
             
@@ -49,6 +52,7 @@ struct InputView: View {
             
                 Text("Ruheherzfrequenz morgen eingeben")
         }
+            
         else {
             VStack {
                 

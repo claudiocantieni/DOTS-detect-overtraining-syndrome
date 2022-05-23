@@ -141,6 +141,9 @@ struct QuestionnaireView: View {
                         
                         model.fetchQuestionnaire()
                         
+                        manager.badgeNumber -= 1
+                        UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+                        
                         manager.scheduleNotificationQuestionnaire()
                         
                         self.presentationMode.wrappedValue.dismiss()
