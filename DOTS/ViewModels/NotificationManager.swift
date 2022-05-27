@@ -17,7 +17,6 @@ class NotificationManager: ObservableObject {
     var model = ContentModel()
     @Published var badgeNumber: Int
     
-    //    @Published var notificationsOn: Bool?
     
     func requestAuthorization() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
@@ -31,34 +30,7 @@ class NotificationManager: ObservableObject {
             }
         }
     }
-    //    func UnrequestAuthorization() {
-    //        let options: UNAuthorizationOptions = []
-    //        UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
-    //            if let error = error {
-    //                print("Error: \(error)")
-    //            }
-    //            else {
-    //                print("No Notifications")
-    //            }
-    //        }
-    //    }
     
-    
-    //    func areNotificationsOn() {
-    //
-    //        let center = UNUserNotificationCenter.current()
-    //        center.getNotificationSettings { settings in
-    //            guard (settings.authorizationStatus == .authorized)  else { return }
-    //
-    //            if settings.authorizationStatus == .authorized {
-    //                self.notificationsOn = true
-    //                // Schedule an alert-only notification.
-    //            } else {
-    //                self.notificationsOn = false
-    //                // Schedule a notification with a badge and sound.
-    //            }
-    //        }
-    //    }
     
     func scheduleNotificationQuestionnaire() {
         
@@ -102,8 +74,8 @@ class NotificationManager: ObservableObject {
         badgeNumber += 1
         content.badge = (badgeNumber) as NSNumber
         
-        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.lastTimestampRhr())!))
-        
+        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampRhr())!))
+        //let date = model.lastTimestampRhr()
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
         dateComponents.hour = 7
         

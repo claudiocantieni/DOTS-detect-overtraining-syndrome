@@ -16,10 +16,16 @@ struct WelcomeView: View {
         
         
         VStack {
-            Text("Benutzungsanleitung")
-                .bold()
-                .padding()
-                .font(.title)
+            HStack {
+                Text("Benutzungsanleitung")
+                    .bold()
+                    .padding()
+                    .font(.title)
+                    .multilineTextAlignment(.leading)
+                Spacer()
+            }
+            
+            
                 
             Text("""
                 Die DOTS App zeigt einen Belastungszustand an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.

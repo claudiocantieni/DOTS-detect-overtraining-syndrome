@@ -64,7 +64,7 @@ struct InputHrvView: View {
                             .minimumScaleFactor(0.5)
                             .padding()
                         
-                        TextField("xx.xx", text: $hrv)
+                        TextField("xx.xx  ", text: $hrv)
                             .keyboardType(.decimalPad)
                             .frame(width: 60)
                             .lineLimit(1)

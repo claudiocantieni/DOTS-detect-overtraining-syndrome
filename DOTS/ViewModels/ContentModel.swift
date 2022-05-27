@@ -22,9 +22,8 @@ class ContentModel: ObservableObject {
     @Published var heartshrvbase: [Hearts] = []
     @Published var questions: [Questionnaire] = []
     
- //   @Published var models = [Model]()
     init() {
-       // self.models = ContentModel.getLocalData()
+       
         fetchHeartsFirst()
         
         fetchHearts()
@@ -91,7 +90,6 @@ class ContentModel: ObservableObject {
             
         }
     }
-    // Problem, gets only rhr and not hrv
     func fetchHeartsFirst() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sortfirst = NSSortDescriptor(key: "timestamp", ascending: true)
@@ -117,7 +115,6 @@ class ContentModel: ObservableObject {
             
         }
     }
-    
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
         let sort = NSSortDescriptor(key: "timestamp", ascending: false)
@@ -190,7 +187,7 @@ class ContentModel: ObservableObject {
         
         return hrArray
     }
-func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
+    func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         var timestamps:[Date] = []
         
             if selectedTimeRange == 7 {
@@ -294,7 +291,41 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
-    func calculateRhrBase() -> Double {
+    
+    func calculateMeanRhr28() -> Double {
+        var array:[Double] = []
+        for f in hearts28 {
+            if f.rhr != nil {
+                array.append(f.rhr as! Double)
+            }
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    func calculateMeanHrv28() -> Double {
+        var array:[Double] = []
+        for f in hearts28 {
+            if f.hrv != nil {
+                array.append(f.hrv as! Double)
+            }
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    
+    func calculateRhrFirstBase() -> Double {
         var array:[Double] = []
         for f in heartsrhrbase {
             if f.rhr != nil {
@@ -310,8 +341,7 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
-
-    func calculateHrvBase() -> Double{
+    func calculateHrvFirstBase() -> Double{
         var array:[Double] = []
         for f in heartshrvbase {
             if f.hrv != nil {
@@ -329,6 +359,32 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         return Double(meanRound)
     }
     
+    func calculateRhrBase() -> Double {
+        if firstInputRhr() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
+            return calculateRhrFirstBase()
+        }
+        else {
+            if calculateMeanRhr28() < calculateRhrFirstBase() {
+                return calculateMeanRhr28()
+            }
+            else {
+                return calculateRhrFirstBase()
+            }
+        }
+    }
+    func calculateHrvBase() -> Double {
+        if firstInputHrv() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
+            return calculateHrvFirstBase()
+        }
+        else {
+            if calculateMeanHrv28() > calculateHrvFirstBase() {
+                return calculateMeanHrv28()
+            }
+            else {
+                return calculateHrvFirstBase()
+            }
+        }
+    }
     func calculateTotalQuestionnaire() -> Int {
         var sum:Int = 0
         for i in questions {
@@ -342,6 +398,7 @@ func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         
         
     }
+    
     func calculateLoad() -> Double {
         var loadSum:Double = 0
         if calculateTotalQuestionnaire() >= 25 {

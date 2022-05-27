@@ -63,7 +63,7 @@ struct QuestionnaireView: View {
                         .padding()
                 }
                 else if index == 5 {
-                    Text("In der letzten Woche fühlte ich mich nicht unter Druck gesetzt")
+                    Text("In der letzten Woche fühlte ich mich unter Druck gesetzt")
                         .padding()
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
@@ -97,7 +97,26 @@ struct QuestionnaireView: View {
                     else {
                     
                     }
-                if index != 7 && index != 6 {
+                if index == 5 {
+                    Button {
+                        addToAnswersReversed()
+                        index += 1
+                        value = 3
+                    } label: {
+                        ZStack {
+                            Rectangle()
+                                .foregroundColor(.accentColor)
+                                .cornerRadius(10)
+                                .shadow(color: .gray, radius:5)
+                                .frame(height: 48)
+                                .padding()
+                            Text("Weiter")
+                                .foregroundColor(.black)
+                        }
+                        
+                    }
+                }
+                else if index != 7 && index != 6 && index != 5 {
                     Button {
                         addToAnswers()
                         index += 1
@@ -173,6 +192,25 @@ struct QuestionnaireView: View {
     }
     func addToAnswers() {
         answerRow.append(Int(value))
+    }
+    func addToAnswersReversed() {
+        var valueReversed = 0
+        if  value == 1 {
+            valueReversed = 5
+        }
+        else if value == 2 {
+            valueReversed = 4
+        }
+        else if value == 3 {
+            valueReversed = 3
+        }
+        else if value == 4 {
+            valueReversed = 2
+        }
+        else if value == 5 {
+            valueReversed = 1
+        }
+            answerRow.append(Int(valueReversed))
     }
     func addData() {
         let questionnaire = Questionnaire(context: viewContext)

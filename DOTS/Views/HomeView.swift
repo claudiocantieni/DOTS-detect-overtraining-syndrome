@@ -9,6 +9,7 @@ import SwiftUI
 import GaugeProgressViewStyle
 
 class Theme {
+    // Wird für den Darkmode benötigt
     static func navigationBarColors(background : UIColor?,
        titleColor : UIColor? = nil, tintColor : UIColor? = nil ){
         
@@ -33,7 +34,7 @@ struct HomeView: View {
     @EnvironmentObject var model:ContentModel
     
     @Environment(\.colorScheme) var colorScheme
-    
+    // Um Zeitspanne auszuwählen (7d, 28d, 365d)
     @State var selectedTimeRangeHome: Int = 7
     
     @State private var frameWidth: CGFloat = 175
@@ -57,8 +58,9 @@ struct HomeView: View {
                             .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                             .shadow(color: .gray, radius: 5)
                             
-                        
+                        // Zeigt den Punkt im Tachometer erst an, wenn die App seit länger als eine Woche benutzt wurde
                         if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                            // Tachometer
                             ProgressView(value: model.calculateLoad()) {
                                 Text("Belastungszustand")
                                     .font(.title3)
@@ -93,7 +95,7 @@ struct HomeView: View {
                             
                             
                             Spacer()
-                            
+                            // Text unter Tachometer
                             HStack {
                                 if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                                     Text("Nicht genügend Referenzdaten")
@@ -130,9 +132,10 @@ struct HomeView: View {
                         
                         
                     }
+                    // Ruheherzfrequenzfeld
                     NavigationLink(
                         destination: {
-        
+                            // Ansicht wenn auf Feld getippt wird
                             HRView(title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: model.createTodayRhr(), av7days: model.calculateMeanRhr())
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
@@ -143,7 +146,7 @@ struct HomeView: View {
                             
                         },
                         label: {
-                            
+                            // Ansicht auf HomeView
                             ZStack {
                                 
                                 Rectangle()

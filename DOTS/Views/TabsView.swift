@@ -35,6 +35,7 @@ struct TabsView: View {
                     }
             }
         }
+        // Ansicht beim ersten Launch der App, sonst normal^
         else {
             WelcomeView(isButtonNeeded: true)
         }
