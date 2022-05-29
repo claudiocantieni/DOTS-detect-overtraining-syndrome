@@ -33,105 +33,136 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var model:ContentModel
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @Environment(\.colorScheme) var colorScheme
     // Um Zeitspanne auszuwählen (7d, 28d, 365d)
     @State var selectedTimeRangeHome: Int = 7
     
+    @Binding var tabSelection: Int
+    
     @State private var frameWidth: CGFloat = 175
     @State private var frameHeight: CGFloat = 175
     @State private var textSize = CGSize(width: 200, height: 100)
-    init(){
+    
+    init(tabSelection: Binding<Int>) {
+        self._tabSelection = tabSelection
         Theme.navigationBarColors(background: .systemYellow, titleColor: .black)
         }
+    
     var body: some View {
         
         
         NavigationView {
             ScrollView {
                 LazyVStack {
-                    
-                    ZStack {
-                        
-                        Rectangle()
-                            .colorInvert()
-                            .cornerRadius(20)
-                            .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
-                            .shadow(color: .gray, radius: 5)
+
+
+                    NavigationLink(
+                        destination: {
+                            // Ansicht wenn auf Feld getippt wird
+                            GaugeView(selectedTimeRange: $selectedTimeRangeHome)
+                                
+                                
+                                
                             
-                        // Zeigt den Punkt im Tachometer erst an, wenn die App seit länger als eine Woche benutzt wurde
-                        if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
-                            // Tachometer
-                            ProgressView(value: model.calculateLoad()) {
-                                Text("Belastungszustand")
-                                    .font(.title3)
-                                    .lineLimit(1)
-                                    .allowsTightening(true)
-                                    .minimumScaleFactor(0.5)
-                                    .padding(100)
-                            }
-                            .progressViewStyle(
-                                .gauge(thickness: 20, lineWidth: 0)
-                            )
-                            .padding(.top)
-                        }
-                        else {
-                            ProgressView(value: model.calculateLoad()) {
-                                Text("Belastungszustand")
-                                    .font(.title3)
-                                    .lineLimit(1)
-                                    .allowsTightening(true)
-                                    .minimumScaleFactor(0.5)
-                                    .padding(100)
-                            }
-                            .progressViewStyle(
-                                .gauge(thickness: 20, lineWidth: 6)
-                            )
-                            .padding(.top)
-                        }
-                            
-                           
-                        
-                        VStack {
-                            
-                            
-                            Spacer()
-                            // Text unter Tachometer
-                            HStack {
+                        },
+                        label: {
+                            // Ansicht auf HomeView
+                            ZStack {
+                                Rectangle()
+                                    .colorInvert()
+                                    .cornerRadius(20)
+                                    .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
+                                    .shadow(color: .gray, radius: 5)
+                                    
+                                // Zeigt den Punkt im Tachometer erst an, wenn die App seit länger als eine Woche benutzt wurde
                                 if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
-                                    Text("Nicht genügend Referenzdaten")
-                                        .foregroundColor(Color.blue)
-                                        .font(.title3)
-                                        .lineLimit(1)
-                                        .allowsTightening(true)
-                                        .minimumScaleFactor(0.5)
-                                        .padding(.horizontal)
+                                    // Tachometer
+                                    ProgressView(value: model.createTodayLoad()) {
+                                        Text("Belastungszustand")
+                                            .font(.title3)
+                                            .lineLimit(1)
+                                            .allowsTightening(true)
+                                            .minimumScaleFactor(0.5)
+                                            .padding(100)
+                                    }
+                                    .progressViewStyle(
+                                        .gauge(thickness: 20, lineWidth: 0)
+                                    )
+                                    .padding(.top)
                                 }
                                 else {
-                                    if model.calculateLoad() >= 0.75 {
-                                        Text("erholt")
-                                            .foregroundColor(Color.mint)
+                                    ProgressView(value: model.createTodayLoad()) {
+                                        Text("Belastungszustand")
+                                            .font(.title3)
+                                            .lineLimit(1)
+                                            .allowsTightening(true)
+                                            .minimumScaleFactor(0.5)
+                                            .padding(100)
                                     }
-                                    else if model.calculateLoad() >= 0.5 {
-                                        Text("ziemlich erholt")
-                                            .foregroundColor(Color.green)
+                                    .progressViewStyle(
+                                        .gauge(thickness: 20, lineWidth: 6)
+                                    )
+                                    .padding(.top)
+                                }
+                                    
+                                
+                                
+                                VStack {
+                                    
+                                    
+                                    Spacer()
+                                    // Text unter Tachometer
+                                    HStack {
+                                        if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                                            Button {
+                                                tabSelection = 2
+                                            } label: {
+                                                Text("Nicht genügend Referenzdaten")
+                                                    .foregroundColor(Color.blue)
+                                                    .font(.title3)
+                                                    .lineLimit(1)
+                                                    .allowsTightening(true)
+                                                    .minimumScaleFactor(0.5)
+                                                    .padding(.horizontal)
+                                            }
+
+                                            
+                                        }
+                                        else {
+                                            if model.createTodayLoad() >= 0.75 {
+                                                Text("erholt")
+                                                    .foregroundColor(Color.mint)
+                                            }
+                                            else if model.createTodayLoad() >= 0.5 {
+                                                Text("ziemlich erholt")
+                                                    .foregroundColor(Color.green)
+                                            }
+                                            else if model.createTodayLoad() >= 0.25 {
+                                                Text("etwas belastet")
+                                                    .foregroundColor(Color.orange)
+                                            }
+                                                else if model.createTodayLoad() < 0.25 {
+                                                Text("belastet")
+                                                        .foregroundColor(Color.red)
+                                            }
+                                        }
+                                        
                                     }
-                                    else if model.calculateLoad() >= 0.25 {
-                                        Text("etwas belastet")
-                                            .foregroundColor(Color.orange)
-                                    }
-                                        else if model.calculateLoad() < 0.25 {
-                                        Text("belastet")
-                                                .foregroundColor(Color.red)
-                                    }
+                                    .padding()
+                                        
                                 }
                                 
-                            }
-                            .padding()
                                 
+                            }
+                            
                         }
+                    )
+                    
+                    
+
                         
-                        
-                    }
                     // Ruheherzfrequenzfeld
                     NavigationLink(
                         destination: {
@@ -228,13 +259,22 @@ struct HomeView: View {
                 
             }
         }
+        .onAppear() { model.createLoad() }
+                    .onChange(of: scenePhase) { newPhase in
+                        
+                        if newPhase == .active {
+                            model.createLoad()
+                        }
+                        
+                    }
         
         
                 
     }
         
-
+    
         
 }
+
 
     

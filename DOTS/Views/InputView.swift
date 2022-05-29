@@ -64,9 +64,9 @@ struct InputView: View {
                         .minimumScaleFactor(0.5)
                         .padding()
                     // TODO: textxfield appear automatically
-                    TextField("xx ", text: $rhr)
+                    TextField("xx", text: $rhr)
                         .keyboardType(.decimalPad)
-                        .frame(width: 30)
+                        .frame(width: 50)
                         .lineLimit(1)
                         .allowsTightening(true)
                         .minimumScaleFactor(0.5)

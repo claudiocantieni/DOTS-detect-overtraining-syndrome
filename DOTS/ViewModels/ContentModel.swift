@@ -10,6 +10,8 @@ import SwiftUI
 import CoreData
 class ContentModel: ObservableObject {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
     let managedObjectContext = PersistenceController.shared.container.viewContext
     
     @Published var hearts7: [Hearts] = []
@@ -20,8 +22,16 @@ class ContentModel: ObservableObject {
     @Published var heartsfirsthrv: [Hearts] = []
     @Published var heartsrhrbase: [Hearts] = []
     @Published var heartshrvbase: [Hearts] = []
+    
     @Published var questions: [Questionnaire] = []
     
+    @Published var loads7: [Loads] = []
+    @Published var loads28: [Loads] = []
+    @Published var loads365: [Loads] = []
+    @Published var loads0: [Loads] = []
+    @Published var loadsToday: [Loads] = []
+    
+    var timer = Timer()
     init() {
        
         fetchHeartsFirst()
@@ -29,6 +39,11 @@ class ContentModel: ObservableObject {
         fetchHearts()
         
         fetchQuestionnaire()
+        
+        fetchLoads()
+        
+        createLoad()
+        
     }
     func fetchHearts() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
@@ -126,6 +141,58 @@ class ContentModel: ObservableObject {
         request.fetchLimit = 1
         do {
              questions = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+    }
+    
+    func fetchLoads() {
+        let request = NSFetchRequest<Loads>(entityName: "Loads")
+        let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+        let sortToday = NSSortDescriptor(key: "timestamp", ascending: false)
+        
+        let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate0 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())
+  
+        request.sortDescriptors = [sort]
+        request.predicate = predicate7
+        do {
+            loads7 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicate0
+        do {
+            loads0 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicate28
+        do {
+            loads28 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicate365
+        do {
+            loads365 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sortToday]
+        request.fetchLimit = 1
+        do {
+             loadsToday = try managedObjectContext.fetch(request)
         }
         catch {
             
@@ -497,6 +564,94 @@ class ContentModel: ObservableObject {
             }
         }
         return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
+    }
+    
+    
+    
+    func createTodayLoad() -> Double {
+    var loadToday:Double = 0
+        for f in loadsToday {
+            
+                loadToday = f.load
+            
+        }
+        return loadToday
+    }
+    
+    func createArrayLoad(selectedTimeRange:Int) -> [Double]{
+        var loadArray:[Double] = []
+        
+            if selectedTimeRange == 7 {
+                for f in loads7 {
+                    
+                    loadArray.append(f.load)
+                    
+                    
+                }
+            }
+            else if selectedTimeRange == 28 {
+                for f in loads7 {
+                    
+                    loadArray.append(f.load)
+                }
+            }
+        else if selectedTimeRange == 365 {
+            for f in loads7 {
+                
+                loadArray.append(f.load)
+            }
+        }
+        
+        return loadArray
+    }
+    func createTimestampsLoad(selectedTimeRange: Int) -> [Date]{
+        var timestamps:[Date] = []
+        
+            if selectedTimeRange == 7 {
+                for f in loads7 {
+                    
+                        timestamps.append(f.timestamp)
+                    
+                }
+            }
+            else if selectedTimeRange == 28 {
+                for f in hearts28 {
+                    
+                        timestamps.append(f.timestamp)
+                    
+                }
+            }
+            else if selectedTimeRange == 365 {
+                for f in hearts365 {
+                    
+                        timestamps.append(f.timestamp)
+                    
+                }
+            }
+        
+        return timestamps
+    }
+    func createLoad() {
+        
+        let loads = Loads(context: viewContext)
+        if loads0.isEmpty {
+            loads.timestamp = Date()
+            loads.load = calculateLoad()
+        }
+        else {
+            loads.load = calculateLoad()
+        }
+        do {
+            try viewContext.save()
+            
+        }
+        catch {
+            
+        }
+            
+        
+        
+        
     }
 //
     
