@@ -16,7 +16,10 @@ class NotificationManager: ObservableObject {
     }
     var model = ContentModel()
     @Published var badgeNumber: Int
-    
+    @Published var RhrIdentifier = ["RhrIdentifier"]
+    @Published var HrvIdentifier = ["HrvIdentifier"]
+    @Published var QuestIdentifier = ["QuestIdentifier"]
+
     
     func requestAuthorization() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
@@ -37,6 +40,8 @@ class NotificationManager: ObservableObject {
         //        let center = UNUserNotificationCenter.current()
         
         //        let addRequest = {
+        model.fetchQuestionnaire()
+        
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
         content.body = "Fragebogen heute ausfüllen"
@@ -51,7 +56,7 @@ class NotificationManager: ObservableObject {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: QuestIdentifier.first!, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
         
         //        center.getNotificationSettings { settings in
@@ -67,6 +72,8 @@ class NotificationManager: ObservableObject {
         //        let center = UNUserNotificationCenter.current()
         
         //        let addRequest = {
+        model.fetchHearts()
+        
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
         content.body = "Ruheherzfrequenz heute eingeben"
@@ -81,7 +88,7 @@ class NotificationManager: ObservableObject {
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: RhrIdentifier.first!, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
         //        }
         //        center.getNotificationSettings { settings in
@@ -95,6 +102,7 @@ class NotificationManager: ObservableObject {
         //        let center = UNUserNotificationCenter.current()
         
         //        let addRequest = {
+        model.fetchHearts()
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
         content.body = "Herzfrequenzvariabilität heute eingeben"
@@ -102,14 +110,14 @@ class NotificationManager: ObservableObject {
         badgeNumber += 1
         content.badge = (badgeNumber) as NSNumber
         
-        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.lastTimestampHrv())!))
+        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
         dateComponents.hour = 7
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: HrvIdentifier.first!, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
     //        center.getNotificationSettings { settings in

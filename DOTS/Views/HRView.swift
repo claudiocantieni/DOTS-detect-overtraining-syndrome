@@ -10,6 +10,7 @@ import LineChartView
 
 struct HRView: View {
     
+    @Binding var tabSelection: Int
     
     var title: String
     
@@ -20,7 +21,7 @@ struct HRView: View {
     var indicatorPointColor: Color
     var lineColor: Color
     var lineSecondColor: Color
-    var today: Double
+    var today: Int
     var av7days: Double
 //    var delta7days: String
     
@@ -68,7 +69,31 @@ struct HRView: View {
                 
                 
             
+            
+            
+            
+            
+            Button {
+                tabSelection = 2
+            } label: {
+                
+                    HStack {
+                        Image(systemName: "plus")
+                        Text("\(title) eingeben")
+                            .foregroundColor(Color.blue)
+                            .font(.title3)
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .minimumScaleFactor(0.5)
+                            .padding(.horizontal)
+                    
+                }
+                
+            }
+            .frame(alignment: .center)
+            .padding()
             Spacer()
+
         }
         
         

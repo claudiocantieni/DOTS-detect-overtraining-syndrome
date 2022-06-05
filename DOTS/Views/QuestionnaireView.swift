@@ -156,12 +156,25 @@ struct QuestionnaireView: View {
                 }
                 else if index == 7 {
                     Button {
+                        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.timestampQuestionnaire())!))
+                        //let date = model.lastTimestampRhr()
+                        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+                        dateComponents.calendar = Calendar.current
+                        dateComponents.hour = 7
+                        dateComponents.minute = 0
+                        
+
+                        if dateComponents.date! < Date() {
+                            manager.badgeNumber -= 1
+                            UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+                        }
+                        
                         addData()
                         
                         model.fetchQuestionnaire()
                         
-                        manager.badgeNumber -= 1
-                        UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+                        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: manager.QuestIdentifier)
+                        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: manager.QuestIdentifier)
                         
                         manager.scheduleNotificationQuestionnaire()
                         

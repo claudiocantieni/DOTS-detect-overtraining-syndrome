@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B0B18B52833DD65006D203A /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B0B18B42833DD65006D203A /* LineChartView */; };
 		6B0B18B72833DD7D006D203A /* GaugeProgressViewStyle in Frameworks */ = {isa = PBXBuildFile; productRef = 6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */; };
 		6B229843283ABAED00F59D20 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B229842283ABAED00F59D20 /* WelcomeView.swift */; };
 		6B240E8A282EE14C00393EBE /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B240E89282EE14C00393EBE /* AddView.swift */; };
@@ -25,6 +24,7 @@
 		6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */; };
 		6B83929F28437ED800826522 /* Loads+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83929D28437ED800826522 /* Loads+CoreDataProperties.swift */; };
 		6B8392A12843A88F00826522 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8392A02843A88F00826522 /* GaugeView.swift */; };
+		6B8392B9284B6E6700826522 /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B8392B8284B6E6700826522 /* LineChartView */; };
 		6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */; };
 		6B885291282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88528F282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift */; };
 		6B885292282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885290282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift */; };
@@ -76,7 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B0B18B72833DD7D006D203A /* GaugeProgressViewStyle in Frameworks */,
-				6B0B18B52833DD65006D203A /* LineChartView in Frameworks */,
+				6B8392B9284B6E6700826522 /* LineChartView in Frameworks */,
 				6B773B7A27FE0CF40016B16B /* FIT in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,8 +217,8 @@
 			name = DOTS;
 			packageProductDependencies = (
 				6B773B7927FE0CF40016B16B /* FIT */,
-				6B0B18B42833DD65006D203A /* LineChartView */,
 				6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */,
+				6B8392B8284B6E6700826522 /* LineChartView */,
 			);
 			productName = DOTS;
 			productReference = 6BFFFE3227FA06C80023A867 /* DOTS.app */;
@@ -249,7 +249,7 @@
 			);
 			mainGroup = 6BFFFE2927FA06C80023A867;
 			packageReferences = (
-				6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */,
+				6B8392B7284B6E6700826522 /* XCRemoteSwiftPackageReference "LineChartView" */,
 			);
 			productRefGroup = 6BFFFE3327FA06C80023A867 /* Products */;
 			projectDirPath = "";
@@ -513,22 +513,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */ = {
+		6B8392B7284B6E6700826522 /* XCRemoteSwiftPackageReference "LineChartView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Jonathan-Gander/LineChartView.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = revision;
+				revision = 33996afdc124fe41916cdc69fcbc85c16da0a45c;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6B0B18B42833DD65006D203A /* LineChartView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6B0B18B32833DBDA006D203A /* XCRemoteSwiftPackageReference "LineChartView" */;
-			productName = LineChartView;
-		};
 		6B0B18B62833DD7D006D203A /* GaugeProgressViewStyle */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GaugeProgressViewStyle;
@@ -536,6 +531,11 @@
 		6B773B7927FE0CF40016B16B /* FIT */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FIT;
+		};
+		6B8392B8284B6E6700826522 /* LineChartView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B8392B7284B6E6700826522 /* XCRemoteSwiftPackageReference "LineChartView" */;
+			productName = LineChartView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

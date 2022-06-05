@@ -25,6 +25,19 @@ struct InputHrvView: View {
     var SaveButton: some View {
         Button("Speichern") {
             
+            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
+            //let date = model.lastTimestampRhr()
+            var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            dateComponents.calendar = Calendar.current
+            dateComponents.hour = 7
+            dateComponents.minute = 0
+            
+
+            if dateComponents.date! < Date() {
+                manager.badgeNumber -= 1
+                UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+            }
+            
             addData()
             
             clear()
@@ -32,8 +45,8 @@ struct InputHrvView: View {
             model.fetchHearts()
             model.fetchHeartsFirst()
             
-            manager.badgeNumber -= 1
-            UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: manager.HrvIdentifier)
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: manager.HrvIdentifier)
             
             manager.scheduleNotificationHrv()
             
@@ -43,18 +56,12 @@ struct InputHrvView: View {
         .disabled(hrv.isEmpty)
     }
     var body: some View {
-        
-        
-            if model.lastTimestampHrv() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -2, to: NSDate() as Date)!) {
-                if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.lastTimestampHrv())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
-                    Text("Herzfrequenzvariabilität morgen eingeben")
-                }
-                else {
-                    Text("Herzfrequenzvariabilität in \(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.lastTimestampHrv())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up))) Tagen eingeben")
-                }
-                
-            }
-            else {
+        if model.lastTimestampHrv() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
+            
+                Text("Herzfrequenzvariabilität morgen eingeben")
+        }
+            
+        else {
                 VStack {
                     //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
                     HStack {
@@ -64,9 +71,9 @@ struct InputHrvView: View {
                             .minimumScaleFactor(0.5)
                             .padding()
                         
-                        TextField("xx.xx", text: $hrv)
+                        TextField("xxx", text: $hrv)
                             .keyboardType(.decimalPad)
-                            .frame(width: 70)
+                            .frame(width: 50)
                             .lineLimit(1)
                             .allowsTightening(true)
                             .minimumScaleFactor(0.5)

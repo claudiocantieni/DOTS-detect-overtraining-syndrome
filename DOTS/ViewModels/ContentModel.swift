@@ -10,7 +10,6 @@ import SwiftUI
 import CoreData
 class ContentModel: ObservableObject {
     
-    @Environment(\.managedObjectContext) private var viewContext
     
     let managedObjectContext = PersistenceController.shared.container.viewContext
     
@@ -33,7 +32,8 @@ class ContentModel: ObservableObject {
     
     var timer = Timer()
     init() {
-       
+        //createLoad()
+        
         fetchHeartsFirst()
         
         fetchHearts()
@@ -42,7 +42,7 @@ class ContentModel: ObservableObject {
         
         fetchLoads()
         
-        createLoad()
+        
         
     }
     func fetchHearts() {
@@ -578,13 +578,30 @@ class ContentModel: ObservableObject {
         return loadToday
     }
     
+    func calculateMeanLoad() -> Double {
+        var array:[Double] = []
+        for f in loads7 {
+            
+            array.append(f.load )
+            
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    
     func createArrayLoad(selectedTimeRange:Int) -> [Double]{
         var loadArray:[Double] = []
         
             if selectedTimeRange == 7 {
                 for f in loads7 {
                     
-                    loadArray.append(f.load)
+                    loadArray.append(f.load * 100)
                     
                     
                 }
@@ -592,17 +609,17 @@ class ContentModel: ObservableObject {
             else if selectedTimeRange == 28 {
                 for f in loads7 {
                     
-                    loadArray.append(f.load)
+                    loadArray.append(f.load * 100) 
                 }
             }
         else if selectedTimeRange == 365 {
             for f in loads7 {
                 
-                loadArray.append(f.load)
+                loadArray.append(f.load * 100)
             }
         }
         
-        return loadArray
+        return loadArray 
     }
     func createTimestampsLoad(selectedTimeRange: Int) -> [Date]{
         var timestamps:[Date] = []
@@ -615,14 +632,14 @@ class ContentModel: ObservableObject {
                 }
             }
             else if selectedTimeRange == 28 {
-                for f in hearts28 {
+                for f in loads28 {
                     
                         timestamps.append(f.timestamp)
                     
                 }
             }
             else if selectedTimeRange == 365 {
-                for f in hearts365 {
+                for f in loads365 {
                     
                         timestamps.append(f.timestamp)
                     
@@ -632,24 +649,27 @@ class ContentModel: ObservableObject {
         return timestamps
     }
     func createLoad() {
-        
-        let loads = Loads(context: viewContext)
+       
+        let loads = Loads(context: managedObjectContext)
         if loads0.isEmpty {
             loads.timestamp = Date()
             loads.load = calculateLoad()
         }
         else {
-            loads.load = calculateLoad()
+            for i in loadsToday {
+                i.load = calculateLoad()
+            }
+           
         }
         do {
-            try viewContext.save()
+            try managedObjectContext.save()
             
         }
         catch {
-            
+            print("Error")
         }
             
-        
+        fetchLoads()
         
         
     }

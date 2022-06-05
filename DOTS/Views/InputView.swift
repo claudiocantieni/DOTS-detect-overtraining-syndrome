@@ -27,6 +27,19 @@ struct InputView: View {
         
         Button("Speichern") {
             
+            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampRhr())!))
+            //let date = model.lastTimestampRhr()
+            var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            dateComponents.calendar = Calendar.current
+            dateComponents.hour = 7
+            dateComponents.minute = 0
+            
+
+            if dateComponents.date! < Date() {
+                manager.badgeNumber -= 1
+                UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
+            }
+            
             addData()
             
             clear()
@@ -35,9 +48,10 @@ struct InputView: View {
             
             model.fetchHeartsFirst()
             
-            manager.badgeNumber -= 1
-            UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
-            
+
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: manager.RhrIdentifier)
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: manager.RhrIdentifier)
+                
             manager.scheduleNotificationRhr()
             
             
@@ -51,6 +65,14 @@ struct InputView: View {
         if model.lastTimestampRhr() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
             
                 Text("Ruheherzfrequenz morgen eingeben")
+//            Button {
+//                //manager.scheduleNotificationRhr()
+//                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+//            } label: {
+//                Text("REmove")
+//            }
+
         }
             
         else {

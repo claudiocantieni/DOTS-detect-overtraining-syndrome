@@ -27,7 +27,7 @@ struct HRChartView: View {
         
         let chartParameters = LineChartParameters(data: data,
                                                   dataTimestamps: timestamps,
-                                                  dataLabels: timestamps.map({ $0.formatted(date: .numeric, time: .omitted) }),dataSuffix:dataSuffix,  indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor, dotsWidth: dotsWidth, hapticFeedback: true)
+                                                  dataLabels: timestamps.map({ $0.formatted(date: .numeric, time: .omitted) }),dataPrecisionLength: 0, dataSuffix:dataSuffix,  indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor, dotsWidth: dotsWidth, hapticFeedback: true)
         LineChartView(lineChartParameters: chartParameters)
             .frame(width: width, height: height)
         

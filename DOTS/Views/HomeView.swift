@@ -61,8 +61,10 @@ struct HomeView: View {
                     NavigationLink(
                         destination: {
                             // Ansicht wenn auf Feld getippt wird
-                            GaugeView(selectedTimeRange: $selectedTimeRangeHome)
-                                
+                            GaugeView(tabSelection: $tabSelection, selectedTimeRange: $selectedTimeRangeHome, chartColor: colorScheme == .dark ? Color.white : Color.black)
+                                .onDisappear{
+                                selectedTimeRangeHome = 7
+                                }
                                 
                                 
                             
@@ -71,7 +73,7 @@ struct HomeView: View {
                             // Ansicht auf HomeView
                             ZStack {
                                 Rectangle()
-                                    .colorInvert()
+                                    .foregroundColor(Color(UIColor.systemBackground))
                                     .cornerRadius(20)
                                     .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                                     .shadow(color: .gray, radius: 5)
@@ -81,6 +83,7 @@ struct HomeView: View {
                                     // Tachometer
                                     ProgressView(value: model.createTodayLoad()) {
                                         Text("Belastungszustand")
+                                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                             .font(.title3)
                                             .lineLimit(1)
                                             .allowsTightening(true)
@@ -95,6 +98,7 @@ struct HomeView: View {
                                 else {
                                     ProgressView(value: model.createTodayLoad()) {
                                         Text("Belastungszustand")
+                                            .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                             .font(.title3)
                                             .lineLimit(1)
                                             .allowsTightening(true)
@@ -133,11 +137,11 @@ struct HomeView: View {
                                         else {
                                             if model.createTodayLoad() >= 0.75 {
                                                 Text("erholt")
-                                                    .foregroundColor(Color.mint)
+                                                    .foregroundColor(Color.green)
                                             }
                                             else if model.createTodayLoad() >= 0.5 {
                                                 Text("ziemlich erholt")
-                                                    .foregroundColor(Color.green)
+                                                    .foregroundColor(Color.init(cgColor: .init(red: 0.8, green: 1, blue: 0, alpha: 1)))
                                             }
                                             else if model.createTodayLoad() >= 0.25 {
                                                 Text("etwas belastet")
@@ -167,7 +171,7 @@ struct HomeView: View {
                     NavigationLink(
                         destination: {
                             // Ansicht wenn auf Feld getippt wird
-                            HRView(title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: model.createTodayRhr(), av7days: model.calculateMeanRhr())
+                            HRView(tabSelection: $tabSelection, title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: Int(model.createTodayRhr().rounded()), av7days: model.calculateMeanRhr())
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
                                 }
@@ -210,7 +214,7 @@ struct HomeView: View {
                     
                     NavigationLink(
                         destination: {
-                            HRView(title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: model.createTodayHrv(), av7days: model.calculateMeanHrv())
+                            HRView(tabSelection: $tabSelection, title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: Int(model.createTodayHrv().rounded()), av7days: model.calculateMeanHrv())
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
                                 }
@@ -259,11 +263,13 @@ struct HomeView: View {
                 
             }
         }
-        .onAppear() { model.createLoad() }
+        .onAppear() { if  NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputRhr() as Date && NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputHrv() as Date { model.createLoad()} }
                     .onChange(of: scenePhase) { newPhase in
                         
                         if newPhase == .active {
-                            model.createLoad()
+                            if  NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputRhr() as Date && NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputHrv() as Date {
+                                model.createLoad()
+                            }
                         }
                         
                     }
