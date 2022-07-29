@@ -11,22 +11,22 @@ import LineChartView
 struct HRView: View {
     
     @Binding var tabSelection: Int
+    @Binding var selectedTimeRange: Int
     
     var title: String
-    
     var data: [Double]
     var dataSuffix: String
     var timestamps: [Date]
-    @Binding var selectedTimeRange: Int
     var indicatorPointColor: Color
     var lineColor: Color
     var lineSecondColor: Color
     var today: Int
     var av7days: Double
-//    var delta7days: String
     
     var body: some View {
+        
         VStack {
+            
             Text(title)
                 .font(.title)
                 .bold()
@@ -45,12 +45,8 @@ struct HRView: View {
             .padding(.horizontal, 40)
             .padding()
             
-            
             HRChartView(data: data, timestamps: timestamps, height: 250, width: 350, dotsWidth: 10, dataSuffix: dataSuffix, indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor)
                     
-
-                
-                
             HStack {
                 Text("Heute :")
                     .bold()
@@ -66,12 +62,6 @@ struct HRView: View {
                     .bold()
             }
             .padding()
-                
-                
-            
-            
-            
-            
             
             Button {
                 tabSelection = 2
@@ -86,16 +76,17 @@ struct HRView: View {
                             .allowsTightening(true)
                             .minimumScaleFactor(0.5)
                             .padding(.horizontal)
-                    
                 }
-                
             }
             .frame(alignment: .center)
             .padding()
             Spacer()
-
         }
-        
-        
     }
 }
+
+
+
+
+
+

@@ -16,6 +16,8 @@ struct GaugeView: View {
     
     @Binding var selectedTimeRange: Int
     
+    @State private var showingPopover = false
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     var chartColor: Color
@@ -23,15 +25,40 @@ struct GaugeView: View {
     
     var body: some View {
         VStack {
-            Text("Belastungszustand")
-                .font(.title)
-                .bold()
-                .lineLimit(1)
-                .allowsTightening(true)
-                .minimumScaleFactor(0.5)
-                .padding()
+            HStack{
+                Text("Belastungszustand")
+                    .font(.title)
+                    .bold()
+                    .lineLimit(1)
+                    .allowsTightening(true)
+                    .minimumScaleFactor(0.5)
+                    .padding()
+                Button {
+                    showingPopover = true
+                } label: {
+                    Image(systemName: "info.circle")
+                        
+                        
+                
+                }
+                .padding(.trailing, 40)
+                .popover(isPresented: $showingPopover) {
+                    Text("""
+                        Der Belastungszustand wird berechnet.
+                        sdfssdf
+                        sfdf
+                        sdaffsdfsdfasdfas
+                        sdfasdfsadfasdf
+                        fdsasdfasdfasdfasdf
+                        """)
+                        .multilineTextAlignment(.leading)
+                        .padding()
+                        .lineSpacing(5)
+                }
+            }
             
-            if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+            
+            if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! || model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                 
                 Button {
                     tabSelection = 2
@@ -61,16 +88,19 @@ struct GaugeView: View {
                 .padding(.horizontal, 40)
                 .padding()
                 
+                // xcode 14/swiftui 4/ios 16 new charts https://youtu.be/xS-fGYDD0qk
                 
                 let chartParameters = LineChartParameters(data: model.createArrayLoad(selectedTimeRange: selectedTimeRange) ,
                                                           dataTimestamps: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange),
-                                                          dataLabels: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange).map({ $0.formatted(date: .numeric, time: .omitted) }), dataPrecisionLength: 0, indicatorPointColor: chartColor, lineColor: chartColor , dotsWidth: 10, hapticFeedback: true)
+                                                          dataLabels: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange).map({ $0.formatted(date: .numeric, time: .omitted) }), dataPrecisionLength: 0, dataSuffix: " %", indicatorPointColor: chartColor, lineColor: chartColor , dotsWidth: 10, hapticFeedback: true)
                 LineChartView(lineChartParameters: chartParameters)
                     .frame(width: 350, height: 250)
+                
+                
                 Spacer()
                 
                     HStack {
-                        Text("Heute: ")
+                        Text("Heute : ")
                             .bold()
                         
                         if model.createTodayLoad() >= 0.75 {
@@ -80,7 +110,7 @@ struct GaugeView: View {
                         }
                         else if model.createTodayLoad() >= 0.5 {
                             Text("ziemlich erholt")
-                                .foregroundColor(Color.init(cgColor: .init(red: 0.8, green: 1, blue: 0, alpha: 1)))
+                                .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
                                 .bold()
                         }
                         else if model.createTodayLoad() >= 0.25 {
@@ -107,7 +137,7 @@ struct GaugeView: View {
                     }
                     else if model.calculateMeanLoad() >= 0.5 {
                         Text("ziemlich erholt")
-                            .foregroundColor(Color.init(cgColor: .init(red: 0.8, green: 1, blue: 0, alpha: 1)))
+                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
                             .bold()
                     }
                     else if model.calculateMeanLoad() >= 0.25 {
@@ -130,10 +160,10 @@ struct GaugeView: View {
                 
                 HStack {
                     VStack(alignment: .leading) {
-                        Text("0 - 24:")
-                        Text("25 - 49:")
-                        Text("50 - 74:")
-                        Text("75 - 100: ")
+                        Text("0 - 24 % :")
+                        Text("25 - 49 % :")
+                        Text("50 - 74 % :")
+                        Text("75 - 100 % : ")
                     }
                     
                     VStack(alignment: .leading) {
@@ -142,7 +172,7 @@ struct GaugeView: View {
                         Text("etwas belastet")
                             .foregroundColor(Color.orange)
                         Text("ziemlich erholt")
-                            .foregroundColor(Color.init(cgColor: .init(red: 0.8, green: 1, blue: 0, alpha: 1)))
+                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
                         Text("erholt")
                             .foregroundColor(Color.green)
                     }

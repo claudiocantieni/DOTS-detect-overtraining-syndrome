@@ -24,7 +24,7 @@ struct HRChartView: View {
     
     var body: some View {
         
-        
+        // xcode 14/swiftui 4/ios 16 new charts https://youtu.be/xS-fGYDD0qk
         let chartParameters = LineChartParameters(data: data,
                                                   dataTimestamps: timestamps,
                                                   dataLabels: timestamps.map({ $0.formatted(date: .numeric, time: .omitted) }),dataPrecisionLength: 0, dataSuffix:dataSuffix,  indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor, dotsWidth: dotsWidth, hapticFeedback: true)

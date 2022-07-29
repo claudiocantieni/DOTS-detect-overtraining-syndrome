@@ -79,6 +79,27 @@ struct SettingsView: View {
                         
                     }
                     .padding()
+//                    NavigationLink {
+//                       AnalyzeView()
+//                    } label: {
+//                            HStack(spacing: 20.0) {
+//                                Image(systemName: "folder")
+//
+//                                Text("Datenauswertung")
+//                                    .font(.title2)
+//                                    .foregroundColor(.accentColor)
+//                                    .lineLimit(1)
+//                                    .allowsTightening(true)
+//                                    .minimumScaleFactor(0.5)
+//                                    .multilineTextAlignment(.leading)
+//
+//                                Spacer()
+//                                Image(systemName: "chevron.right")
+//
+//                            }
+//
+//                    }
+//                    .padding()
                 }
                 
             }

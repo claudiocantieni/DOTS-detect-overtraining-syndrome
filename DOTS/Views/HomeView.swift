@@ -79,7 +79,7 @@ struct HomeView: View {
                                     .shadow(color: .gray, radius: 5)
                                     
                                 // Zeigt den Punkt im Tachometer erst an, wenn die App seit länger als eine Woche benutzt wurde
-                                if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                                if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! || model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                                     // Tachometer
                                     ProgressView(value: model.createTodayLoad()) {
                                         Text("Belastungszustand")
@@ -119,7 +119,7 @@ struct HomeView: View {
                                     Spacer()
                                     // Text unter Tachometer
                                     HStack {
-                                        if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! && model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
+                                        if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! || model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                                             Button {
                                                 tabSelection = 2
                                             } label: {
@@ -141,7 +141,7 @@ struct HomeView: View {
                                             }
                                             else if model.createTodayLoad() >= 0.5 {
                                                 Text("ziemlich erholt")
-                                                    .foregroundColor(Color.init(cgColor: .init(red: 0.8, green: 1, blue: 0, alpha: 1)))
+                                                    .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
                                             }
                                             else if model.createTodayLoad() >= 0.25 {
                                                 Text("etwas belastet")
@@ -171,7 +171,7 @@ struct HomeView: View {
                     NavigationLink(
                         destination: {
                             // Ansicht wenn auf Feld getippt wird
-                            HRView(tabSelection: $tabSelection, title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome, indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: Int(model.createTodayRhr().rounded()), av7days: model.calculateMeanRhr())
+                            HRView(tabSelection: $tabSelection, selectedTimeRange: $selectedTimeRangeHome, title: "Ruheherzfrequenz", data: model.createArrayRhr(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " bpm", timestamps: model.createTimestampsRhr(selectedTimeRange: selectedTimeRangeHome), indicatorPointColor: Color.red, lineColor: Color.orange, lineSecondColor: Color.red, today: Int(model.createTodayRhr().rounded()), av7days: model.calculateMeanRhr())
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
                                 }
@@ -214,7 +214,7 @@ struct HomeView: View {
                     
                     NavigationLink(
                         destination: {
-                            HRView(tabSelection: $tabSelection, title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRangeHome), selectedTimeRange: $selectedTimeRangeHome ,indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: Int(model.createTodayHrv().rounded()), av7days: model.calculateMeanHrv())
+                            HRView(tabSelection: $tabSelection, selectedTimeRange: $selectedTimeRangeHome , title: "Herzfrequenzvariabilität", data: model.createArrayHrv(selectedTimeRange: selectedTimeRangeHome), dataSuffix: " ms", timestamps: model.createTimestampsHrv(selectedTimeRange: selectedTimeRangeHome), indicatorPointColor: Color.blue, lineColor: Color.cyan, lineSecondColor: Color.blue, today: Int(model.createTodayHrv().rounded()), av7days: model.calculateMeanHrv())
                                 .onDisappear{
                                 selectedTimeRangeHome = 7
                                 }

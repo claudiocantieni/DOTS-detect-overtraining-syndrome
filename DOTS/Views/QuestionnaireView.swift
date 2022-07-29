@@ -21,6 +21,7 @@ struct QuestionnaireView: View {
     @State private var index = 1
     @State var answerRow:[Int] = []
     
+
     
     var body: some View {
         VStack {
@@ -104,17 +105,25 @@ struct QuestionnaireView: View {
                         value = 3
                     } label: {
                         ZStack {
-                            Rectangle()
-                                .foregroundColor(.accentColor)
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                            ButtonView(color: .accentColor)
                             Text("Weiter")
                                 .foregroundColor(.black)
                         }
                         
                     }
+                    Button {
+                        deleteAnswer()
+                        index -= 1
+                        value = 3
+                    } label: {
+                        ZStack {
+                            ButtonView(color: .white)
+                            Text("Zurück")
+                                .foregroundColor(.black)
+                        }
+                        
+                    }
+                    
                 }
                 else if index != 7 && index != 6 && index != 5 {
                     Button {
@@ -123,16 +132,26 @@ struct QuestionnaireView: View {
                         value = 3
                     } label: {
                         ZStack {
-                            Rectangle()
-                                .foregroundColor(.accentColor)
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                            ButtonView(color: .accentColor)
                             Text("Weiter")
                                 .foregroundColor(.black)
                         }
                         
+                    }
+                    if index != 1 {
+                        Button {
+                            deleteAnswer()
+                            index -= 1
+                            value = 3
+                        } label: {
+                            ZStack {
+                                ButtonView(color: .gray)
+                                Text("Zurück")
+                                    .foregroundColor(.black)
+                            }
+                            
+                        }
+
                     }
                 }
                 else if index == 6 {
@@ -142,17 +161,25 @@ struct QuestionnaireView: View {
                         value  = 0
                     } label: {
                         ZStack {
-                            Rectangle()
-                                .foregroundColor(.accentColor)
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                            ButtonView(color: .accentColor)
                             Text("Beenden")
                                 .foregroundColor(.black)
                         }
                         
                     }
+                    Button {
+                        deleteAnswer()
+                        index -= 1
+                        value = 3
+                    } label: {
+                        ZStack {
+                            ButtonView(color: .gray)
+                            Text("Zurück")
+                                .foregroundColor(.black)
+                        }
+                        
+                    }
+
                 }
                 else if index == 7 {
                     Button {
@@ -182,12 +209,7 @@ struct QuestionnaireView: View {
 
                     } label: {
                         ZStack {
-                            Rectangle()
-                                .foregroundColor(.accentColor)
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                            ButtonView(color: .gray)
                             Text("Fertig")
                                 .foregroundColor(.black)
                         }
@@ -205,6 +227,11 @@ struct QuestionnaireView: View {
     }
     func addToAnswers() {
         answerRow.append(Int(value))
+    }
+    
+    func deleteAnswer() {
+        answerRow.removeLast()
+        
     }
     func addToAnswersReversed() {
         var valueReversed = 0

@@ -15,6 +15,7 @@ class ContentModel: ObservableObject {
     
     @Published var hearts7: [Hearts] = []
     @Published var hearts0: [Hearts] = []
+    @Published var hearts14: [Hearts] = []
     @Published var hearts28: [Hearts] = []
     @Published var hearts365: [Hearts] = []
     @Published var heartsfirstrhr: [Hearts] = []
@@ -23,6 +24,7 @@ class ContentModel: ObservableObject {
     @Published var heartshrvbase: [Hearts] = []
     
     @Published var questions: [Questionnaire] = []
+    @Published var questionsdata: [Questionnaire] = []
     
     @Published var loads7: [Loads] = []
     @Published var loads28: [Loads] = []
@@ -50,6 +52,7 @@ class ContentModel: ObservableObject {
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
         
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate14 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate0 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())
@@ -67,6 +70,14 @@ class ContentModel: ObservableObject {
         request.predicate = predicate0
         do {
             hearts0 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicate14
+        do {
+            hearts14 = try managedObjectContext.fetch(request)
         }
         catch {
             
@@ -133,11 +144,13 @@ class ContentModel: ObservableObject {
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
         let sort = NSSortDescriptor(key: "timestamp", ascending: false)
+        let sortdata = NSSortDescriptor(key: "timestamp", ascending: true)
         // control in 2 days
-        let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
+        // let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -14, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
         
         request.sortDescriptors = [sort]
-        request.predicate = predicate
+        // request.predicate = predicate
         request.fetchLimit = 1
         do {
              questions = try managedObjectContext.fetch(request)
@@ -145,6 +158,16 @@ class ContentModel: ObservableObject {
         catch {
             
         }
+        request.sortDescriptors = [sortdata]
+        request.predicate = predicate365
+        request.fetchLimit = 100
+        do {
+             questionsdata = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        
     }
     
     func fetchLoads() {
@@ -392,6 +415,39 @@ class ContentModel: ObservableObject {
         return Double(meanRound)
     }
     
+    func calculateMeanRhr14() -> Double {
+        var array:[Double] = []
+        for f in hearts14 {
+            if f.rhr != nil {
+                array.append(f.rhr as! Double)
+            }
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    func calculateMeanHrv14() -> Double {
+        var array:[Double] = []
+        for f in hearts14 {
+            if f.hrv != nil {
+                array.append(f.hrv as! Double)
+            }
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    
     func calculateRhrFirstBase() -> Double {
         var array:[Double] = []
         for f in heartsrhrbase {
@@ -431,8 +487,8 @@ class ContentModel: ObservableObject {
             return calculateRhrFirstBase()
         }
         else {
-            if calculateMeanRhr28() < calculateRhrFirstBase() {
-                return calculateMeanRhr28()
+            if calculateMeanRhr14() < calculateRhrFirstBase() {
+                return calculateMeanRhr14()
             }
             else {
                 return calculateRhrFirstBase()
@@ -444,8 +500,8 @@ class ContentModel: ObservableObject {
             return calculateHrvFirstBase()
         }
         else {
-            if calculateMeanHrv28() > calculateHrvFirstBase() {
-                return calculateMeanHrv28()
+            if calculateMeanHrv14() > calculateHrvFirstBase() {
+                return calculateMeanHrv14()
             }
             else {
                 return calculateHrvFirstBase()
@@ -471,37 +527,101 @@ class ContentModel: ObservableObject {
         if calculateTotalQuestionnaire() >= 25 {
             loadSum += 1
         }
-        else if calculateTotalQuestionnaire() >= 20 {
-            loadSum += 0.6666667
+        else if calculateTotalQuestionnaire() == 24 {
+            loadSum += 0.9
         }
-        else if calculateTotalQuestionnaire() >= 15 {
-            loadSum += 0.3333333
+        else if calculateTotalQuestionnaire() == 23 {
+            loadSum += 0.8
         }
-        else if calculateTotalQuestionnaire() < 15 {
+        else if calculateTotalQuestionnaire() == 22 {
+            loadSum += 0.7
+        }
+        else if calculateTotalQuestionnaire() == 21 {
+            loadSum += 0.6
+        }
+        else if calculateTotalQuestionnaire() == 20 {
+            loadSum += 0.5
+        }
+        else if calculateTotalQuestionnaire() == 19 {
+            loadSum += 0.4
+        }
+        else if calculateTotalQuestionnaire() == 18 {
+            loadSum += 0.3
+        }
+        else if calculateTotalQuestionnaire() == 17 {
+            loadSum += 0.2
+        }
+        else if calculateTotalQuestionnaire() == 16 {
+            loadSum += 0.1
+        }
+        else if calculateTotalQuestionnaire() <= 15 {
             loadSum += 0
         }
         if calculateMeanRhr() <= calculateRhrBase() {
             loadSum += 1
         }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.01 {
+            loadSum += 0.9
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.02 {
+            loadSum += 0.8
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.03 {
+            loadSum += 0.7
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.04 {
+            loadSum += 0.6
+        }
         else if calculateMeanRhr() <= calculateRhrBase() * 1.05 {
-            loadSum += 0.6666667
+            loadSum += 0.5
         }
-        else if calculateMeanRhr() <= calculateRhrBase() * 1.1 {
-            loadSum += 0.3333333
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.06 {
+            loadSum += 0.4
         }
-        else if calculateMeanRhr() > calculateRhrBase() * 1.1 {
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.07 {
+            loadSum += 0.3
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.08 {
+            loadSum += 0.2
+        }
+        else if calculateMeanRhr() <= calculateRhrBase() * 1.09 {
+            loadSum += 0.1
+        }
+        else if calculateMeanRhr() >= calculateRhrBase() * 1.1 {
             loadSum += 0
         }
         if calculateMeanHrv() >= calculateHrvBase() {
             loadSum += 1
         }
+        // TODO: Change to bigger percentage 1.1 & 1.2 Gioni
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.01 {
+            loadSum += 0.9
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.02 {
+            loadSum += 0.8
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.03 {
+            loadSum += 0.7
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.04 {
+            loadSum += 0.6
+        }
         else if calculateMeanHrv() >= calculateHrvBase() / 1.05 {
-            loadSum += 0.6666667
+            loadSum += 0.5
         }
-        else if calculateMeanHrv() >= calculateHrvBase() / 1.1 {
-            loadSum += 0.3333333
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.06 {
+            loadSum += 0.4
         }
-        else if calculateMeanHrv() < calculateHrvBase() / 1.1 {
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.07 {
+            loadSum += 0.3
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.08 {
+            loadSum += 0.2
+        }
+        else if calculateMeanHrv() >= calculateHrvBase() / 1.09 {
+            loadSum += 0.1
+        }
+        else if calculateMeanHrv() <= calculateHrvBase() / 1.1 {
             loadSum += 0
         }
         let load = loadSum / 3
@@ -607,13 +727,13 @@ class ContentModel: ObservableObject {
                 }
             }
             else if selectedTimeRange == 28 {
-                for f in loads7 {
+                for f in loads28 {
                     
                     loadArray.append(f.load * 100) 
                 }
             }
         else if selectedTimeRange == 365 {
-            for f in loads7 {
+            for f in loads365 {
                 
                 loadArray.append(f.load * 100)
             }
