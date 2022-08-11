@@ -16,6 +16,7 @@ struct TabsView: View {
     
     var body: some View {
         
+        
         if welcomeViewShown {
             TabView(selection: $tabSelection) {
                 
@@ -25,11 +26,11 @@ struct TabsView: View {
                     }
                     .tag(1)
                     
-               AddView()
-                    .tabItem {
-                        Image(systemName: "plus.circle")
-                    }
-                    .tag(2)
+//               AddView()
+//                    .tabItem {
+//                        Image(systemName: "plus.circle")
+//                    }
+//                    .tag(2)
 
                 
                 

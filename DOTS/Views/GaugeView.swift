@@ -27,8 +27,7 @@ struct GaugeView: View {
         VStack {
             HStack{
                 Text("Belastungszustand")
-                    .font(.title)
-                    .bold()
+                    .font(.custom("Ubuntu-Medium", size: 24))
                     .lineLimit(1)
                     .allowsTightening(true)
                     .minimumScaleFactor(0.5)
@@ -37,23 +36,49 @@ struct GaugeView: View {
                     showingPopover = true
                 } label: {
                     Image(systemName: "info.circle")
-                        
+                        .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
+                        .font(.system(size: 20))
                         
                 
                 }
                 .padding(.trailing, 40)
                 .popover(isPresented: $showingPopover) {
                     Text("""
-                        Der Belastungszustand wird berechnet.
-                        sdfssdf
-                        sfdf
-                        sdaffsdfsdfasdfas
-                        sdfasdfsadfasdf
-                        fdsasdfasdfasdfasdf
+                        Der Belastungszustand wird
+                        wie folgt berechnet...
+                        Erklärung folgt
                         """)
                         .multilineTextAlignment(.leading)
+                        .font(.custom("Ubuntu-Regular", size: 16))
                         .padding()
                         .lineSpacing(5)
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("0 - 24 % :")
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("25 - 49 % :")
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("50 - 74 % :")
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("75 - 100 % : ")
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("belastet")
+                                    .foregroundColor(Color.red)
+                                    .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("etwas belastet")
+                                .foregroundColor(Color.orange)
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("ziemlich erholt")
+                                .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                            Text("erholt")
+                                .foregroundColor(Color.green)
+                                .font(.custom("Ubuntu-Regular", size: 16))
+                        }
+                    }
                 }
             }
             
@@ -67,8 +92,8 @@ struct GaugeView: View {
                     
                 } label: {
                     Text("Nicht genügend Referenzdaten")
-                        .foregroundColor(Color.blue)
-                        .font(.title3)
+                        .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
+                        .font(.custom("Ubuntu-Regular", size: 18))
                         .lineLimit(1)
                         .allowsTightening(true)
                         .minimumScaleFactor(0.5)
@@ -101,54 +126,54 @@ struct GaugeView: View {
                 
                     HStack {
                         Text("Heute : ")
-                            .bold()
+                            .font(.custom("Ubuntu-Regular", size: 18))
                         
                         if model.createTodayLoad() >= 0.75 {
                             Text("erholt")
                                 .foregroundColor(Color.green)
-                                .bold()
+                                .font(.custom("Ubuntu-Regular", size: 18))
                         }
                         else if model.createTodayLoad() >= 0.5 {
                             Text("ziemlich erholt")
                                 .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                                .bold()
+                                .font(.custom("Ubuntu-Regular", size: 18))
                         }
                         else if model.createTodayLoad() >= 0.25 {
                             Text("etwas belastet")
                                 .foregroundColor(Color.orange)
-                                .bold()
+                                .font(.custom("Ubuntu-Regular", size: 18))
                         }
                             else if model.createTodayLoad() < 0.25 {
                             Text("belastet")
                                     .foregroundColor(Color.red)
-                                    .bold()
+                                    .font(.custom("Ubuntu-Regular", size: 18))
                         }
                         
                     }
                     .padding()
                 HStack {
                     Text("Ø 7 Tage : ")
-                        .bold()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     
                     if model.calculateMeanLoad() >= 0.75 {
                         Text("erholt")
                             .foregroundColor(Color.green)
-                            .bold()
+                            .font(.custom("Ubuntu-Regular", size: 18))
                     }
                     else if model.calculateMeanLoad() >= 0.5 {
                         Text("ziemlich erholt")
                             .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                            .bold()
+                            .font(.custom("Ubuntu-Regular", size: 18))
                     }
                     else if model.calculateMeanLoad() >= 0.25 {
                         Text("etwas belastet")
                             .foregroundColor(Color.orange)
-                            .bold()
+                            .font(.custom("Ubuntu-Regular", size: 18))
                     }
                         else if model.calculateMeanLoad() < 0.25 {
                         Text("belastet")
                                 .foregroundColor(Color.red)
-                                .bold()
+                                .font(.custom("Ubuntu-Regular", size: 18))
                     }
                     
                 }
@@ -158,25 +183,7 @@ struct GaugeView: View {
                 
                 Spacer()
                 
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("0 - 24 % :")
-                        Text("25 - 49 % :")
-                        Text("50 - 74 % :")
-                        Text("75 - 100 % : ")
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("belastet")
-                                .foregroundColor(Color.red)
-                        Text("etwas belastet")
-                            .foregroundColor(Color.orange)
-                        Text("ziemlich erholt")
-                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                        Text("erholt")
-                            .foregroundColor(Color.green)
-                    }
-                }
+                
 
                 Spacer()
             }

@@ -53,36 +53,44 @@ struct InputHrvView: View {
             self.presentationMode.wrappedValue.dismiss()
             
         }
+        .font(.custom("Ubuntu-Medium", size: 18))
         .disabled(hrv.isEmpty)
     }
     var body: some View {
         if model.lastTimestampHrv() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
             
                 Text("Herzfrequenzvariabilität morgen eingeben")
+                .font(.custom("Ubuntu-Medium", size: 22))
+                
         }
             
         else {
                 VStack {
+                    Text("Herzfrequenzvariabilität (RMSSD):")
+                        .font(.custom("Ubuntu-Medium", size: 24))
+                        .lineLimit(2)
+                        .allowsTightening(true)
+                        .minimumScaleFactor(0.5)
+                        .padding()
                     //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
                     HStack {
-                        Text("Herzfrequenzvariabilität (RMSSD):")
-                            .lineLimit(2)
-                            .allowsTightening(true)
-                            .minimumScaleFactor(0.5)
-                            .padding()
                         
-                        TextField("xxx", text: $hrv)
+                        
+                        TextField("", text: $hrv)
                             .keyboardType(.decimalPad)
-                            .frame(width: 50)
+                            .frame(width: 60)
+                            .font(.custom("Ubuntu-Regular", size: 22))
                             .lineLimit(1)
                             .allowsTightening(true)
                             .minimumScaleFactor(0.5)
                             .focused($focusedField, equals: .field)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                                                     
                             
                         
                         Text("ms")
                             .padding([.top, .trailing, .bottom])
+                            .font(.custom("Ubuntu-Regular", size: 22))
                     }
 
                 Spacer()
@@ -92,12 +100,11 @@ struct InputHrvView: View {
                             focusedField = .field
                         }
                     }
+                    
+                    .navigationBarItems(trailing:SaveButton)
                     .padding()
-                    .navigationBarItems(trailing: SaveButton)
-                
+                }
             }
-            
-    }
     
     func clear() {
         hrv = ""

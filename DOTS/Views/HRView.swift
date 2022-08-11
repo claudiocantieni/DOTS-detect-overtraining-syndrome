@@ -28,8 +28,7 @@ struct HRView: View {
         VStack {
             
             Text(title)
-                .font(.title)
-                .bold()
+                .font(.custom("Ubuntu-Medium", size: 24))
                 .lineLimit(1)
                 .allowsTightening(true)
                 .minimumScaleFactor(0.5)
@@ -49,35 +48,35 @@ struct HRView: View {
                     
             HStack {
                 Text("Heute :")
-                    .bold()
+                    .font(.custom("Ubuntu-Regular", size: 18))
                 Text(today>0 ? String(today)+String(dataSuffix): "-")
-                    .bold()
+                    .font(.custom("Ubuntu-Regular", size: 18))
             }
             .padding()
 
             HStack {
                 Text("Ø 7 Tage :")
-                    .bold()
+                    .font(.custom("Ubuntu-Regular", size: 18))
                 Text(String(av7days)+String(dataSuffix))
-                    .bold()
+                    .font(.custom("Ubuntu-Regular", size: 18))
             }
             .padding()
             
-            Button {
-                tabSelection = 2
-            } label: {
-                
-                    HStack {
-                        Image(systemName: "plus")
-                        Text("\(title) eingeben")
-                            .foregroundColor(Color.blue)
-                            .font(.title3)
-                            .lineLimit(1)
-                            .allowsTightening(true)
-                            .minimumScaleFactor(0.5)
-                            .padding(.horizontal)
-                }
-            }
+//            Button {
+//                tabSelection = 2
+//            } label: {
+//
+//                    HStack {
+//                        Image(systemName: "plus")
+//                        Text("\(title) eingeben")
+//                            .foregroundColor(Color.blue)
+//                            .font(.title3)
+//                            .lineLimit(1)
+//                            .allowsTightening(true)
+//                            .minimumScaleFactor(0.5)
+//                            .padding(.horizontal)
+//                }
+//            }
             .frame(alignment: .center)
             .padding()
             Spacer()

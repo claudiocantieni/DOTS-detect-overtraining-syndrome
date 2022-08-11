@@ -20,7 +20,7 @@ struct QuestionnaireView: View {
     @State private var isEditing = false
     @State private var index = 1
     @State var answerRow:[Int] = []
-    
+    var colorScheme: Color
 
     
     var body: some View {
@@ -28,9 +28,11 @@ struct QuestionnaireView: View {
             if model.timestampQuestionnaire() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) {
                 if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
                     Text("Fragebogen morgen ausfüllen")
+                        .font(.custom("Ubuntu-Medium", size: 22))
                 }
                 else {
                     Text("Fragebogen in \(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up))) Tagen ausfüllen")
+                        .font(.custom("Ubuntu-Medium", size: 22))
                 }
                 
             }
@@ -38,6 +40,7 @@ struct QuestionnaireView: View {
                 if index == 1{
                     Text("In der letzten Woche habe ich mich entspannt gefühlt")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
@@ -48,52 +51,63 @@ struct QuestionnaireView: View {
                 else if index == 2 {
                     Text("In der letzten Woche konnte ich mich gut konzentrieren")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
                 else if index == 3 {
                     Text("In der letzten Woche hatte ich genügend Schlaf")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
                 else if index == 4 {
                     Text("In der letzten Woche war ich guter Laune")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
                 else if index == 5 {
                     Text("In der letzten Woche fühlte ich mich unter Druck gesetzt")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
                 else if index == 6 {
                     Text("In der letzten Woche fühlte ich mich leistungsfähig")
                         .padding()
+                        .font(.custom("Ubuntu-Regular", size: 18))
                     Slider(value: $value, in: 1...5, step: 1)
                         .padding()
                 }
                 else if index == 7 {
                     
                     Text("Fragebogen ist ausgefüllt")
+                        .font(.custom("Ubuntu-Medium", size: 22))
                 }
                 
                     if value == 1 {
                         Text("nie")
+                            .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 2 {
                         Text("selten")
+                            .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 3 {
                         Text("manchmal")
+                            .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 4 {
                         Text("oft")
+                            .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 5 {
                         Text("immer")
+                            .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else {
                     
@@ -107,7 +121,8 @@ struct QuestionnaireView: View {
                         ZStack {
                             ButtonView(color: .accentColor)
                             Text("Weiter")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -117,9 +132,10 @@ struct QuestionnaireView: View {
                         value = 3
                     } label: {
                         ZStack {
-                            ButtonView(color: .white)
+                            ButtonView(color: .gray)
                             Text("Zurück")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -134,7 +150,8 @@ struct QuestionnaireView: View {
                         ZStack {
                             ButtonView(color: .accentColor)
                             Text("Weiter")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -147,7 +164,8 @@ struct QuestionnaireView: View {
                             ZStack {
                                 ButtonView(color: .gray)
                                 Text("Zurück")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(colorScheme)
+                                    .font(.custom("Ubuntu-Medium", size: 18))
                             }
                             
                         }
@@ -163,7 +181,8 @@ struct QuestionnaireView: View {
                         ZStack {
                             ButtonView(color: .accentColor)
                             Text("Beenden")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -175,7 +194,8 @@ struct QuestionnaireView: View {
                         ZStack {
                             ButtonView(color: .gray)
                             Text("Zurück")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -211,7 +231,8 @@ struct QuestionnaireView: View {
                         ZStack {
                             ButtonView(color: .gray)
                             Text("Fertig")
-                                .foregroundColor(.black)
+                                .foregroundColor(colorScheme)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                         
                     }
@@ -219,6 +240,7 @@ struct QuestionnaireView: View {
             }
 
         }
+        
 //        ForEach(model.models, id: \.id) { i in
 //                QuestionView(questions:i)
 //            }

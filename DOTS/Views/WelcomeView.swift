@@ -18,9 +18,9 @@ struct WelcomeView: View {
             VStack {
                 HStack {
                     Text("Benutzungsanleitung")
-                        .bold()
+                        
                         .padding()
-                        .font(.title)
+                        .font(.custom("Ubuntu-Medium", size: 24))
                         .multilineTextAlignment(.leading)
                     Spacer()
                 }
@@ -39,6 +39,7 @@ struct WelcomeView: View {
                     .multilineTextAlignment(.leading)
                     .padding()
                     .lineSpacing(5)
+                    .font(.custom("Ubuntu-Regular", size: 16))
                     
                 
                 Spacer()
@@ -47,13 +48,10 @@ struct WelcomeView: View {
                         welcomeViewShown = true
                     } label: {
                         ZStack {
-                            Rectangle()
-                                .foregroundColor(Color(UIColor.systemBackground))
-                                .cornerRadius(10)
-                                .shadow(color: .gray, radius:5)
-                                .frame(height: 48)
-                                .padding()
+                            ButtonView(color: .accentColor)
                             Text("Weiter")
+                                .foregroundColor(.black)
+                                .font(.custom("Ubuntu-Medium", size: 18))
                         }
                     }
                     .frame(alignment: .center)

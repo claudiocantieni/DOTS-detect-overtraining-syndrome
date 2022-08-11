@@ -43,7 +43,7 @@ struct SettingsView: View {
                                 Image(systemName: "bell")
 
                                 Text("Mitteilungen anpassen")
-                                    .font(.title2)
+                                    .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
                                     .lineLimit(1)
                                     .allowsTightening(true)
@@ -65,7 +65,7 @@ struct SettingsView: View {
                                 Image(systemName: "book.closed")
                                     
                                 Text("Benutzungsanleitung")
-                                    .font(.title2)
+                                    .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
                                     .lineLimit(1)
                                     .allowsTightening(true)

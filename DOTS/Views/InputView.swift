@@ -59,13 +59,15 @@ struct InputView: View {
             
             
         }
+        .font(.custom("Ubuntu-Medium", size: 18))
         .disabled(rhr.isEmpty)
     }
     var body: some View {
         if model.lastTimestampRhr() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
             
                 Text("Ruheherzfrequenz morgen eingeben")
-//            Button {
+                .font(.custom("Ubuntu-Medium", size: 22))
+                //            Button {
 //                //manager.scheduleNotificationRhr()
 //                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
 //                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
@@ -74,29 +76,34 @@ struct InputView: View {
 //            }
 
         }
+        
             
         else {
             VStack {
-                
+                Text("Ruheherzfrequenz")
+                    .font(.custom("Ubuntu-Medium", size: 24))
+                    .lineLimit(2)
+                    .allowsTightening(true)
+                    .minimumScaleFactor(0.5)
+                    .padding()
                 //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
                 HStack {
-                    Text("Ruheherzfrequenz:")
-                        .lineLimit(2)
-                        .allowsTightening(true)
-                        .minimumScaleFactor(0.5)
-                        .padding()
+                    
                     // TODO: textxfield appear automatically
-                    TextField("xx", text: $rhr)
+                    TextField("", text: $rhr)
                         .keyboardType(.decimalPad)
                         .frame(width: 50)
+                        .font(.custom("Ubuntu-Regular", size: 22))
                         .lineLimit(1)
                         .allowsTightening(true)
                         .minimumScaleFactor(0.5)
                         .focused($focusedField, equals: .field)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                         
                     Text("bpm")
                         .padding([.top, .trailing, .bottom])
+                        .font(.custom("Ubuntu-Regular", size: 22))
                 }
 
             Spacer()
@@ -106,9 +113,12 @@ struct InputView: View {
                     focusedField = .field
                 }
             }
-            .navigationBarItems(trailing:SaveButton)
             .padding()
+            .navigationBarItems(trailing:SaveButton)
+            
+            
         }
+        
     }
     
     func clear() {
