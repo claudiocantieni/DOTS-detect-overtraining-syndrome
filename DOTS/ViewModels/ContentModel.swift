@@ -18,10 +18,13 @@ class ContentModel: ObservableObject {
     @Published var hearts14: [Hearts] = []
     @Published var hearts28: [Hearts] = []
     @Published var hearts365: [Hearts] = []
+    @Published var heartsAll: [Hearts] = []
     @Published var heartsfirstrhr: [Hearts] = []
     @Published var heartsfirsthrv: [Hearts] = []
     @Published var heartsrhrbase: [Hearts] = []
     @Published var heartshrvbase: [Hearts] = []
+    @Published var heartsrhrbasecalc: [Hearts] = []
+    @Published var heartshrvbasecalc: [Hearts] = []
     
     @Published var questions: [Questionnaire] = []
     @Published var questionsdata: [Questionnaire] = []
@@ -43,6 +46,7 @@ class ContentModel: ObservableObject {
         fetchQuestionnaire()
         
         fetchLoads()
+        
         
         
         
@@ -94,6 +98,14 @@ class ContentModel: ObservableObject {
         request.predicate = predicate365
         do {
             hearts365 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        
+        do {
+            heartsAll = try managedObjectContext.fetch(request)
         }
         catch {
             
@@ -415,99 +427,102 @@ class ContentModel: ObservableObject {
         return Double(meanRound)
     }
     
-    func calculateMeanRhr14() -> Double {
-        var array:[Double] = []
-        for f in hearts14 {
-            if f.rhr != nil {
-                array.append(f.rhr as! Double)
-            }
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        let meanRound = Double(round(100 * mean) / 100)
-        return Double(meanRound)
-    }
-    func calculateMeanHrv14() -> Double {
-        var array:[Double] = []
-        for f in hearts14 {
-            if f.hrv != nil {
-                array.append(f.hrv as! Double)
-            }
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        let meanRound = Double(round(100 * mean) / 100)
-        return Double(meanRound)
-    }
-    
-    func calculateRhrFirstBase() -> Double {
-        var array:[Double] = []
-        for f in heartsrhrbase {
-            if f.rhr != nil {
-                array.append(f.rhr as! Double)
-            }
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        let meanRound = Double(round(100 * mean) / 100)
-        return Double(meanRound)
-    }
-    func calculateHrvFirstBase() -> Double{
-        var array:[Double] = []
-        for f in heartshrvbase {
-            if f.hrv != nil {
-                array.append(f.hrv as! Double)
-            }
-                
-        }
-        // Calculate sum ot items with reduce function
-        let sum = array.reduce(0, { a, b in
-            return a + b
-        })
-        
-        let mean = Double(sum) / Double(array.count)
-        let meanRound = Double(round(100 * mean) / 100)
-        return Double(meanRound)
-    }
-    
-    func calculateRhrBase() -> Double {
-        if firstInputRhr() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
-            return calculateRhrFirstBase()
-        }
-        else {
-            if calculateMeanRhr14() < calculateRhrFirstBase() {
-                return calculateMeanRhr14()
-            }
-            else {
-                return calculateRhrFirstBase()
-            }
-        }
-    }
-    func calculateHrvBase() -> Double {
-        if firstInputHrv() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
-            return calculateHrvFirstBase()
-        }
-        else {
-            if calculateMeanHrv14() > calculateHrvFirstBase() {
-                return calculateMeanHrv14()
-            }
-            else {
-                return calculateHrvFirstBase()
-            }
-        }
-    }
+//    func calculateMeanRhr14() -> Double {
+//        var array:[Double] = []
+//        for f in hearts14 {
+//            if f.rhr != nil {
+//                array.append(f.rhr as! Double)
+//            }
+//        }
+//        // Calculate sum ot items with reduce function
+//        let sum = array.reduce(0, { a, b in
+//            return a + b
+//        })
+//
+//        let mean = Double(sum) / Double(array.count)
+//        let meanRound = Double(round(100 * mean) / 100)
+//        return Double(meanRound)
+//    }
+//    func calculateMeanHrv14() -> Double {
+//        var array:[Double] = []
+//        for f in hearts14 {
+//            if f.hrv != nil {
+//                array.append(f.hrv as! Double)
+//            }
+//        }
+//        // Calculate sum ot items with reduce function
+//        let sum = array.reduce(0, { a, b in
+//            return a + b
+//        })
+//
+//        let mean = Double(sum) / Double(array.count)
+//        let meanRound = Double(round(100 * mean) / 100)
+//        return Double(meanRound)
+//    }
+//
+//    func calculateRhrFirstBase() -> Double {
+//        var array:[Double] = []
+//        for f in heartsrhrbase {
+//            if f.rhr != nil {
+//                array.append(f.rhr as! Double)
+//            }
+//        }
+//        // Calculate sum ot items with reduce function
+//        let sum = array.reduce(0, { a, b in
+//            return a + b
+//        })
+//
+//        let mean = Double(sum) / Double(array.count)
+//        let meanRound = Double(round(100 * mean) / 100)
+//        return Double(meanRound)
+//    }
+//    func calculateHrvFirstBase() -> Double{
+//        var array:[Double] = []
+//        for f in heartshrvbase {
+//            if f.hrv != nil {
+//                array.append(f.hrv as! Double)
+//            }
+//
+//        }
+//        // Calculate sum ot items with reduce function
+//        let sum = array.reduce(0, { a, b in
+//            return a + b
+//        })
+//
+//        let mean = Double(sum) / Double(array.count)
+//        let meanRound = Double(round(100 * mean) / 100)
+//        return Double(meanRound)
+//    }
+//
+//    func calculateRhrBase() -> Double {
+//        if firstInputRhr() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
+//            return calculateRhrFirstBase()
+//        }
+//        else {
+//            if calculateMeanRhr14() < calculateRhrFirstBase() {
+//                calculateRhrFirstBase() == calculateMeanRhr14()
+//                return calculateMeanRhr14()
+//
+//            }
+//            else {
+//                return calculateRhrFirstBase()
+//            }
+//        }
+//    }
+//    func calculateHrvBase() -> Double {
+//        if firstInputHrv() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
+//            return calculateHrvFirstBase()
+//        }
+//        else {
+//            if calculateMeanHrv14() > calculateHrvFirstBase() {
+//                calculateHrvFirstBase() == calculateMeanHrv14()
+//                return calculateMeanHrv14()
+//            }
+//            else {
+//                return calculateHrvFirstBase()
+//            }
+//        }
+//    }
     func calculateTotalQuestionnaire() -> Int {
         var sum:Int = 0
         for i in questions {
@@ -793,6 +808,125 @@ class ContentModel: ObservableObject {
         
         
     }
+    func calculateRhrBase() -> Double {
+        
+        var array:[Double] = []
+        var date = firstInputRhr() as Date
+        let calendar = Calendar.current
+
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDay(for: date as Date)
+        let date2 = calendar.startOfDay(for: Date())
+
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        let range = 1...components.day! - 14
+        
+        for _ in range {
+            
+            let request = NSFetchRequest<Hearts>(entityName: "Hearts")
+            let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+           
+           
+            let predicatebaserhr = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", date as CVarArg, NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: date as Date)!) as CVarArg)
+           
+            request.sortDescriptors = [sort]
+            request.predicate = predicatebaserhr
+            do {
+                heartsrhrbasecalc = try managedObjectContext.fetch(request)
+            }
+            catch {
+                
+            }
+            
+            var arrayrhr:[Double] = []
+            for f in heartsrhrbasecalc {
+                if f.rhr != nil {
+                    arrayrhr.append(f.rhr as! Double)
+                }
+            }
+            // Calculate sum ot items with reduce function
+            let sum = arrayrhr.reduce(0, { a, b in
+                return a + b
+            })
+            
+            let mean = Double(sum) / Double(arrayrhr.count)
+            
+            if arrayrhr.count >= 5 {
+                array.append(Double(mean))
+            }
+                         
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)!
+        }
+        let min = array.min()!
+        return min
+    }
+    func calculateHrvBase() -> Double {
+        
+        var array:[Double] = []
+        var date = firstInputHrv() as Date
+        let calendar = Calendar.current
+
+        // Replace the hour (time) of both dates with 00:00
+        let date1 = calendar.startOfDay(for: date as Date)
+        let date2 = calendar.startOfDay(for: Date())
+
+        let components = calendar.dateComponents([.day], from: date1, to: date2)
+        let range = 1...components.day! - 14
+        
+        for _ in range {
+            
+            let request = NSFetchRequest<Hearts>(entityName: "Hearts")
+            let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+           
+           
+            let predicatebasehrv = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", date as CVarArg, NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: date as Date)!) as CVarArg)
+           
+            request.sortDescriptors = [sort]
+            request.predicate = predicatebasehrv
+            do {
+                heartshrvbasecalc = try managedObjectContext.fetch(request)
+            }
+            catch {
+                
+            }
+            
+            var arrayrhr:[Double] = []
+            for f in heartshrvbasecalc {
+                if f.hrv != nil {
+                    arrayrhr.append(f.hrv as! Double)
+                }
+            }
+            // Calculate sum ot items with reduce function
+            let sum = arrayrhr.reduce(0, { a, b in
+                return a + b
+            })
+            
+            let mean = Double(sum) / Double(arrayrhr.count)
+            if arrayrhr.count >= 5 {
+                array.append(Double(mean))
+            }
+            
+                         
+            date = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)!
+        }
+        let max = array.max()!
+        return max
+    }
+//    func fetchHeartsBase() {
+//        let request = NSFetchRequest<Hearts>(entityName: "Hearts")
+//        let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+//
+//
+//        let predicatebaserhr = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputRhr(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputRhr() as Date)!) as CVarArg)
+//        let predicatebasehrv = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputHrv(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputHrv() as Date)!) as CVarArg)
+//        request.sortDescriptors = [sort]
+//        request.predicate = predicate7
+//        do {
+//            hearts7 = try managedObjectContext.fetch(request)
+//        }
+//        catch {
+//
+//        }
 //
     
 //    static func getLocalData() -> [Model] {
