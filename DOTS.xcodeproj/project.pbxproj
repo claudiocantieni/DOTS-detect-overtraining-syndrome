@@ -13,6 +13,23 @@
 		6B240E8C282EED8E00393EBE /* InputHrvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B240E8B282EED8E00393EBE /* InputHrvView.swift */; };
 		6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B281F0B2822B2CA0079DE7E /* Persistence.swift */; };
 		6B281F2A2822B4AC0079DE7E /* Core Data Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6B281F282822B4AC0079DE7E /* Core Data Model.xcdatamodeld */; };
+		6B33554728C68AC500933B0F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553428C68AC500933B0F /* Constants.swift */; };
+		6B33554828C68AC500933B0F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553528C68AC500933B0F /* ViewController.swift */; };
+		6B33554928C68AC500933B0F /* HeratRatePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553628C68AC500933B0F /* HeratRatePeripheral.swift */; };
+		6B33554A28C68AC500933B0F /* HeartRateCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553728C68AC500933B0F /* HeartRateCenter.swift */; };
+		6B33554B28C68AC500933B0F /* BreathView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553828C68AC500933B0F /* BreathView.swift */; };
+		6B33554C28C68AC500933B0F /* BeatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553928C68AC500933B0F /* BeatsData.swift */; };
+		6B33554D28C68AC500933B0F /* SampleInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553A28C68AC500933B0F /* SampleInterpolator.swift */; };
+		6B33554E28C68AC500933B0F /* LogSpectrumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553B28C68AC500933B0F /* LogSpectrumData.swift */; };
+		6B33554F28C68AC500933B0F /* SpectrumData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553C28C68AC500933B0F /* SpectrumData.swift */; };
+		6B33555128C68AC500933B0F /* SpectrumGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33553F28C68AC500933B0F /* SpectrumGraphView.swift */; };
+		6B33555228C68AC500933B0F /* HeartRateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33554028C68AC500933B0F /* HeartRateDelegate.swift */; };
+		6B33555428C68AC500933B0F /* BalanceIndexAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33554228C68AC500933B0F /* BalanceIndexAnalyzer.swift */; };
+		6B33555528C68AC500933B0F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33554328C68AC500933B0F /* AppDelegate.swift */; };
+		6B33555628C68AC500933B0F /* BalanceIndexGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33554428C68AC500933B0F /* BalanceIndexGraphView.swift */; };
+		6B33555828C68AC500933B0F /* SpectrumAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33554628C68AC500933B0F /* SpectrumAnalyzer.swift */; };
+		6B33555C28D0E86900933B0F /* HRV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B33555B28D0E86900933B0F /* HRV.swift */; };
+		6B3C09F928C523C0008EEA6A /* BLEModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B3C09F828C523C0008EEA6A /* BLEModel.swift */; };
 		6B4F07F9281F18C200E4CC31 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4F07F8281F18C200E4CC31 /* InputView.swift */; };
 		6B577F92282569C300F513D6 /* HRChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B577F91282569C300F513D6 /* HRChartView.swift */; };
 		6B5CD7232839299D00A3CE7D /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5CD7222839299D00A3CE7D /* NotificationManager.swift */; };
@@ -51,6 +68,23 @@
 		6B240E8B282EED8E00393EBE /* InputHrvView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputHrvView.swift; sourceTree = "<group>"; };
 		6B281F0B2822B2CA0079DE7E /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6B281F292822B4AC0079DE7E /* Core Data Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Core Data Model.xcdatamodel"; sourceTree = "<group>"; };
+		6B33553428C68AC500933B0F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6B33553528C68AC500933B0F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6B33553628C68AC500933B0F /* HeratRatePeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeratRatePeripheral.swift; sourceTree = "<group>"; };
+		6B33553728C68AC500933B0F /* HeartRateCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateCenter.swift; sourceTree = "<group>"; };
+		6B33553828C68AC500933B0F /* BreathView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreathView.swift; sourceTree = "<group>"; };
+		6B33553928C68AC500933B0F /* BeatsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeatsData.swift; sourceTree = "<group>"; };
+		6B33553A28C68AC500933B0F /* SampleInterpolator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleInterpolator.swift; sourceTree = "<group>"; };
+		6B33553B28C68AC500933B0F /* LogSpectrumData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogSpectrumData.swift; sourceTree = "<group>"; };
+		6B33553C28C68AC500933B0F /* SpectrumData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumData.swift; sourceTree = "<group>"; };
+		6B33553F28C68AC500933B0F /* SpectrumGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumGraphView.swift; sourceTree = "<group>"; };
+		6B33554028C68AC500933B0F /* HeartRateDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeartRateDelegate.swift; sourceTree = "<group>"; };
+		6B33554228C68AC500933B0F /* BalanceIndexAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceIndexAnalyzer.swift; sourceTree = "<group>"; };
+		6B33554328C68AC500933B0F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6B33554428C68AC500933B0F /* BalanceIndexGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalanceIndexGraphView.swift; sourceTree = "<group>"; };
+		6B33554628C68AC500933B0F /* SpectrumAnalyzer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumAnalyzer.swift; sourceTree = "<group>"; };
+		6B33555B28D0E86900933B0F /* HRV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRV.swift; sourceTree = "<group>"; };
+		6B3C09F828C523C0008EEA6A /* BLEModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEModel.swift; sourceTree = "<group>"; };
 		6B4F07BD281D53AF00E4CC31 /* GaugeProgressViewStyle-develop */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "GaugeProgressViewStyle-develop"; path = "../../../Downloads/GaugeProgressViewStyle-develop"; sourceTree = "<group>"; };
 		6B4F07F8281F18C200E4CC31 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		6B577F91282569C300F513D6 /* HRChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRChartView.swift; sourceTree = "<group>"; };
@@ -105,6 +139,37 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		6B3354AE28C6893900933B0F /* HRVMeasurement */ = {
+			isa = PBXGroup;
+			children = (
+				6B33553328C68AC500933B0F /* heartrate-monitor */,
+			);
+			path = HRVMeasurement;
+			sourceTree = "<group>";
+		};
+		6B33553328C68AC500933B0F /* heartrate-monitor */ = {
+			isa = PBXGroup;
+			children = (
+				6B33553428C68AC500933B0F /* Constants.swift */,
+				6B33553528C68AC500933B0F /* ViewController.swift */,
+				6B33553628C68AC500933B0F /* HeratRatePeripheral.swift */,
+				6B33553728C68AC500933B0F /* HeartRateCenter.swift */,
+				6B33553828C68AC500933B0F /* BreathView.swift */,
+				6B33553928C68AC500933B0F /* BeatsData.swift */,
+				6B33553A28C68AC500933B0F /* SampleInterpolator.swift */,
+				6B33553B28C68AC500933B0F /* LogSpectrumData.swift */,
+				6B33553C28C68AC500933B0F /* SpectrumData.swift */,
+				6B33553F28C68AC500933B0F /* SpectrumGraphView.swift */,
+				6B33554028C68AC500933B0F /* HeartRateDelegate.swift */,
+				6B33554228C68AC500933B0F /* BalanceIndexAnalyzer.swift */,
+				6B33554328C68AC500933B0F /* AppDelegate.swift */,
+				6B33554428C68AC500933B0F /* BalanceIndexGraphView.swift */,
+				6B33554628C68AC500933B0F /* SpectrumAnalyzer.swift */,
+			);
+			name = "heartrate-monitor";
+			path = "../../../../../Downloads/heartrate-monitor-master-2/heartrate-monitor";
+			sourceTree = "<group>";
+		};
 		6B773B7827FE0CF40016B16B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +183,8 @@
 			children = (
 				6B773B8127FE0D600016B16B /* ContentModel.swift */,
 				6B5CD7222839299D00A3CE7D /* NotificationManager.swift */,
+				6B3C09F828C523C0008EEA6A /* BLEModel.swift */,
+				6B33555B28D0E86900933B0F /* HRV.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -160,6 +227,7 @@
 		6BFFFE3427FA06C80023A867 /* DOTS */ = {
 			isa = PBXGroup;
 			children = (
+				6B3354AE28C6893900933B0F /* HRVMeasurement */,
 				6BFFFE3527FA06C80023A867 /* DOTSApp.swift */,
 				6BFFFE4427FA07420023A867 /* Views */,
 				6B773B8027FE0D410016B16B /* ViewModels */,
@@ -190,9 +258,9 @@
 				6BFFFE4827FA07FB0023A867 /* HomeView.swift */,
 				6B76CCA627FEE3A100E9CD88 /* HRView.swift */,
 				6B8392A02843A88F00826522 /* GaugeView.swift */,
-				6B577F91282569C300F513D6 /* HRChartView.swift */,
 				6B240E89282EE14C00393EBE /* AddView.swift */,
 				6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */,
+				6B577F91282569C300F513D6 /* HRChartView.swift */,
 				6B4F07F8281F18C200E4CC31 /* InputView.swift */,
 				6B240E8B282EED8E00393EBE /* InputHrvView.swift */,
 				6BDB4E1228A43B9D008DF32E /* MeasureView.swift */,
@@ -310,23 +378,40 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B33554828C68AC500933B0F /* ViewController.swift in Sources */,
 				6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */,
 				6B83929F28437ED800826522 /* Loads+CoreDataProperties.swift in Sources */,
 				6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */,
+				6B33555528C68AC500933B0F /* AppDelegate.swift in Sources */,
 				6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */,
 				6B577F92282569C300F513D6 /* HRChartView.swift in Sources */,
+				6B33555128C68AC500933B0F /* SpectrumGraphView.swift in Sources */,
+				6B33554728C68AC500933B0F /* Constants.swift in Sources */,
+				6B33555228C68AC500933B0F /* HeartRateDelegate.swift in Sources */,
+				6B3C09F928C523C0008EEA6A /* BLEModel.swift in Sources */,
+				6B33554928C68AC500933B0F /* HeratRatePeripheral.swift in Sources */,
 				6B240E8C282EED8E00393EBE /* InputHrvView.swift in Sources */,
 				6BDB4E0E289445D2008DF32E /* ButtonView.swift in Sources */,
+				6B33554C28C68AC500933B0F /* BeatsData.swift in Sources */,
 				6B5CD727283954D000A3CE7D /* SettingsView.swift in Sources */,
+				6B33555C28D0E86900933B0F /* HRV.swift in Sources */,
 				6BFFFE4927FA07FB0023A867 /* HomeView.swift in Sources */,
 				6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */,
+				6B33555428C68AC500933B0F /* BalanceIndexAnalyzer.swift in Sources */,
+				6B33555628C68AC500933B0F /* BalanceIndexGraphView.swift in Sources */,
 				6B8392A12843A88F00826522 /* GaugeView.swift in Sources */,
 				6BFFFE4B27FA082D0023A867 /* NotificationsView.swift in Sources */,
+				6B33554D28C68AC500933B0F /* SampleInterpolator.swift in Sources */,
 				6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */,
+				6B33554F28C68AC500933B0F /* SpectrumData.swift in Sources */,
+				6B33554E28C68AC500933B0F /* LogSpectrumData.swift in Sources */,
+				6B33554A28C68AC500933B0F /* HeartRateCenter.swift in Sources */,
+				6B33555828C68AC500933B0F /* SpectrumAnalyzer.swift in Sources */,
 				6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */,
 				6B240E8A282EE14C00393EBE /* AddView.swift in Sources */,
 				6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */,
 				6B885292282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */,
+				6B33554B28C68AC500933B0F /* BreathView.swift in Sources */,
 				6B229843283ABAED00F59D20 /* WelcomeView.swift in Sources */,
 				6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */,
 				6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */,
@@ -470,6 +555,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Diese App verwendet Bluethooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Diese App verwendet Bluethooth";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -481,7 +568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeiderCantieni.DOTS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -504,6 +591,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Diese App verwendet Bluethooth";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Diese App verwendet Bluethooth";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -515,7 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeiderCantieni.DOTS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

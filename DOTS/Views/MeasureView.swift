@@ -8,14 +8,34 @@
 import SwiftUI
 
 struct MeasureView: View {
+    @ObservedObject var BluethoothModel = BLEModel()
+    @ObservedObject var HRVModel = HRV()
     var body: some View {
-        Text("In-App Messung folgt...")
-            .font(.custom("Ubuntu-Regular", size: 20))
+        Text(String(BluethoothModel.bpm ?? 0))
+            .font(.custom("Ubuntu-Regular", size: 100))
+        
+        Button {
+            HRVModel.startMeasure()
+        } label: {
+            Text("Start")
+        }
+        
+        Button {
+            HRVModel.analyzeIntervals()
+        } label: {
+            Text("Stop")
+            Text("\(HRVModel.hrv)")
+        }
+        
+        Button {
+            HRVModel.addData()
+        } label: {
+            Text("Speichern")
+        }
+
+        
     }
 }
 
-struct MeasureView_Previews: PreviewProvider {
-    static var previews: some View {
-        MeasureView()
-    }
-}
+
+

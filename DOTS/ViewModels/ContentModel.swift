@@ -857,7 +857,7 @@ class ContentModel: ObservableObject {
                          
             date = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)!
         }
-        let min = array.min()!
+        let min = array.min() ?? 0
         return min
     }
     func calculateHrvBase() -> Double {
@@ -909,7 +909,7 @@ class ContentModel: ObservableObject {
                          
             date = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)!
         }
-        let max = array.max()!
+        let max = array.max() ?? 0
         return max
     }
 //    func fetchHeartsBase() {
