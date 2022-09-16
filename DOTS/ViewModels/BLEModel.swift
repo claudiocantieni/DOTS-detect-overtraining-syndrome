@@ -4,7 +4,7 @@
 //
 //  Created by Claudio Cantieni on 04.09.22.
 //
-
+/*
 import Foundation
 import CoreBluetooth
 import UIKit
@@ -129,5 +129,5 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
 
     }
 }
-
+*/
 

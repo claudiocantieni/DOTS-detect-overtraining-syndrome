@@ -6,12 +6,15 @@
 //
 
 import Foundation
-class HRV: ObservableObject {
+class HRV: ObservableObject, HeartRateDelegate {
     
     let managedObjectContext = PersistenceController.shared.container.viewContext
     var hrv: Double = 0
+    var hr: Double = 0
     
+    var heartRateCenter: HeartRateCenter!
     var heartRateRRIntervalDatas = [Double]()
+    var heartRateHRIntervalDatas = [Double]()
     var duration = 0.0
     var heartRateRRCount = 0
     func analyzeIntervals() {
@@ -61,10 +64,19 @@ class HRV: ObservableObject {
 
         }
     }
-    
+    func heartRateDeviceDidConnect() {
+        print("<connect>")
+        
+    }
+
+    func heartRateDeviceDidDisconnect() {
+        print("<disconnect>")
+        
+    }
     func heartRateRRDidArrive(_ rr: Double) {
         print("<rr=\(rr)>")
         heartRateRRIntervalDatas.append(rr);
+        
 
         duration += (rr / 1000.0);
 
@@ -73,11 +85,48 @@ class HRV: ObservableObject {
         
         
     }
+    func heartRateHRDidArrive(_ hr: Double) {
+        
+        heartRateHRIntervalDatas.append(hr)
+        
+    }
     
-    func startMeasure() {
-        heartRateRRIntervalDatas = [Double]()
-        heartRateRRCount = 0;
-        duration = 0.0
+    func getMinHR() {
+        hr = heartRateHRIntervalDatas.min() ?? 0
+        
+    }
+
+    
+    func startStopMeasure() {
+        if (heartRateCenter == nil) {
+           
+
+            // show breath view
+            heartRateCenter = HeartRateCenter(delegate: self)
+            heartRateCenter.setup()
+
+            
+
+            heartRateRRIntervalDatas = [Double]()
+            heartRateRRCount = 0;
+            duration = 0.0
+
+         
+
+        } else {
+          
+
+            heartRateCenter.cleanup()
+            heartRateCenter = nil
+            
+
+            
+
+            analyzeIntervals()
+            getMinHR()
+            
+        }
+    
     }
 
     func addData() {
@@ -85,7 +134,8 @@ class HRV: ObservableObject {
         if heartRateRRIntervalDatas.count > 0 {
             let hearts = Hearts(context: managedObjectContext)
             hearts.timestamp = Date()
-      
+            
+            hearts.rhr = Double(hr) as NSNumber?
             hearts.hrv = Double(hrv) as NSNumber?
             
             

@@ -281,7 +281,7 @@ struct HomeView: View {
                                 NavigationLink(
                                     destination: {
                                         
-                                        MeasureView()
+                                        MeasureView(colorScheme: colorScheme == .dark ? Color.white : Color.black)
                                     },
                                     label: {
                                     
@@ -341,7 +341,7 @@ struct HomeView: View {
                                 NavigationLink(
                                     destination: {
                                         
-                                        MeasureView()
+                                        MeasureView(colorScheme: colorScheme == .dark ? Color.white : Color.black)
                                     },
                                     label: {
                                     
