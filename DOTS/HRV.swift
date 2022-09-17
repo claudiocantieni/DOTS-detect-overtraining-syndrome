@@ -11,6 +11,7 @@ class HRV: ObservableObject, HeartRateDelegate {
     let managedObjectContext = PersistenceController.shared.container.viewContext
     var hrv: Double = 0
     var hr: Double = 0
+    @Published var bpm: Int?
     
     var heartRateCenter: HeartRateCenter!
     var heartRateRRIntervalDatas = [Double]()
@@ -88,6 +89,7 @@ class HRV: ObservableObject, HeartRateDelegate {
     func heartRateHRDidArrive(_ hr: Double) {
         
         heartRateHRIntervalDatas.append(hr)
+        bpm = Int(hr)
         
     }
     
