@@ -113,7 +113,7 @@ struct InputHrvView: View {
         //TODO: adapt to textfields
         
         let hearts = Hearts(context: viewContext)
-        hearts.timestamp = Date()
+        hearts.timestamp = NSCalendar.current.date(byAdding: .second, value: 1, to: NSCalendar.current.startOfDay(for: Date()))!
   
         hearts.hrv = Double(hrv) as NSNumber?
         

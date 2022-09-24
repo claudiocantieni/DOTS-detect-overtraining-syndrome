@@ -103,89 +103,33 @@ struct GaugeView: View {
 
             }
             else {
-                Picker("", selection: $selectedTimeRange)
-                {
-                    Text("7 Tage").tag(7)
-                    Text("4 Wochen").tag(28)
-                    Text("1 Jahr").tag(365)
+                if #available(iOS 16, *) {
+                    GaugeIOS16View(loads: model.loads7)
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal, 40)
-                .padding()
-                
-                // xcode 14/swiftui 4/ios 16 new charts https://youtu.be/xS-fGYDD0qk
-                
-                let chartParameters = LineChartParameters(data: model.createArrayLoad(selectedTimeRange: selectedTimeRange) ,
-                                                          dataTimestamps: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange),
-                                                          dataLabels: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange).map({ $0.formatted(date: .numeric, time: .omitted) }), dataPrecisionLength: 0, dataSuffix: " %", indicatorPointColor: chartColor, lineColor: chartColor , dotsWidth: 10, hapticFeedback: true)
-                LineChartView(lineChartParameters: chartParameters)
-                    .frame(width: 350, height: 250)
-                
-                
-                Spacer()
-                
-                    HStack {
-                        Text("Heute : ")
-                            .font(.custom("Ubuntu-Regular", size: 18))
-                        
-                        if model.createTodayLoad() >= 0.75 {
-                            Text("erholt")
-                                .foregroundColor(Color.green)
-                                .font(.custom("Ubuntu-Regular", size: 18))
-                        }
-                        else if model.createTodayLoad() >= 0.5 {
-                            Text("ziemlich erholt")
-                                .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                                .font(.custom("Ubuntu-Regular", size: 18))
-                        }
-                        else if model.createTodayLoad() >= 0.25 {
-                            Text("etwas belastet")
-                                .foregroundColor(Color.orange)
-                                .font(.custom("Ubuntu-Regular", size: 18))
-                        }
-                            else if model.createTodayLoad() < 0.25 {
-                            Text("belastet")
-                                    .foregroundColor(Color.red)
-                                    .font(.custom("Ubuntu-Regular", size: 18))
-                        }
-                        
+                else {
+                    Picker("", selection: $selectedTimeRange)
+                    {
+                        Text("7 Tage").tag(7)
+                        Text("4 Wochen").tag(28)
+                        Text("1 Jahr").tag(365)
                     }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal, 40)
                     .padding()
-                HStack {
-                    Text("Ø 7 Tage : ")
-                        .font(.custom("Ubuntu-Regular", size: 18))
                     
-                    if model.calculateMeanLoad() >= 0.75 {
-                        Text("erholt")
-                            .foregroundColor(Color.green)
-                            .font(.custom("Ubuntu-Regular", size: 18))
-                    }
-                    else if model.calculateMeanLoad() >= 0.5 {
-                        Text("ziemlich erholt")
-                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                            .font(.custom("Ubuntu-Regular", size: 18))
-                    }
-                    else if model.calculateMeanLoad() >= 0.25 {
-                        Text("etwas belastet")
-                            .foregroundColor(Color.orange)
-                            .font(.custom("Ubuntu-Regular", size: 18))
-                    }
-                        else if model.calculateMeanLoad() < 0.25 {
-                        Text("belastet")
-                                .foregroundColor(Color.red)
-                                .font(.custom("Ubuntu-Regular", size: 18))
-                    }
+                    // xcode 14/swiftui 4/ios 16 new charts https://youtu.be/xS-fGYDD0qk
                     
+                    let chartParameters = LineChartParameters(data: model.createArrayLoad(selectedTimeRange: selectedTimeRange) ,
+                                                              dataTimestamps: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange),
+                                                              dataLabels: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange).map({ $0.formatted(date: .numeric, time: .omitted) }), dataPrecisionLength: 0, dataSuffix: " %", indicatorPointColor: chartColor, lineColor: chartColor , dotsWidth: 10, hapticFeedback: true)
+                    LineChartView(lineChartParameters: chartParameters)
+                        .frame(width: 350, height: 250)
                 }
                 
                 
-
                 
-                Spacer()
+            
                 
-                
-
-                Spacer()
             }
                 
             

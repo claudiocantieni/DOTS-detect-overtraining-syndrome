@@ -128,7 +128,7 @@ struct InputView: View {
     func addData() {
         
         let hearts = Hearts(context: viewContext)
-        hearts.timestamp = Date()
+        hearts.timestamp = NSCalendar.current.startOfDay(for: Date())
         hearts.rhr = Double(rhr) as NSNumber?
 
         

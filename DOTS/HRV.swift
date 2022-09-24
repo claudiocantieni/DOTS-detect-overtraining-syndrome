@@ -135,7 +135,7 @@ class HRV: ObservableObject, HeartRateDelegate {
         //TODO: adapt to textfields
         if heartRateRRIntervalDatas.count > 0 {
             let hearts = Hearts(context: managedObjectContext)
-            hearts.timestamp = Date()
+            hearts.timestamp = NSCalendar.current.startOfDay(for: Date())
             
             hearts.rhr = Double(hr) as NSNumber?
             hearts.hrv = Double(hrv) as NSNumber?

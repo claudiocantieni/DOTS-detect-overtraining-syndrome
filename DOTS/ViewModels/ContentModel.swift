@@ -787,7 +787,7 @@ class ContentModel: ObservableObject {
        
         let loads = Loads(context: managedObjectContext)
         if loads0.isEmpty {
-            loads.timestamp = Date()
+            loads.timestamp = NSCalendar.current.startOfDay(for: Date())
             loads.load = calculateLoad()
         }
         else {
