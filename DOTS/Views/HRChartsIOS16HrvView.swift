@@ -14,12 +14,13 @@ struct HRChartIOS16HrvView: View {
     
     
     
+    
     @State var currentTab: Int = 7
     
     var title: String
     @State var hearts: [Hearts]
     //var data: [Double]
-    
+    var colorScheme: Color
     
     //var indicatorPointColor: Color
     //var lineColor: Color
@@ -33,13 +34,7 @@ struct HRChartIOS16HrvView: View {
     
     var body: some View {
         if #available(iOS 16, *) {
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.custom("Ubuntu-Medium", size: 24))
-                    .lineLimit(1)
-                    .allowsTightening(true)
-                    .minimumScaleFactor(0.5)
-                    .padding()
+            
                 
                 VStack(alignment: .leading, spacing: 12) {
                     Picker("", selection: $currentTab)
@@ -52,21 +47,26 @@ struct HRChartIOS16HrvView: View {
                     .padding(.leading, 80)
                     
                     
-                    let totalValue = hearts.reduce(0.0) { partialResult, item in
                         
-                        item.hrv != nil ? item.hrv as! Double + partialResult : partialResult
+                    if isAnyHrv() == true {
+                        let totalValue = hearts.reduce(0.0) { partialResult, item in
+                            
+                            item.hrv != nil ? item.hrv as! Double + partialResult : partialResult
+                            
+                        }
                         
+                        let nonNilCount = hearts.reduce(0) { count, item in
+                            item.hrv != nil ? 1 + count : count
+                        }
+                        
+                        let mean = Double(totalValue) / Double(nonNilCount)
+                        let meanRound = Int(round(mean))
+                        
+                        Text("Ø \(meanRound) ms")
+                            .font(.custom("Ubuntu-Medium", size: 26))
                     }
-                    
-                    let nonNilCount = hearts.reduce(0) { count, item in
-                        item.hrv != nil ? 1 + count : count
-                    }
-                    
-                    let mean = Double(totalValue) / Double(nonNilCount)
-                    let meanRound = Int(round(mean))
-                    
-                    Text("Ø \(meanRound) ms")
-                        .font(.custom("Ubuntu-Medium", size: 26))
+                        
+                        
                     
                     
                     Chart(hearts) { item in
@@ -157,14 +157,24 @@ struct HRChartIOS16HrvView: View {
                 }
                 .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color.yellow, lineWidth: 2)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(Color.yellow, lineWidth: 2)
+                        Rectangle()
+                            .foregroundColor(colorScheme)
+                            .cornerRadius(10)
+                    }
+                    
+                        
                 }
                 
                 
+                .navigationTitle(title)
+                .lineLimit(1)
+                .allowsTightening(true)
+                .minimumScaleFactor(0.5)
                 
-                
-            }
+            
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
             .onAppear(perform: {
@@ -181,6 +191,11 @@ struct HRChartIOS16HrvView: View {
                     hearts = model.hearts365
                 }
             }
+            .navigationBarItems(trailing: NavigationLink(destination: {
+                DeleteListHrvView()
+            }, label: {
+                Image(systemName: "ellipsis.circle")
+            }))
         }
         
         /*
@@ -200,5 +215,15 @@ struct HRChartIOS16HrvView: View {
         }
         .padding()
          */
+    }
+    func isAnyHrv() -> Bool {
+        var isHrv = false
+        for i in hearts {
+            
+            if i.hrv != nil {
+               isHrv = true
+            }
+        }
+        return isHrv
     }
 }

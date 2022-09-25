@@ -138,7 +138,7 @@ class HRV: ObservableObject, HeartRateDelegate {
             hearts.timestamp = NSCalendar.current.startOfDay(for: Date())
             
             hearts.rhr = Double(hr) as NSNumber?
-            hearts.hrv = Double(hrv) as NSNumber?
+            
             
             
            
@@ -151,6 +151,24 @@ class HRV: ObservableObject, HeartRateDelegate {
             catch {
                 
             }
+            let hearts2 = Hearts(context: managedObjectContext)
+            hearts2.timestamp =  NSCalendar.current.date(byAdding: .second, value: 1, to: NSCalendar.current.startOfDay(for: Date()))!
+            
+            
+            hearts2.hrv = Double(hrv) as NSNumber?
+            
+            
+           
+           
+            
+            do {
+                try managedObjectContext.save()
+
+            }
+            catch {
+                
+            }
+            
         }
         
         

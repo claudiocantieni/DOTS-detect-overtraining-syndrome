@@ -54,6 +54,7 @@ class ContentModel: ObservableObject {
     func fetchHearts() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
+        let sortAll = NSSortDescriptor(key: "timestamp", ascending: false)
         
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate14 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) as CVarArg, NSDate())
@@ -102,7 +103,7 @@ class ContentModel: ObservableObject {
         catch {
             
         }
-        request.sortDescriptors = [sort]
+        request.sortDescriptors = [sortAll]
         
         do {
             heartsAll = try managedObjectContext.fetch(request)
@@ -912,6 +913,38 @@ class ContentModel: ObservableObject {
         let max = array.max() ?? 0
         return max
     }
+    func deleteHearts(at offsets: IndexSet) {
+        for offset in offsets {
+            let hr = heartsAll[offset]
+            managedObjectContext.delete(hr)
+        }
+        
+        try? managedObjectContext.save()
+        
+        fetchHearts()
+        fetchHeartsFirst()
+        
+        
+        
+    }
+    
+    /*func deleteHearts(at offsets: IndexSet) {
+     for offset in offsets {
+         let hr = heartsAll[offset]
+         managedObjectContext.delete(hr)
+     }
+     
+    
+     
+     
+     
+ }
+ func mocSave() {
+     try? managedObjectContext.save()
+     
+     fetchHearts()
+     fetchHeartsFirst()
+ }*/
 //    func fetchHeartsBase() {
 //        let request = NSFetchRequest<Hearts>(entityName: "Hearts")
 //        let sort = NSSortDescriptor(key: "timestamp", ascending: true)

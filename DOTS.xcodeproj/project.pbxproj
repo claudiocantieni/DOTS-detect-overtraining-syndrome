@@ -42,6 +42,8 @@
 		6B739C9028DBB04200F48DD1 /* HRChartsIOS16HrvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739C8F28DBB04200F48DD1 /* HRChartsIOS16HrvView.swift */; };
 		6B739C9228DBB14900F48DD1 /* GaugeIOS16View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739C9128DBB14900F48DD1 /* GaugeIOS16View.swift */; };
 		6B739C9928DD0BD900F48DD1 /* HRHomeChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739C9828DD0BD900F48DD1 /* HRHomeChartView.swift */; };
+		6B739C9B28DF232D00F48DD1 /* DeleteListRhrView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739C9A28DF232D00F48DD1 /* DeleteListRhrView.swift */; };
+		6B739C9D28DF811400F48DD1 /* DeleteListHrvView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739C9C28DF811400F48DD1 /* DeleteListHrvView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B773B8127FE0D600016B16B /* ContentModel.swift */; };
 		6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */; };
@@ -101,6 +103,8 @@
 		6B739C8F28DBB04200F48DD1 /* HRChartsIOS16HrvView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRChartsIOS16HrvView.swift; sourceTree = "<group>"; };
 		6B739C9128DBB14900F48DD1 /* GaugeIOS16View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeIOS16View.swift; sourceTree = "<group>"; };
 		6B739C9828DD0BD900F48DD1 /* HRHomeChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRHomeChartView.swift; sourceTree = "<group>"; };
+		6B739C9A28DF232D00F48DD1 /* DeleteListRhrView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteListRhrView.swift; sourceTree = "<group>"; };
+		6B739C9C28DF811400F48DD1 /* DeleteListHrvView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteListHrvView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
 		6B773B8127FE0D600016B16B /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Loads+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 				6BDB4E0B288D5EA8008DF32E /* InfoView.swift */,
 				6BDB4E0D289445D2008DF32E /* ButtonView.swift */,
 				6B739C9828DD0BD900F48DD1 /* HRHomeChartView.swift */,
+				6B739C9A28DF232D00F48DD1 /* DeleteListRhrView.swift */,
+				6B739C9C28DF811400F48DD1 /* DeleteListHrvView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -394,6 +400,7 @@
 				6B33555528C68AC500933B0F /* AppDelegate.swift in Sources */,
 				6B739C8E28D6534A00F48DD1 /* HRChartIOS16RhrView.swift in Sources */,
 				6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */,
+				6B739C9D28DF811400F48DD1 /* DeleteListHrvView.swift in Sources */,
 				6B739C8A28D642B000F48DD1 /* HRV.swift in Sources */,
 				6B577F92282569C300F513D6 /* HRChartView.swift in Sources */,
 				6B33555128C68AC500933B0F /* SpectrumGraphView.swift in Sources */,
@@ -416,6 +423,7 @@
 				6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */,
 				6B33554F28C68AC500933B0F /* SpectrumData.swift in Sources */,
 				6B33554E28C68AC500933B0F /* LogSpectrumData.swift in Sources */,
+				6B739C9B28DF232D00F48DD1 /* DeleteListRhrView.swift in Sources */,
 				6B33554A28C68AC500933B0F /* HeartRateCenter.swift in Sources */,
 				6B33555828C68AC500933B0F /* SpectrumAnalyzer.swift in Sources */,
 				6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */,

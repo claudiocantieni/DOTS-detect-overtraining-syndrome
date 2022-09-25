@@ -14,6 +14,7 @@ import Charts
 
 struct GaugeIOS16View: View {
     
+    var colorScheme: Color
     
     
     @State var currentTab: Int = 7
@@ -177,8 +178,15 @@ struct GaugeIOS16View: View {
                 }
                 .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color.yellow, lineWidth: 2)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(Color.yellow, lineWidth: 2)
+                        Rectangle()
+                            .foregroundColor(colorScheme)
+                            .cornerRadius(10)
+                    }
+                    
+                        
                 }
                 
                 

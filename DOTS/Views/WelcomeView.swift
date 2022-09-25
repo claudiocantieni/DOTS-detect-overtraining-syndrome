@@ -28,7 +28,7 @@ struct WelcomeView: View {
                 
                     
                 Text("""
-                    Die DOTS App zeigt einen Belastungszustand an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.
+                    Die DOTS App zeigt einen Formszustand an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.
                                     
                     Die DOTS App kann helfen, eine mögliche Überbelastung frühzeitig zu erkennen.
                                     

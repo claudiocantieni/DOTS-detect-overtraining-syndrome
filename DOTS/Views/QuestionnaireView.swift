@@ -25,12 +25,7 @@ struct QuestionnaireView: View {
     
     var body: some View {
         VStack {
-            Text("Fragebogen")
-                .font(.custom("Ubuntu-Medium", size: 24))
-                .lineLimit(1)
-                .allowsTightening(true)
-                .minimumScaleFactor(0.5)
-                .padding()
+            
             
             Spacer()
             VStack {
@@ -251,6 +246,7 @@ struct QuestionnaireView: View {
             }
             Spacer()
         }
+        .navigationTitle("Fragebogen")
 //        ForEach(model.models, id: \.id) { i in
 //                QuestionView(questions:i)
 //            }

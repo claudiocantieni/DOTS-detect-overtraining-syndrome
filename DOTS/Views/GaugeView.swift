@@ -22,65 +22,60 @@ struct GaugeView: View {
     
     var chartColor: Color
 //    var delta7days: String
+    var colorScheme: Color
     
-    var body: some View {
-        VStack {
-            HStack{
-                Text("Belastungszustand")
-                    .font(.custom("Ubuntu-Medium", size: 24))
-                    .lineLimit(1)
-                    .allowsTightening(true)
-                    .minimumScaleFactor(0.5)
-                    .padding()
-                Button {
-                    showingPopover = true
-                } label: {
-                    Image(systemName: "info.circle")
-                        .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
-                        .font(.system(size: 20))
-                        
+    var PopoverButton: some View {
+        Button {
+            showingPopover = true
+        } label: {
+            Image(systemName: "info.circle")
+                .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
                 
-                }
-                .padding(.trailing, 40)
-                .popover(isPresented: $showingPopover) {
-                    Text("""
-                        Der Belastungszustand wird
-                        wie folgt berechnet...
-                        Erklärung folgt
-                        """)
-                        .multilineTextAlignment(.leading)
+                
+        
+        }
+        
+        .popover(isPresented: $showingPopover) {
+            Text("""
+                Der Formszustand wird
+                wie folgt berechnet...
+                Erklärung folgt
+                """)
+                .multilineTextAlignment(.leading)
+                .font(.custom("Ubuntu-Regular", size: 16))
+                .padding()
+                .lineSpacing(5)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("0 - 24 % :")
                         .font(.custom("Ubuntu-Regular", size: 16))
-                        .padding()
-                        .lineSpacing(5)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("0 - 24 % :")
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("25 - 49 % :")
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("50 - 74 % :")
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("75 - 100 % : ")
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("belastet")
-                                    .foregroundColor(Color.red)
-                                    .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("etwas belastet")
-                                .foregroundColor(Color.orange)
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("ziemlich erholt")
-                                .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                            Text("erholt")
-                                .foregroundColor(Color.green)
-                                .font(.custom("Ubuntu-Regular", size: 16))
-                        }
-                    }
+                    Text("25 - 49 % :")
+                        .font(.custom("Ubuntu-Regular", size: 16))
+                    Text("50 - 74 % :")
+                        .font(.custom("Ubuntu-Regular", size: 16))
+                    Text("75 - 100 % : ")
+                        .font(.custom("Ubuntu-Regular", size: 16))
+                }
+                
+                VStack(alignment: .leading) {
+                    Text("belastet")
+                            .foregroundColor(Color.red)
+                            .font(.custom("Ubuntu-Regular", size: 16))
+                    Text("etwas belastet")
+                        .foregroundColor(Color.orange)
+                        .font(.custom("Ubuntu-Regular", size: 16))
+                    Text("ziemlich erholt")
+                        .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
+                        .font(.custom("Ubuntu-Regular", size: 16))
+                    Text("erholt")
+                        .foregroundColor(Color.green)
+                        .font(.custom("Ubuntu-Regular", size: 16))
                 }
             }
+        }
+    }
+    var body: some View {
+        VStack {
             
             
             if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! || model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
@@ -104,7 +99,7 @@ struct GaugeView: View {
             }
             else {
                 if #available(iOS 16, *) {
-                    GaugeIOS16View(loads: model.loads7)
+                    GaugeIOS16View(colorScheme: colorScheme, loads: model.loads7)
                 }
                 else {
                     Picker("", selection: $selectedTimeRange)
@@ -134,7 +129,12 @@ struct GaugeView: View {
                 
             
         }
-        
+        .navigationTitle("Formszustand")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                PopoverButton
+            }
+        }
         
     }
 }

@@ -20,6 +20,7 @@ struct HRChartIOS16RhrView: View {
     @State var hearts: [Hearts]
     //var data: [Double]
     
+    var colorScheme: Color
     
     //var indicatorPointColor: Color
     //var lineColor: Color
@@ -33,13 +34,8 @@ struct HRChartIOS16RhrView: View {
     
     var body: some View {
         if #available(iOS 16, *) {
-            VStack(alignment: .leading) {
-                Text(title)
-                    .font(.custom("Ubuntu-Medium", size: 24))
-                    .lineLimit(1)
-                    .allowsTightening(true)
-                    .minimumScaleFactor(0.5)
-                    .padding()
+            
+                
                 
                 VStack(alignment: .leading, spacing: 12) {
                     Picker("", selection: $currentTab)
@@ -51,23 +47,25 @@ struct HRChartIOS16RhrView: View {
                     .pickerStyle(.segmented)
                     .padding(.leading, 80)
                     
-                    
-                    let totalValue = hearts.reduce(0.0) { partialResult, item in
+                    if isAnyRhr() == true {
                         
-                        item.rhr != nil ? item.rhr as! Double + partialResult : partialResult
                         
+                        let totalValue = hearts.reduce(0.0) { partialResult, item in
+                            
+                            item.rhr != nil ? item.rhr as! Double + partialResult : partialResult
+                            
+                        }
+                        
+                        let nonNilCount = hearts.reduce(0) { count, item in
+                            item.rhr != nil ? 1 + count : count
+                        }
+                        
+                        let mean = Double(totalValue) / Double(nonNilCount)
+                        let meanRound = Int(round(mean))
+                        
+                        Text("Ø \(meanRound) bpm")
+                            .font(.custom("Ubuntu-Medium", size: 26))
                     }
-                    
-                    let nonNilCount = hearts.reduce(0) { count, item in
-                        item.rhr != nil ? 1 + count : count
-                    }
-                    
-                    let mean = Double(totalValue) / Double(nonNilCount)
-                    let meanRound = Int(round(mean))
-                    
-                    Text("Ø \(meanRound) bpm")
-                        .font(.custom("Ubuntu-Medium", size: 26))
-                    
                     
                     Chart(hearts) { item in
                         if item.rhr != nil {
@@ -158,14 +156,23 @@ struct HRChartIOS16RhrView: View {
                 }
                 .padding()
                 .background {
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(Color.yellow, lineWidth: 2)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(Color.yellow, lineWidth: 2)
+                        Rectangle()
+                            .foregroundColor(colorScheme)
+                            .cornerRadius(10)
+                    }
+                    
+                        
                 }
+                .navigationTitle(title)
+                    
                 
                 
                 
                 
-            }
+            
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
             .onAppear(perform: {
@@ -182,7 +189,14 @@ struct HRChartIOS16RhrView: View {
                     hearts = model.hearts365
                 }
             }
+            .navigationBarItems(trailing: NavigationLink(destination: {
+                DeleteListRhrView()
+            }, label: {
+                Image(systemName: "ellipsis.circle")
+            }))
+            
         }
+        
         
         /*
         HStack {
@@ -201,6 +215,16 @@ struct HRChartIOS16RhrView: View {
         }
         .padding()
          */
+    }
+    func isAnyRhr() -> Bool {
+        var isRhr = false
+        for i in hearts {
+            
+            if i.rhr != nil {
+               isRhr = true
+            }
+        }
+        return isRhr
     }
 }
 
