@@ -11,6 +11,8 @@ import CoreData
 class ContentModel: ObservableObject {
     
     
+
+    
     let managedObjectContext = PersistenceController.shared.container.viewContext
     
     @Published var hearts7: [Hearts] = []
@@ -27,7 +29,7 @@ class ContentModel: ObservableObject {
     @Published var heartshrvbasecalc: [Hearts] = []
     
     @Published var questions: [Questionnaire] = []
-    @Published var questionsdata: [Questionnaire] = []
+
     
     @Published var loads7: [Loads] = []
     @Published var loads28: [Loads] = []
@@ -35,6 +37,9 @@ class ContentModel: ObservableObject {
     @Published var loads0: [Loads] = []
     @Published var loadsToday: [Loads] = []
     
+    @Published var weekLoads = [WeekLoads]()
+    @Published var weekHeartsRhr = [WeekHeartsRhr]()
+    @Published var weekHeartsHrv = [WeekHeartsHrv]()
     var timer = Timer()
     init() {
         //createLoad()
@@ -47,8 +52,11 @@ class ContentModel: ObservableObject {
         
         fetchLoads()
         
+        weekMeanLoads()
         
+        weekMeanHeartsRhr()
         
+        weekMeanHeartsHrv()
         
     }
     func fetchHearts() {
@@ -157,13 +165,12 @@ class ContentModel: ObservableObject {
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
         let sort = NSSortDescriptor(key: "timestamp", ascending: false)
-        let sortdata = NSSortDescriptor(key: "timestamp", ascending: true)
-        // control in 2 days
-        // let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -14, to: NSDate() as Date)!) as CVarArg, NSDate())
-        let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
+        
+        let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -14, to: NSDate() as Date)!) as CVarArg, NSDate())
+        
         
         request.sortDescriptors = [sort]
-        // request.predicate = predicate
+        request.predicate = predicate
         request.fetchLimit = 1
         do {
              questions = try managedObjectContext.fetch(request)
@@ -171,15 +178,7 @@ class ContentModel: ObservableObject {
         catch {
             
         }
-        request.sortDescriptors = [sortdata]
-        request.predicate = predicate365
-        request.fetchLimit = 100
-        do {
-             questionsdata = try managedObjectContext.fetch(request)
-        }
-        catch {
-            
-        }
+        
         
     }
     
@@ -927,6 +926,230 @@ class ContentModel: ObservableObject {
         
         
     }
+    func weekMeanLoads() {
+        var array:[Double] = []
+        var endOfWeek: Date?
+        for i in loads365 {
+            
+                let weekday = Calendar.current.component(.weekday, from: i.timestamp)
+                
+                if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
+                    
+                    
+                    let sum = array.reduce(0, { a, b in
+                        return a + b
+                    })
+                    
+                    let mean = Double(sum) / Double(array.count)
+                    let meanRound = Double(round(100 * mean) / 100)
+                   
+                    
+                    weekLoads.append(WeekLoads(id: UUID(), load: meanRound, timestamp: endOfWeek!))
+                    array = []
+                    
+                    
+                }
+            
+                if weekday == 1 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
+                    
+                }
+                else if weekday == 2 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 6, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 3 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 5, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 4 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 4, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 5 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 3, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 6 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 7 {
+                    
+                        array.append(i.load)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 1, to: i.timestamp)!)
+                   
+                }
+                
+            
+            
+            
+            
+            
+        }
+    }
+    func weekMeanHeartsRhr() {
+    
+        var array:[Double] = []
+        var endOfWeek: Date?
+        for i in hearts365 {
+            if i.rhr != nil {
+                let weekday = Calendar.current.component(.weekday, from: i.timestamp)
+                
+                if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
+                    
+                    
+                    let sum = array.reduce(0, { a, b in
+                        return a + b
+                    })
+                    
+                    let mean = Double(sum) / Double(array.count)
+                    let meanRound = Double(round(100 * mean) / 100)
+                   
+                    
+                    weekHeartsRhr.append(WeekHeartsRhr(id: UUID(), rhr: meanRound, timestamp: endOfWeek!))
+                    array = []
+                    
+                    
+                }
+            
+                if weekday == 1 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
+                    
+                }
+                else if weekday == 2 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 6, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 3 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 5, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 4 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 4, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 5 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 3, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 6 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 7 {
+                    
+                        array.append(i.rhr as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 1, to: i.timestamp)!)
+                   
+                }
+                
+            }
+            
+            
+            
+            
+        }
+    }
+    func weekMeanHeartsHrv() {
+    
+        var array:[Double] = []
+        var endOfWeek: Date?
+        for i in hearts365 {
+            if i.hrv != nil {
+                let weekday = Calendar.current.component(.weekday, from: i.timestamp)
+                
+                if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
+                    
+                    
+                    let sum = array.reduce(0, { a, b in
+                        return a + b
+                    })
+                    
+                    let mean = Double(sum) / Double(array.count)
+                    let meanRound = Double(round(100 * mean) / 100)
+                   
+                    
+                    weekHeartsHrv.append(WeekHeartsHrv(id: UUID(), hrv: meanRound, timestamp: endOfWeek!))
+                    array = []
+                    
+                    
+                }
+            
+                if weekday == 1 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
+                    
+                }
+                else if weekday == 2 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 6, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 3 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 5, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 4 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 4, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 5 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 3, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 6 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!)
+                   
+                }
+                else if weekday == 7 {
+                    
+                        array.append(i.hrv as! Double)
+                    endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 1, to: i.timestamp)!)
+                   
+                }
+                
+            }
+            
+            
+            
+            
+        }
+    }
     
     /*func deleteHearts(at offsets: IndexSet) {
      for offset in offsets {
@@ -934,7 +1157,7 @@ class ContentModel: ObservableObject {
          managedObjectContext.delete(hr)
      }
      
-    
+     
      
      
      

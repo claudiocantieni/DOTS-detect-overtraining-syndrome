@@ -34,7 +34,7 @@ struct DeleteListHrvView: View {
                 EditButton()
             }
         }
-        .navigationTitle("Alle Daten")
+        .navigationTitle("All data")
     }
 }
 

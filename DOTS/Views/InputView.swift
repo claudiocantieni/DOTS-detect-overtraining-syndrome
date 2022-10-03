@@ -25,18 +25,23 @@ struct InputView: View {
     
     var SaveButton: some View {
         
-        Button("Speichern") {
+        Button("Save") {
             
-            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampRhr())!))
-            //let date = model.lastTimestampRhr()
-            var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            var dateComponents = DateComponents()
+            
             dateComponents.calendar = Calendar.current
             dateComponents.hour = 7
             dateComponents.minute = 0
             
-
-            if dateComponents.date! < Date() {
-                manager.badgeNumber -= 1
+            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.timestampQuestionnaire())!))
+            //let date = model.lastTimestampRhr()
+            var dateComponents2 = Calendar.current.dateComponents([.year, .month, .day], from: date)
+            dateComponents2.calendar = Calendar.current
+            dateComponents2.hour = 7
+            dateComponents2.minute = 0
+            
+            if dateComponents.date! < Date() && dateComponents2.date! > Date() {
+                manager.badgeNumber = 0
                 UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
             }
             
@@ -65,22 +70,22 @@ struct InputView: View {
     var body: some View {
         if model.lastTimestampRhr() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: Date())!) {
             
-                Text("Ruheherzfrequenz morgen eingeben")
+                Text("Enter resting heart rate tomorrow")
                 .font(.custom("Ubuntu-Medium", size: 22))
-                //            Button {
-//                //manager.scheduleNotificationRhr()
-//                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-//                UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+//                            Button {
+//
+//                                manager.badgeNumber = 0
+//                                UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
 //            } label: {
 //                Text("REmove")
-//            }
+//           }
 
         }
         
             
         else {
             VStack {
-                Text("Ruheherzfrequenz")
+                Text("Resting heart rate:")
                     .font(.custom("Ubuntu-Medium", size: 24))
                     .lineLimit(2)
                     .allowsTightening(true)

@@ -58,16 +58,16 @@ struct GaugeView: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("belastet")
+                    Text("loaded")
                             .foregroundColor(Color.red)
                             .font(.custom("Ubuntu-Regular", size: 16))
-                    Text("etwas belastet")
+                    Text("slightly loaded")
                         .foregroundColor(Color.orange)
                         .font(.custom("Ubuntu-Regular", size: 16))
-                    Text("ziemlich erholt")
+                    Text("rather recovered")
                         .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
                         .font(.custom("Ubuntu-Regular", size: 16))
-                    Text("erholt")
+                    Text("recovered")
                         .foregroundColor(Color.green)
                         .font(.custom("Ubuntu-Regular", size: 16))
                 }
@@ -86,7 +86,7 @@ struct GaugeView: View {
                     self.presentationMode.wrappedValue.dismiss()
                     
                 } label: {
-                    Text("Nicht genügend Referenzdaten")
+                    Text("Not enough reference data")
                         .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
                         .font(.custom("Ubuntu-Regular", size: 18))
                         .lineLimit(1)
@@ -99,20 +99,20 @@ struct GaugeView: View {
             }
             else {
                 if #available(iOS 16, *) {
-                    GaugeIOS16View(colorScheme: colorScheme, loads: model.loads7)
+                    GaugeIOS16View(colorScheme: colorScheme, loads: model.loads7, weekLoads: model.weekLoads)
                 }
                 else {
                     Picker("", selection: $selectedTimeRange)
                     {
-                        Text("7 Tage").tag(7)
-                        Text("4 Wochen").tag(28)
-                        Text("1 Jahr").tag(365)
+                        Text("7 days").tag(7)
+                        Text("4 weeks").tag(28)
+                        Text("1 year").tag(365)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     .padding(.horizontal, 40)
                     .padding()
                     
-                    // xcode 14/swiftui 4/ios 16 new charts https://youtu.be/xS-fGYDD0qk
+                    
                     
                     let chartParameters = LineChartParameters(data: model.createArrayLoad(selectedTimeRange: selectedTimeRange) ,
                                                               dataTimestamps: model.createTimestampsLoad(selectedTimeRange: selectedTimeRange),
@@ -129,7 +129,7 @@ struct GaugeView: View {
                 
             
         }
-        .navigationTitle("Formszustand")
+        .navigationTitle("Shape")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 PopoverButton

@@ -19,6 +19,7 @@ struct HRChartIOS16RhrView: View {
     var title: String
     @State var hearts: [Hearts]
     //var data: [Double]
+    @State var weekHearts: [WeekHeartsRhr]
     
     var colorScheme: Color
     
@@ -31,18 +32,19 @@ struct HRChartIOS16RhrView: View {
     @EnvironmentObject var model:ContentModel
     
     @State var currentActiveItem: Hearts?
+    @State var currentActiveItem2: WeekHeartsRhr?
     
     var body: some View {
         if #available(iOS 16, *) {
+            VStack() {
             
-                
-                
+            if currentTab == 28 || currentTab == 7 {
                 VStack(alignment: .leading, spacing: 12) {
                     Picker("", selection: $currentTab)
                     {
-                        Text("7 Tage").tag(7)
-                        Text("4 Wochen").tag(28)
-                        Text("1 Jahr").tag(365)
+                        Text("7 days").tag(7)
+                        Text("4 weeks").tag(28)
+                        Text("1 year").tag(365)
                     }
                     .pickerStyle(.segmented)
                     .padding(.leading, 80)
@@ -69,21 +71,21 @@ struct HRChartIOS16RhrView: View {
                     
                     Chart(hearts) { item in
                         if item.rhr != nil {
-                            LineMark(x: .value("Datum", item.timestamp,unit: .hour),
-                                     y: .value("Ruhe-HF", Int(round(item.rhr as! Double)))
+                            LineMark(x: .value("Date", item.timestamp,unit: .hour),
+                                     y: .value("Resting HR", Int(round(item.rhr as! Double)))
                             )
                             .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
                             .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
                             .interpolationMethod(.monotone)
-                            AreaMark(x: .value("Datum", item.timestamp,unit: .hour),
-                                     y: .value("Ruhe-HF", Int(round(item.rhr as! Double)))
+                            AreaMark(x: .value("Date", item.timestamp,unit: .hour),
+                                     y: .value("Resting HR", Int(round(item.rhr as! Double)))
                             )
                             .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
                             .interpolationMethod(.monotone)
                             
                             if let currentActiveItem,currentActiveItem.timestamp == item.timestamp{
-                                PointMark(x: .value("Datum", currentActiveItem.timestamp, unit: .hour),
-                                          y: .value("Ruhe-HF", Int(round(item.rhr as! Double)))
+                                PointMark(x: .value("Date", currentActiveItem.timestamp, unit: .hour),
+                                          y: .value("Resting HR", Int(round(item.rhr as! Double)))
                                 )
                                 //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
                                 .foregroundStyle(Color.yellow)
@@ -91,14 +93,14 @@ struct HRChartIOS16RhrView: View {
                                 
                                 .annotation(position: .top){
                                     VStack(alignment: .leading, spacing: 6) {
-                                        Text("\(Int(currentActiveItem.rhr ?? 152)) bpm")
+                                        Text("\(Int(currentActiveItem.rhr!)) bpm")
                                             .foregroundColor(.black)
                                             .font(.custom("Ubuntu-Regular", size: 18))
-                                        Text("\(currentActiveItem.timestamp.formatted(date: .numeric, time: .omitted))")
+                                        Text("\(currentActiveItem.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day().weekday())")
                                             .font(.custom("Ubuntu-Regular", size: 12))
                                             .foregroundColor(.black.opacity(0.8))
                                     }
-                                    .padding(.horizontal,10)
+                                    .padding(.horizontal,5)
                                     .padding(.vertical, 4)
                                     .background {
                                         RoundedRectangle(cornerRadius: 6, style: .continuous)
@@ -164,15 +166,135 @@ struct HRChartIOS16RhrView: View {
                             .cornerRadius(10)
                     }
                     
-                        
-                }
-                .navigationTitle(title)
                     
-                
-                
-                
-                
+                }
+            }
             
+            
+            else {
+                VStack(alignment: .leading, spacing: 12) {
+                    Picker("", selection: $currentTab)
+                    {
+                        Text("7 days").tag(7)
+                        Text("4 weeks").tag(28)
+                        Text("1 year").tag(365)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.leading, 80)
+                    
+                    if isAnyRhr() == true {
+                        
+                        
+                        let totalValue = weekHearts.reduce(0.0) { partialResult, item in
+                            
+                            item.rhr + partialResult
+                            
+                        }
+                        
+                        let nonNilCount = weekHearts.reduce(0) { count, item in
+                             1 + count
+                        }
+                        
+                        let mean = Double(totalValue) / Double(nonNilCount)
+                        let meanRound = Int(round(mean))
+                        
+                        Text("Ø \(meanRound) bpm")
+                            .font(.custom("Ubuntu-Medium", size: 26))
+                    }
+                    
+                    Chart(weekHearts) { item in
+                        
+                            LineMark(x: .value("Date", item.timestamp,unit: .hour),
+                                     y: .value("Resting HR", Int(round(item.rhr)))
+                            )
+                            .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
+                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                            .interpolationMethod(.monotone)
+                            AreaMark(x: .value("Date", item.timestamp,unit: .hour),
+                                     y: .value("Resting HR", Int(round(item.rhr)))
+                            )
+                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                            .interpolationMethod(.monotone)
+                            
+                            if let currentActiveItem2,currentActiveItem2.timestamp == item.timestamp{
+                                PointMark(x: .value("Date", currentActiveItem2.timestamp, unit: .hour),
+                                          y: .value("Resting HR", Int(round(item.rhr)))
+                                )
+                                //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                                .foregroundStyle(Color.yellow)
+                                .symbolSize(250)
+                                
+                                .annotation(position: .top){
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text("\(Int(currentActiveItem2.rhr)) bpm")
+                                            .foregroundColor(.black)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                        VStack() {
+                                            Text("\(NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: currentActiveItem2.timestamp)!), format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits) .day()) -")
+                                            Text("\(currentActiveItem2.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day())")
+                                        }
+                                        
+                                            .font(.custom("Ubuntu-Regular", size: 12))
+                                            .foregroundColor(.black.opacity(0.8))
+                                    }
+                                    .padding(.horizontal,5)
+                                    .padding(.vertical, 4)
+                                    .background {
+                                        RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                            .fill(.yellow.shadow(.drop(radius:2)))
+                                    }
+                                    
+                                }
+                                
+                            }
+                        
+                    }
+                    
+                    .chartOverlay(content: { proxy in
+                        GeometryReader{innerProxy in
+                            Rectangle()
+                                .fill(.clear).contentShape(Rectangle())
+                                .gesture(
+                                    DragGesture()
+                                        .onChanged{ value in
+                                            let location = value.location
+                                            
+                                            if let date: Date = proxy.value(atX: location.x){
+                                                let calendar = Calendar.current
+                                                let day = calendar.component(.weekOfYear ,from: date)
+                                                if let currentItem2 = weekHearts.first(where: { item in
+                                                    calendar.component(.weekOfYear, from: item.timestamp) == day
+                                                }){
+                                                    self.currentActiveItem2 = currentItem2
+                                                }
+                                            }
+                                        }.onEnded{value in
+                                            self.currentActiveItem2 = nil
+                                        }
+                                )
+                        }
+                    })
+                    .frame(height: 300)
+                }
+                .padding()
+                .background {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .stroke(Color.yellow, lineWidth: 2)
+                        Rectangle()
+                            .foregroundColor(colorScheme)
+                            .cornerRadius(10)
+                    }
+                    
+                    
+                }
+            }
+            
+            
+            
+            
+            
+        }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
             .onAppear(perform: {
@@ -186,9 +308,10 @@ struct HRChartIOS16RhrView: View {
                     hearts = model.hearts28
                 }
                 if newValue == 365 {
-                    hearts = model.hearts365
+                    weekHearts = model.weekHeartsRhr
                 }
             }
+            .navigationTitle(title)
             .navigationBarItems(trailing: NavigationLink(destination: {
                 DeleteListRhrView()
             }, label: {

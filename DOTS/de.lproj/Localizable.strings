@@ -1,0 +1,53 @@
+/* 
+  Localizable.strings
+  DOTS
+
+  Created by Claudio Cantieni on 02.10.22.
+  
+*/
+
+"Shape" = "Form";
+"Not enough reference data" = "Nicht genügend Referenzdaten";
+"recovered" = "erholt";
+"rather recovered" = "ziemlich erholt";
+"slightly loaded" = "etwas belastet";
+"loaded" = "belastet";
+"Resting HR" = "Ruhe-HF";
+"Resting heart rate" = "Ruheherzfrequenz";
+"Resting heart rate:" = "Ruheherzfrequenz:";
+"Date" = "Datum";
+"Enter resting heart rate tomorrow" = "Ruheherzfrequenz morgen eingeben";
+"Record resting heart rate" = "Ruheherzfrequenz erfassen";
+"HR measurement" = "HF-Messung";
+"Execute measurement tomorrow" = "Messung morgen durchführen";
+"Measurement in operation..." = "Messung läuft...";
+"HR variability" = "HF-Variabilität";
+"Heart rate variability" = "Herzfrequenzvariabilität";
+"Enter heart rate variability tomorrow" = "Ruheherzfrequenz morgen eingeben";
+"Heart rate variability (RMSSD):" = "Herzfrequenzvariabilität (RMSSD):";
+"Record heart rate variability" = "Herzfrequenzvariabilität erfassen";
+"Save" = "Speichern";
+"Questionnaire" = "Fragebogen";
+"Fill out questionnaire tomorrow" = "Fragebogen morgen ausfüllen";
+"Fill out questionnaire in " = "Fragebogen in ";
+" days" = " Tagen ausfüllen";
+"Questionnaire is filled out" = "Fragebogen ist ausgefüllt";
+"never" = "nie";
+"rarely" = "selten";
+"sometimes" = "manchmal";
+"often" = "oft";
+"always" = "immer";
+"Next" = "Weiter";
+"Back" = "Zurück";
+"End" = "Beenden";
+"Fill out questionnaire" = "Fragebogen ausfüllen";
+"7 days" = "7 Tage";
+"4 weeks" = "4 Wochen";
+"1 year" = "1 Jahr";
+"Ø 7 days :" = "Ø 7 Tage :";
+"Today :" = "Heute :";
+"All data" = "Alle Daten";
+"Customise notifications" = "Mitteilungen anpassen";
+"User manual" = "Benutzungsanleitung";
+"Settings" = "Einstellungen";
+"Today" = "Heute";

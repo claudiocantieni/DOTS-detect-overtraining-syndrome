@@ -35,6 +35,7 @@ class NotificationManager: ObservableObject {
     }
     
     
+    
     func scheduleNotificationQuestionnaire() {
         
         //        let center = UNUserNotificationCenter.current()
@@ -44,9 +45,9 @@ class NotificationManager: ObservableObject {
         
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
-        content.body = "Fragebogen heute ausfüllen"
+        content.body = "Fill out questionnaire"
         content.sound = .default
-        badgeNumber += 1
+        badgeNumber = 1
         content.badge = (badgeNumber) as NSNumber
         
         let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.timestampQuestionnaire())!))
@@ -76,9 +77,9 @@ class NotificationManager: ObservableObject {
         
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
-        content.body = "Ruheherzfrequenz heute eingeben"
+        content.body = "Record resting heart rate"
         content.sound = .default
-        badgeNumber += 1
+        badgeNumber = 1
         content.badge = (badgeNumber) as NSNumber
         
         let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampRhr())!))
@@ -86,7 +87,9 @@ class NotificationManager: ObservableObject {
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
         dateComponents.hour = 7
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        
         
         let request = UNNotificationRequest(identifier: RhrIdentifier.first!, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
@@ -105,9 +108,9 @@ class NotificationManager: ObservableObject {
         model.fetchHearts()
         let content = UNMutableNotificationContent()
         content.title = "DOTS"
-        content.body = "Herzfrequenzvariabilität heute eingeben"
+        content.body = "Record heart rate variability"
         content.sound = .default
-        badgeNumber += 1
+        badgeNumber = 1
         content.badge = (badgeNumber) as NSNumber
         
         let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
@@ -115,7 +118,8 @@ class NotificationManager: ObservableObject {
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
         dateComponents.hour = 7
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
         let request = UNNotificationRequest(identifier: HrvIdentifier.first!, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
@@ -127,4 +131,28 @@ class NotificationManager: ObservableObject {
     //            }
     //        }
     //    }
+    
+    func testNotification() {
+        
+        let content = UNMutableNotificationContent()
+        content.title = "DOTS"
+        content.body = "Herzfrequenzvariabilität erfassen"
+        content.sound = .default
+        badgeNumber = 1
+        content.badge = (badgeNumber) as NSNumber
+        
+        //let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
+        
+        var dateComponents = DateComponents()
+        dateComponents.hour = 22
+        dateComponents.minute = 52
+        
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: HrvIdentifier.first!, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+    
 }
+

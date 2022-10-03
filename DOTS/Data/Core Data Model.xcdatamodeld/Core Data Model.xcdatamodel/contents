@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Hearts" representedClassName="Hearts" syncable="YES">
         <attribute name="hrv" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
         <attribute name="rhr" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
@@ -13,9 +13,4 @@
         <attribute name="answers" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[Int]"/>
         <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
-    <elements>
-        <element name="Loads" positionX="0" positionY="72" width="128" height="59"/>
-        <element name="Hearts" positionX="-9" positionY="36" width="128" height="74"/>
-        <element name="Questionnaire" positionX="-9" positionY="63" width="128" height="59"/>
-    </elements>
 </model>

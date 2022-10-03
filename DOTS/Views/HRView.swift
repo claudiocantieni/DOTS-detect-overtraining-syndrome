@@ -36,9 +36,9 @@ struct HRView: View {
 
             Picker("", selection: $selectedTimeRange)
             {
-                Text("7 Tage").tag(7)
-                Text("4 Wochen").tag(28)
-                Text("1 Jahr").tag(365)
+                Text("7 days").tag(7)
+                Text("4 weeks").tag(28)
+                Text("1 year").tag(365)
             }
             .pickerStyle(SegmentedPickerStyle())
             .padding(.horizontal, 40)
@@ -47,7 +47,7 @@ struct HRView: View {
             HRChartView(data: data, timestamps: timestamps, height: 250, width: 350, dotsWidth: 10, dataSuffix: dataSuffix, indicatorPointColor: indicatorPointColor, lineColor: lineColor, lineSecondColor: lineSecondColor)
                     
             HStack {
-                Text("Heute :")
+                Text("Today :")
                     .font(.custom("Ubuntu-Regular", size: 18))
                 Text(today>0 ? String(today)+String(dataSuffix): "-")
                     .font(.custom("Ubuntu-Regular", size: 18))
@@ -55,7 +55,7 @@ struct HRView: View {
             .padding()
 
             HStack {
-                Text("Ø 7 Tage :")
+                Text("Ø 7 days :")
                     .font(.custom("Ubuntu-Regular", size: 18))
                 Text(String(av7days)+String(dataSuffix))
                     .font(.custom("Ubuntu-Regular", size: 18))

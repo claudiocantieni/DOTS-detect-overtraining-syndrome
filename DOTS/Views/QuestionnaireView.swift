@@ -31,11 +31,15 @@ struct QuestionnaireView: View {
             VStack {
                 if model.timestampQuestionnaire() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) {
                     if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
-                        Text("Fragebogen morgen ausfüllen")
+                        Text("Fill out questionnaire tomorrow")
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }
                     else {
-                        Text("Fragebogen in \(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up))) Tagen ausfüllen")
+                        HStack(spacing: 0) {
+                            Text("Fill out questionnaire in ")
+                            Text("\(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)))")
+                            Text(" days")
+                        }
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }
                     
@@ -89,28 +93,28 @@ struct QuestionnaireView: View {
                     }
                     else if index == 7 {
                         
-                        Text("Fragebogen ist ausgefüllt")
+                        Text("Questionnaire is filled out")
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }
                     
                     if value == 1 {
-                        Text("nie")
+                        Text("never")
                             .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 2 {
-                        Text("selten")
+                        Text("rarely")
                             .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 3 {
-                        Text("manchmal")
+                        Text("sometimes")
                             .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 4 {
-                        Text("oft")
+                        Text("often")
                             .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else if value == 5 {
-                        Text("immer")
+                        Text("always")
                             .font(.custom("Ubuntu-Medium", size: 18))
                     }
                     else {
@@ -124,7 +128,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .accentColor)
-                                Text("Weiter")
+                                Text("Next")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -137,7 +141,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .gray)
-                                Text("Zurück")
+                                Text("Back")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -153,7 +157,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .accentColor)
-                                Text("Weiter")
+                                Text("Next")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -167,7 +171,7 @@ struct QuestionnaireView: View {
                             } label: {
                                 ZStack {
                                     ButtonView(color: .gray)
-                                    Text("Zurück")
+                                    Text("Back")
                                         .foregroundColor(colorScheme)
                                         .font(.custom("Ubuntu-Medium", size: 18))
                                 }
@@ -184,7 +188,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .accentColor)
-                                Text("Beenden")
+                                Text("End")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -197,7 +201,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .gray)
-                                Text("Zurück")
+                                Text("Back")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -216,7 +220,7 @@ struct QuestionnaireView: View {
                             
                             
                             if dateComponents.date! < Date() {
-                                manager.badgeNumber -= 1
+                                manager.badgeNumber = 0
                                 UIApplication.shared.applicationIconBadgeNumber = manager.badgeNumber
                             }
                             
@@ -234,7 +238,7 @@ struct QuestionnaireView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .gray)
-                                Text("Fertig")
+                                Text("Save")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
@@ -246,7 +250,7 @@ struct QuestionnaireView: View {
             }
             Spacer()
         }
-        .navigationTitle("Fragebogen")
+        .navigationTitle("Questionnaire")
 //        ForEach(model.models, id: \.id) { i in
 //                QuestionView(questions:i)
 //            }

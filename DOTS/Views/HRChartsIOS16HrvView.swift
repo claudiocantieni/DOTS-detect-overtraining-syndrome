@@ -20,6 +20,8 @@ struct HRChartIOS16HrvView: View {
     var title: String
     @State var hearts: [Hearts]
     //var data: [Double]
+    @State var weekHearts: [WeekHeartsHrv]
+    
     var colorScheme: Color
     
     //var indicatorPointColor: Color
@@ -31,150 +33,272 @@ struct HRChartIOS16HrvView: View {
     @EnvironmentObject var model:ContentModel
     
     @State var currentActiveItem: Hearts?
+    @State var currentActiveItem2: WeekHeartsHrv?
     
     var body: some View {
         if #available(iOS 16, *) {
-            
-                
-                VStack(alignment: .leading, spacing: 12) {
-                    Picker("", selection: $currentTab)
-                    {
-                        Text("7 Tage").tag(7)
-                        Text("4 Wochen").tag(28)
-                        Text("1 Jahr").tag(365)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding(.leading, 80)
-                    
-                    
+            VStack() {
+                if currentTab == 28 || currentTab == 7 {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Picker("", selection: $currentTab)
+                        {
+                            Text("7 days").tag(7)
+                            Text("4 weeks").tag(28)
+                            Text("1 year").tag(365)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.leading, 80)
                         
-                    if isAnyHrv() == true {
-                        let totalValue = hearts.reduce(0.0) { partialResult, item in
+                        
+                        
+                        if isAnyHrv() == true {
+                            let totalValue = hearts.reduce(0.0) { partialResult, item in
+                                
+                                item.hrv != nil ? item.hrv as! Double + partialResult : partialResult
+                                
+                            }
                             
-                            item.hrv != nil ? item.hrv as! Double + partialResult : partialResult
+                            let nonNilCount = hearts.reduce(0) { count, item in
+                                item.hrv != nil ? 1 + count : count
+                            }
                             
+                            let mean = Double(totalValue) / Double(nonNilCount)
+                            let meanRound = Int(round(mean))
+                            
+                            Text("Ø \(meanRound) ms")
+                                .font(.custom("Ubuntu-Medium", size: 26))
                         }
                         
-                        let nonNilCount = hearts.reduce(0) { count, item in
-                            item.hrv != nil ? 1 + count : count
-                        }
-                        
-                        let mean = Double(totalValue) / Double(nonNilCount)
-                        let meanRound = Int(round(mean))
-                        
-                        Text("Ø \(meanRound) ms")
-                            .font(.custom("Ubuntu-Medium", size: 26))
-                    }
                         
                         
-                    
-                    
-                    Chart(hearts) { item in
-                        if item.hrv != nil {
-                            LineMark(x: .value("Datum", item.timestamp,unit: .hour),
-                                     y: .value("HRV", Int(round(item.hrv as! Double)))
-                            )
-                            .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
-                            .interpolationMethod(.monotone)
-                            
-                            AreaMark(x: .value("Datum", item.timestamp,unit: .hour),
-                                     y: .value("HRV", Int(round(item.hrv as! Double)))
-                            )
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
-                            .interpolationMethod(.monotone)
-                            
-                            if let currentActiveItem,currentActiveItem.timestamp == item.timestamp{
-                                PointMark(x: .value("Datum", currentActiveItem.timestamp, unit: .hour),
-                                          y: .value("HRV", Int(round(item.hrv as! Double)))
+                        
+                        Chart(hearts) { item in
+                            if item.hrv != nil {
+                                LineMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("HRV", Int(round(item.hrv as! Double)))
                                 )
-                                //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
-                                .foregroundStyle(Color.yellow)
-                                .symbolSize(250)
-                                .annotation(position: .top){
-                                    VStack(alignment: .leading, spacing: 6) {
-                                        Text("\(Int(currentActiveItem.hrv ?? 152)) ms")
-                                            .foregroundColor(.black)
-                                            .font(.custom("Ubuntu-Regular", size: 18))
-                                        Text("\(currentActiveItem.timestamp.formatted(date: .numeric, time: .omitted))")
-                                            .font(.custom("Ubuntu-Regular", size: 12))
-                                            .foregroundColor(.black.opacity(0.8))
-                                    }
-                                    
-                                    
-                                    .padding(.horizontal,10)
-                                    .padding(.vertical, 4)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                            .fill(.yellow.shadow(.drop(radius:2)))
+                                .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                                .interpolationMethod(.monotone)
+                                
+                                AreaMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("HRV", Int(round(item.hrv as! Double)))
+                                )
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                                .interpolationMethod(.monotone)
+                                
+                                if let currentActiveItem,currentActiveItem.timestamp == item.timestamp  {
+                                    PointMark(x: .value("Date", currentActiveItem.timestamp, unit: .hour),
+                                              y: .value("HRV", Int(round(item.hrv as! Double)))
+                                    )
+                                    //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                                    .foregroundStyle(Color.yellow)
+                                    .symbolSize(250)
+                                    .annotation(position: .top){
+                                        VStack(alignment: .leading, spacing: 6) {
+                                            Text("\(Int(currentActiveItem.hrv ?? 152)) ms")
+                                                .foregroundColor(.black)
+                                                .font(.custom("Ubuntu-Regular", size: 18))
+                                            Text("\(currentActiveItem.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day().weekday())")
+                                                .font(.custom("Ubuntu-Regular", size: 12))
+                                                .foregroundColor(.black.opacity(0.8))
+                                        }
+                                        .padding(.horizontal,5)
+                                        .padding(.vertical, 4)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                                .fill(.yellow.shadow(.drop(radius:2)))
+                                        }
+                                        
                                     }
                                     
                                 }
+                            }
+                        }
+                        .chartXAxis {
+                            if hearts == model.hearts7 {
+                                AxisMarks(values: .stride(by: .day)) { value in
+                                    AxisGridLine()
+                                    AxisValueLabel(format: .dateTime.day(.defaultDigits).month(.defaultDigits))
+                                }
+                            }
+                            else {
+                                AxisMarks() { value in
+                                    AxisGridLine()
+                                    AxisValueLabel()
+                                }
+                            }
+                        }
+                        .chartOverlay(content: { proxy in
+                            GeometryReader{innerProxy in
+                                Rectangle()
+                                    .fill(.clear).contentShape(Rectangle())
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged{ value in
+                                                let location = value.location
+                                                
+                                                if let date: Date = proxy.value(atX: location.x){
+                                                    let calendar = Calendar.current
+                                                    let day = calendar.component(.day, from: date)
+                                                    if let currentItem = hearts.last(where: { item in
+                                                        
+                                                        calendar.component(.day, from: item.timestamp) == day
+                                                    }){
+                                                        self.currentActiveItem = currentItem
+                                                    }
+                                                }
+                                            }.onEnded{value in
+                                                self.currentActiveItem = nil
+                                            }
+                                    )
+                            }
+                        })
+                        .frame(height: 300)
+                    }
+                    .padding()
+                    .background {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .stroke(Color.yellow, lineWidth: 2)
+                            Rectangle()
+                                .foregroundColor(colorScheme)
+                                .cornerRadius(10)
+                        }
+                        
+                        
+                    }
+                }
+                
+                else {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Picker("", selection: $currentTab)
+                        {
+                            Text("7 days").tag(7)
+                            Text("4 weeks").tag(28)
+                            Text("1 year").tag(365)
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.leading, 80)
+                        
+                        
+                        
+                        if isAnyHrv() == true {
+                            let totalValue = weekHearts.reduce(0.0) { partialResult, item in
+                                
+                                item.hrv + partialResult
                                 
                             }
-                        }
-                    }
-                    .chartXAxis {
-                        if hearts == model.hearts7 {
-                            AxisMarks(values: .stride(by: .day)) { value in
-                                AxisGridLine()
-                                AxisValueLabel(format: .dateTime.day(.defaultDigits).month(.defaultDigits))
+                            
+                            let nonNilCount = weekHearts.reduce(0) { count, item in
+                                1 + count
                             }
+                            
+                            let mean = Double(totalValue) / Double(nonNilCount)
+                            let meanRound = Int(round(mean))
+                            
+                            Text("Ø \(meanRound) ms")
+                                .font(.custom("Ubuntu-Medium", size: 26))
                         }
-                        else {
-                            AxisMarks() { value in
-                                AxisGridLine()
-                                AxisValueLabel()
-                            }
-                        }
-                    }
-                    .chartOverlay(content: { proxy in
-                        GeometryReader{innerProxy in
-                            Rectangle()
-                                .fill(.clear).contentShape(Rectangle())
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged{ value in
-                                            let location = value.location
-                                            
-                                            if let date: Date = proxy.value(atX: location.x){
-                                                let calendar = Calendar.current
-                                                let day = calendar.component(.day, from: date)
-                                                if let currentItem = hearts.first(where: { item in
-                                                    
-                                                    calendar.component(.day, from: item.timestamp) == day
-                                                }){
-                                                    self.currentActiveItem = currentItem
-                                                }
-                                            }
-                                        }.onEnded{value in
-                                            self.currentActiveItem = nil
-                                        }
-                                )
-                        }
-                    })
-                    .frame(height: 300)
-                }
-                .padding()
-                .background {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(Color.yellow, lineWidth: 2)
-                        Rectangle()
-                            .foregroundColor(colorScheme)
-                            .cornerRadius(10)
-                    }
-                    
                         
+                        
+                        
+                        
+                        Chart(weekHearts) { item in
+                            
+                                LineMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("HRV", Int(round(item.hrv )))
+                                )
+                                .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                                .interpolationMethod(.monotone)
+                                
+                                AreaMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("HRV", Int(round(item.hrv )))
+                                )
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                                .interpolationMethod(.monotone)
+                                
+                                if let currentActiveItem2,currentActiveItem2.timestamp == item.timestamp  {
+                                    PointMark(x: .value("Date", currentActiveItem2.timestamp, unit: .hour),
+                                              y: .value("HRV", Int(round(item.hrv )))
+                                    )
+                                    //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                                    .foregroundStyle(Color.yellow)
+                                    .symbolSize(250)
+                                    .annotation(position: .top){
+                                        VStack(alignment: .leading, spacing: 6) {
+                                            Text("\(Int(currentActiveItem2.hrv)) ms")
+                                                .foregroundColor(.black)
+                                                .font(.custom("Ubuntu-Regular", size: 18))
+                                            VStack() {
+                                                Text("\(NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: currentActiveItem2.timestamp)!), format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits) .day()) -")
+                                                Text("\(currentActiveItem2.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day())")
+                                            }
+                                            
+                                                .font(.custom("Ubuntu-Regular", size: 12))
+                                                .foregroundColor(.black.opacity(0.8))
+                                        }
+                                        .padding(.horizontal,5)
+                                        .padding(.vertical, 4)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                                .fill(.yellow.shadow(.drop(radius:2)))
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                            
+                        }
+                        
+                        .chartOverlay(content: { proxy in
+                            GeometryReader{innerProxy in
+                                Rectangle()
+                                    .fill(.clear).contentShape(Rectangle())
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged{ value in
+                                                let location = value.location
+                                                
+                                                if let date: Date = proxy.value(atX: location.x){
+                                                    let calendar = Calendar.current
+                                                    let day = calendar.component(.weekOfYear, from: date)
+                                                    if let currentItem2 = weekHearts.last(where: { item in
+                                                        
+                                                        calendar.component(.weekOfYear, from: item.timestamp) == day
+                                                    }){
+                                                        self.currentActiveItem2 = currentItem2
+                                                    }
+                                                }
+                                            }.onEnded{value in
+                                                self.currentActiveItem2 = nil
+                                            }
+                                    )
+                            }
+                        })
+                        .frame(height: 300)
+                    }
+                    .padding()
+                    .background {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .stroke(Color.yellow, lineWidth: 2)
+                            Rectangle()
+                                .foregroundColor(colorScheme)
+                                .cornerRadius(10)
+                        }
+                        
+                        
+                    }
                 }
                 
                 
-                .navigationTitle(title)
-                .lineLimit(1)
-                .allowsTightening(true)
-                .minimumScaleFactor(0.5)
                 
-            
+                
+                
+                
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding()
             .onAppear(perform: {
@@ -188,9 +312,10 @@ struct HRChartIOS16HrvView: View {
                     hearts = model.hearts28
                 }
                 if newValue == 365 {
-                    hearts = model.hearts365
+                    weekHearts = model.weekHeartsHrv
                 }
             }
+            .navigationTitle(title)
             .navigationBarItems(trailing: NavigationLink(destination: {
                 DeleteListHrvView()
             }, label: {

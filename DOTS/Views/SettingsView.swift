@@ -42,7 +42,7 @@ struct SettingsView: View {
                             HStack(spacing: 20.0) {
                                 Image(systemName: "bell")
 
-                                Text("Mitteilungen anpassen")
+                                Text("Customise notifications")
                                     .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
                                     .lineLimit(1)
@@ -64,7 +64,7 @@ struct SettingsView: View {
                             HStack(spacing: 20.0) {
                                 Image(systemName: "book.closed")
                                     
-                                Text("Benutzungsanleitung")
+                                Text("User manual")
                                     .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
                                     .lineLimit(1)
@@ -103,7 +103,7 @@ struct SettingsView: View {
                 }
                 
             }
-            .navigationTitle("Einstellungen")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
         }
     }

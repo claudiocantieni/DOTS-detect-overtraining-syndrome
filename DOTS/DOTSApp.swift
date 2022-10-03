@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct DOTSApp: App {
     
+    
     let persistenceController = PersistenceController.shared
     init() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
@@ -19,9 +20,12 @@ struct DOTSApp: App {
 
             }
             else {
-                print("Success")
+                
             }
+            
         }
+        
+        
     }
     var body: some Scene {
         WindowGroup {

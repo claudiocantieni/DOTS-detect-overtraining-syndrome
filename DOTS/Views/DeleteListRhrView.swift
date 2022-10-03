@@ -35,7 +35,7 @@ struct DeleteListRhrView: View {
                 EditButton()
             }
         }
-        .navigationTitle("Alle Daten")
+        .navigationTitle("All data")
         
     }
 }
