@@ -35,10 +35,13 @@ struct QuestionnaireView: View {
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }
                     else {
-                        HStack(spacing: 0) {
+                        VStack(spacing: 10) {
                             Text("Fill out questionnaire in ")
-                            Text("\(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)))")
-                            Text(" days")
+                            HStack(spacing: 0) {
+                                Text("\(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)))")
+                                Text(" days")
+                            }
+                            
                         }
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }

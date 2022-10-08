@@ -32,6 +32,7 @@ class ContentModel: ObservableObject {
 
     
     @Published var loads7: [Loads] = []
+    @Published var loads14: [Loads] = []
     @Published var loads28: [Loads] = []
     @Published var loads365: [Loads] = []
     @Published var loads0: [Loads] = []
@@ -188,6 +189,7 @@ class ContentModel: ObservableObject {
         let sortToday = NSSortDescriptor(key: "timestamp", ascending: false)
         
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
+        let predicate14 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate365 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -364, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate0 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 0, to: NSDate() as Date)!) as CVarArg, NSDate())
@@ -204,6 +206,14 @@ class ContentModel: ObservableObject {
         request.predicate = predicate0
         do {
             loads0 = try managedObjectContext.fetch(request)
+        }
+        catch {
+            
+        }
+        request.sortDescriptors = [sort]
+        request.predicate = predicate14
+        do {
+            loads14 = try managedObjectContext.fetch(request)
         }
         catch {
             
@@ -716,6 +726,40 @@ class ContentModel: ObservableObject {
     func calculateMeanLoad() -> Double {
         var array:[Double] = []
         for f in loads7 {
+            
+            array.append(f.load )
+            
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    
+    func calculateMeanLoad14() -> Double {
+        var array:[Double] = []
+        for f in loads14 {
+            
+            array.append(f.load )
+            
+        }
+        // Calculate sum ot items with reduce function
+        let sum = array.reduce(0, { a, b in
+            return a + b
+        })
+        
+        let mean = Double(sum) / Double(array.count)
+        let meanRound = Double(round(100 * mean) / 100)
+        return Double(meanRound)
+    }
+    
+    func calculateMeanLoad28() -> Double {
+        var array:[Double] = []
+        for f in loads28 {
             
             array.append(f.load )
             

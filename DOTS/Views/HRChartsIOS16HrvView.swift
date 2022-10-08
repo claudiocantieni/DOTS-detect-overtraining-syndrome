@@ -17,7 +17,7 @@ struct HRChartIOS16HrvView: View {
     
     @State var currentTab: Int = 7
     
-    var title: String
+
     @State var hearts: [Hearts]
     //var data: [Double]
     @State var weekHearts: [WeekHeartsHrv]
@@ -78,13 +78,19 @@ struct HRChartIOS16HrvView: View {
                                          y: .value("HRV", Int(round(item.hrv as! Double)))
                                 )
                                 .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
                                 .interpolationMethod(.monotone)
                                 
                                 AreaMark(x: .value("Date", item.timestamp,unit: .hour),
                                          y: .value("HRV", Int(round(item.hrv as! Double)))
                                 )
-                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                                .foregroundStyle(.linearGradient(colors: [
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
+                                    .clear
+                                ], startPoint: .top, endPoint: .bottom))
                                 .interpolationMethod(.monotone)
                                 
                                 if let currentActiveItem,currentActiveItem.timestamp == item.timestamp  {
@@ -210,13 +216,19 @@ struct HRChartIOS16HrvView: View {
                                          y: .value("HRV", Int(round(item.hrv )))
                                 )
                                 .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
                                 .interpolationMethod(.monotone)
                                 
                                 AreaMark(x: .value("Date", item.timestamp,unit: .hour),
                                          y: .value("HRV", Int(round(item.hrv )))
                                 )
-                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                                .foregroundStyle(.linearGradient(colors: [
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
+                                    .clear
+                                ], startPoint: .top, endPoint: .bottom))
                                 .interpolationMethod(.monotone)
                                 
                                 if let currentActiveItem2,currentActiveItem2.timestamp == item.timestamp  {
@@ -315,7 +327,7 @@ struct HRChartIOS16HrvView: View {
                     weekHearts = model.weekHeartsHrv
                 }
             }
-            .navigationTitle(title)
+            .navigationTitle("HR variability")
             .navigationBarItems(trailing: NavigationLink(destination: {
                 DeleteListHrvView()
             }, label: {

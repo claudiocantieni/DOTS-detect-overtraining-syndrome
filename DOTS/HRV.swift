@@ -130,6 +130,12 @@ class HRV: ObservableObject, HeartRateDelegate {
         }
     
     }
+    
+    func listBluethoothDevices() {
+        heartRateCenter = HeartRateCenter(delegate: self)
+        heartRateCenter.setup()
+        
+    }
 
     func addData() {
         //TODO: adapt to textfields

@@ -39,15 +39,22 @@ struct GaugeIOS16View: View {
             VStack(alignment: .leading) {
                 if currentTab == 28 || currentTab == 7 {
                     VStack(alignment: .leading, spacing: 12) {
-                        Picker("", selection: $currentTab)
-                        {
-                            Text("7 days").tag(7)
-                            Text("4 weeks").tag(28)
-                            Text("1 year").tag(365)
+                        HStack {
+                            if model.calculateMeanLoad14() < 0.2 || model.calculateMeanLoad28() < 0.4 {
+                                AttentionPopoverView()
+                            }
+                            
+                            
+                            Picker("", selection: $currentTab)
+                            {
+                                Text("7 days").tag(7)
+                                Text("4 weeks").tag(28)
+                                Text("1 year").tag(365)
+                            }
+                            .pickerStyle(.segmented)
+                            .padding(.leading, 80)
+                            
                         }
-                        .pickerStyle(.segmented)
-                        .padding(.leading, 80)
-                        
                         
                         let totalValue = loads.reduce(0.0) { partialResult, item in
                             
@@ -125,13 +132,20 @@ struct GaugeIOS16View: View {
                                      y: .value("Stare", Int(round(item.load*100)))
                             )
                             .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
                             .interpolationMethod(.monotone)
                             
                             AreaMark(x: .value("Date", item.timestamp,unit: .hour),
                                      y: .value("State", Int(round(item.load*100)))
                             )
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                            .foregroundStyle(.linearGradient(colors: [
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
+                                .clear
+                            ], startPoint: .top, endPoint: .bottom))
+                                                            
                             .interpolationMethod(.monotone)
                             
                             if let currentActiveItem,currentActiveItem.timestamp == item.timestamp{
@@ -307,13 +321,19 @@ struct GaugeIOS16View: View {
                                      y: .value("Stare", Int(round(item.load*100)))
                             )
                             .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).gradient)
+                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
                             .interpolationMethod(.monotone)
                             
                             AreaMark(x: .value("Date", item.timestamp,unit: .hour),
                                      y: .value("State", Int(round(item.load*100)))
                             )
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.2).gradient)
+                            .foregroundStyle(.linearGradient(colors: [
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
+                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
+                                .clear
+                            ], startPoint: .top, endPoint: .bottom))
                             .interpolationMethod(.monotone)
                             
                             
