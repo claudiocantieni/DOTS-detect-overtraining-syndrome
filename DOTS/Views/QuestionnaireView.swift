@@ -29,8 +29,8 @@ struct QuestionnaireView: View {
             
             Spacer()
             VStack {
-                if model.timestampQuestionnaire() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) {
-                    if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
+                if model.timestampQuestionnaire() >= NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -2, to: NSDate() as Date)!) {
+                    if Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)) == 1 {
                         Text("Fill out questionnaire tomorrow")
                             .font(.custom("Ubuntu-Medium", size: 22))
                     }
@@ -38,7 +38,7 @@ struct QuestionnaireView: View {
                         VStack(spacing: 10) {
                             Text("Fill out questionnaire in ")
                             HStack(spacing: 0) {
-                                Text("\(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)))")
+                                Text("\(Int((NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: model.timestampQuestionnaire())!)).timeIntervalSinceNow / 3600 / 24).rounded(.up)))")
                                 Text(" days")
                             }
                             
@@ -49,7 +49,7 @@ struct QuestionnaireView: View {
                 }
                 else {
                     if index == 1{
-                        Text("In der letzten Woche habe ich mich entspannt gefühlt")
+                        Text("In den letzten 3 Tagen habe ich mich entspannt gefühlt")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
@@ -60,35 +60,35 @@ struct QuestionnaireView: View {
                     //                Slider(value: $value, in: 1...5, step: 1)
                     //                    .padding()
                     else if index == 2 {
-                        Text("In der letzten Woche konnte ich mich gut konzentrieren")
+                        Text("In den letzten 3 Tagen konnte ich mich gut konzentrieren")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 3 {
-                        Text("In der letzten Woche hatte ich genügend Schlaf")
+                        Text("In den letzten 3 Tagen hatte ich genügend Schlaf")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 4 {
-                        Text("In der letzten Woche war ich guter Laune")
+                        Text("In den letzten 3 Tagen war ich guter Laune")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 5 {
-                        Text("In der letzten Woche fühlte ich mich unter Druck gesetzt")
+                        Text("In den letzten 3 Tagen fühlte ich mich unter Druck gesetzt")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 6 {
-                        Text("In der letzten Woche fühlte ich mich leistungsfähig")
+                        Text("In den letzten 3 Tagen fühlte ich mich leistungsfähig")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
@@ -214,7 +214,7 @@ struct QuestionnaireView: View {
                     }
                     else if index == 7 {
                         Button {
-                            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.timestampQuestionnaire())!))
+                            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.timestampQuestionnaire())!))
                             //let date = model.lastTimestampRhr()
                             var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
                             dateComponents.calendar = Calendar.current

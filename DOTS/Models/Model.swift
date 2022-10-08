@@ -28,12 +28,3 @@ struct WeekHeartsHrv: Identifiable {
     var timestamp: Date
 }
 
-struct Selected: Codable {
-
-    // MARK: - Properties
-
-    let id: [UUID]
-
-    let name: String
-
-}

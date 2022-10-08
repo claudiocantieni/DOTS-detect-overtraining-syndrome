@@ -29,8 +29,6 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
     var centralManager: CBCentralManager!
     var peripheral: CBPeripheral!
     
-    @Published var selectedPeripheral: [UUID] = []
-
     @Published var peripherals: [CBPeripheral] = []
     @Published var bpm: Int?
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -74,26 +72,10 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
         
 
         
-//        self.centralManager.stopScan()
-    }
-//    func connectToPeripheral() {
-//
-//        self.peripheral = selectedPeripheral as? CBPeripheral
-//    }
-    func decodeSelected() {
-        if let data = UserDefaults.standard.data(forKey: "selectedPeripheral") {
-            do {
-                // Create JSON Decoder
-                let decoder = JSONDecoder()
 
-                // Decode Note
-                let selected = try decoder.decode(Selected.self, from: data)
-                selectedPeripheral = selected.id
-            } catch {
-                print("Unable to Decode Note (\(error))")
-            }
-        }
     }
+
+
     
     
 

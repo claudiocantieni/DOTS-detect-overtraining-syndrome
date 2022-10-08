@@ -31,7 +31,7 @@ struct InputHrvView: View {
             dateComponents.minute = 0
             
             
-            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 7, to: self.model.timestampQuestionnaire())!))
+            let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.timestampQuestionnaire())!))
             //let date = model.lastTimestampRhr()
             var dateComponents2 = Calendar.current.dateComponents([.year, .month, .day], from: date)
             dateComponents2.calendar = Calendar.current

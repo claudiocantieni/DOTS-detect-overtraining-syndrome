@@ -99,25 +99,27 @@ class HRV: ObservableObject, HeartRateDelegate {
     }
 
     
-    func startStopMeasure() {
-        if (heartRateCenter == nil) {
-           
-
-            // show breath view
-            heartRateCenter = HeartRateCenter(delegate: self)
-            heartRateCenter.setup()
-
-            
-
-            heartRateRRIntervalDatas = [Double]()
-            heartRateRRCount = 0;
-            duration = 0.0
-
-         
-
-        } else {
-          
-
+    func startMeasure() {
+        
+        
+        
+        // show breath view
+        heartRateCenter = HeartRateCenter(delegate: self)
+        heartRateCenter.setup()
+        
+        
+        heartRateRRIntervalDatas = [];
+        heartRateHRIntervalDatas = [];
+        heartRateRRIntervalDatas = [Double]()
+        heartRateRRCount = 0;
+        duration = 0.0
+        
+        
+        
+        
+    }
+    func stopMeasure() {
+        if heartRateCenter != nil {
             heartRateCenter.cleanup()
             heartRateCenter = nil
             
@@ -126,15 +128,20 @@ class HRV: ObservableObject, HeartRateDelegate {
 
             analyzeIntervals()
             getMinHR()
+        }
+
+            
             
         }
     
-    }
     
-    func listBluethoothDevices() {
+    func stopMeasure2() {
+        
+        heartRateCenter = nil
+    }
+    func connect() {
         heartRateCenter = HeartRateCenter(delegate: self)
         heartRateCenter.setup()
-        
     }
 
     func addData() {

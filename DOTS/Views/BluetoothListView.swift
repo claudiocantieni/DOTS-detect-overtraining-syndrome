@@ -10,47 +10,64 @@ import CoreBluetooth
 
 struct BluetoothListView: View {
 
-    var selected = [Selected]()
-
+    
+    @AppStorage("PUUID") var selected = ""
+    @AppStorage("connected") var connected: Bool = false
+    
     @ObservedObject var HRVModel = HRV()
     @ObservedObject var BleModel = BLEModel()
     var body: some View {
-        VStack {
+        List {
 
-            List(BleModel.peripherals, id: \.self) { peripheral in
-                ZStack {
+            ForEach(BleModel.peripherals, id: \.self) { peripheral in
+                HStack() {
                     Text(peripheral.name ?? "unnamed device")
-                Button {
-                    let selected = Selected(id: [peripheral.identifier], name: peripheral.name ?? "unnamed device")
-                    do {
+                        .font(.custom("Ubuntu-Medium", size: 18))
+                        .padding(.horizontal)
+                    Spacer()
+
+                    Button {
+    //
+                        UserDefaults.standard.set(peripheral.identifier.uuidString, forKey: "PUUID")
+                            UserDefaults.standard.synchronize()
+                        HRVModel.connect()
                         
-
-                        // Create JSON Encoder
-                        let encoder = JSONEncoder()
-
-                        // Encode Note
-                        let data = try encoder.encode(selected)
-
-                        // Write/Set Data
-                        UserDefaults.standard.set(data, forKey: "selectedPeripheral")
-                        UserDefaults.standard.synchronize()
-                    } catch {
-                        print("Unable to Encode Note (\(error))")
+                    } label: {
+                    
+                        if peripheral.identifier.uuidString == selected && connected == true {
+                            Text("Connected")
+                                .foregroundColor(.accentColor)
+                                .font(.custom("Ubuntu-Regular", size: 18))
+                                .padding(.horizontal)
+                        }
+                        else {
+                            Text("Not connected")
+                                .foregroundColor(.accentColor)
+                                .font(.custom("Ubuntu-Regular", size: 18))
+                                .padding(.horizontal)
+                                
+                        }
                     }
                     
-                } label: {
-                    
-                }
-                .buttonStyle(.bordered)
+                
                 }
                
 
             }
-            
-            
-            
-        
+
+            .onDelete { _ in
+                UserDefaults.standard.removeObject(forKey: "PUUID")
+                HRVModel.stopMeasure2()
+                UserDefaults.standard.set(false, forKey: "connected")
+            }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                EditButton()
+            }
+        }
+        .navigationTitle("Devices")
+        
     
         
     }
