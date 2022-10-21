@@ -24,7 +24,7 @@ struct HRView: View {
     var av7days: Double
     
     var body: some View {
-        
+        // Old Chart, before ios 16
         VStack {
             
             Text(title)

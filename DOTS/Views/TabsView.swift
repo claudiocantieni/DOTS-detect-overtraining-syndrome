@@ -19,7 +19,7 @@ struct TabsView: View {
         
         if welcomeViewShown {
             TabView(selection: $tabSelection) {
-                
+              // Different tabs
                 HomeView(tabSelection: $tabSelection)
                     .tabItem {
                         Image(systemName: "house")
@@ -34,7 +34,7 @@ struct TabsView: View {
 
                 
                 
-                SettingsView()
+                SettingsView(tabSelection: $tabSelection)
                     .tabItem {
                         Image(systemName: "gearshape")
                     }
@@ -42,9 +42,9 @@ struct TabsView: View {
             }
             
         }
-        // Ansicht beim ersten Launch der App, sonst normal^
+        // View for the first launch
         else {
-            WelcomeView(isButtonNeeded: true)
+            WelcomeView(tabSelection: $tabSelection)
         }
         
     }

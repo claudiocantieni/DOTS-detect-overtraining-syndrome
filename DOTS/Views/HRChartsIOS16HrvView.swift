@@ -12,7 +12,7 @@ import Charts
 
 struct HRChartIOS16HrvView: View {
     
-    
+    // same as GaugeIOS16View but with rhr
     
     
     @State var currentTab: Int = 7

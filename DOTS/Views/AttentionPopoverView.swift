@@ -26,10 +26,9 @@ struct AttentionPopoverView: View {
         .sheet(isPresented: $showingPopover) {
             if #available(iOS 16.0, *) {
                 Text("""
-                    Der Zustand ist seit mehreren Wochen belastet
-                    Das deutet auf eine mögliche Überbelastung hin,
-                    deshalb sollte das mit dem Coach abgeklärt werden
-                    ...
+                    Die Form zeigt seit mehreren Wochen den Status ”belastet” an.
+                    
+                    Das deutet auf eine mögliche Überbelastung hin. Falls kein logischer Grund vorliegt, wie Krankheit oder gewollte Superkompensation, sollte mit dem Coach abgeklärt werden, ob zu handeln ist. In diesem Fall wird meistens das Training reduziert.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -38,10 +37,9 @@ struct AttentionPopoverView: View {
                 .presentationDetents([.medium])
             } else {
                 Text("""
-                    Der Zustand ist seit mehreren Wochen belastet
-                    Das deutet auf eine mögliche Überbelastung hin,
-                    deshalb sollte das mit dem Coach abgeklärt werden
-                    ...
+                    Die Form zeigt seit mehreren Wochen den Status ”belastet” an.
+                    
+                    Das deutet auf eine mögliche Überbelastung hin. Falls kein logischer Grund vorliegt, wie Krankheit oder gewollte Superkompensation, sollte mit dem Coach abgeklärt werden, ob zu handeln ist. In diesem Fall wird meistens das Training reduziert.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))

@@ -37,9 +37,11 @@ struct GaugeView: View {
         
         .popover(isPresented: $showingPopover) {
             Text("""
-                Der Formszustand wird
-                wie folgt berechnet...
-                Erklärung folgt
+                Die Form wird zu je einem Drittel aus Ruheherzfrequenz, Herzfrequenzvariabilität und psychometrischem Fragebogen berechnet.
+                
+                Die Auswertung des Fragebogens folgt einem Punktesystem für die gegebenen Antworten.
+                
+                Die Herzfrequenzdaten werden mit einer Basis verglichen, welche aus einer Ruhephase stammt. Die Basis wird angepasst, wenn sie sich verbessert.
                 """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -76,12 +78,11 @@ struct GaugeView: View {
     }
     var body: some View {
         VStack {
-            
+            // only if app is used for more than a week
             
             if model.firstInputRhr() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! || model.firstInputHrv() as Date > NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! {
                 
                 Button {
-                    tabSelection = 2
                     
                     self.presentationMode.wrappedValue.dismiss()
                     
@@ -98,6 +99,7 @@ struct GaugeView: View {
 
             }
             else {
+                // new charts for ios 16
                 if #available(iOS 16, *) {
                     GaugeIOS16View(colorScheme: colorScheme, loads: model.loads7, weekLoads: model.weekLoads)
                 }

@@ -66,9 +66,14 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
                         rssi RSSI: NSNumber) {
 
         print("peripheral: \(peripheral) rssi=\(RSSI) data=\(advertisementData)")
-
+        if peripherals.contains(peripheral) {
+            
+        }
+        else {
+            self.peripherals.append(peripheral)
+        }
         // we need to store reference to peripheral
-        self.peripherals.append(peripheral)
+        
         
 
         

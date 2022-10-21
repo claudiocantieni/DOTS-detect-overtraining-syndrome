@@ -27,6 +27,7 @@ class Theme2 {
 }
 
 struct SettingsView: View {
+    @Binding var tabSelection: Int
     var body: some View {
         NavigationView {
             ScrollView {
@@ -42,7 +43,7 @@ struct SettingsView: View {
                             HStack(spacing: 20.0) {
                                 Image(systemName: "bell")
 
-                                Text("Customise notifications")
+                                Text("Bluetooth & notifications")
                                     .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
                                     .lineLimit(1)
@@ -59,7 +60,7 @@ struct SettingsView: View {
                     .padding()
                     
                     NavigationLink {
-                        WelcomeView(isButtonNeeded: false)
+                        WelcomeView(tabSelection: $tabSelection)
                     } label: {
                             HStack(spacing: 20.0) {
                                 Image(systemName: "book.closed")
@@ -77,6 +78,25 @@ struct SettingsView: View {
                                     
                             }
                         
+                    }
+                    .padding()
+                    
+                    Link(destination: URL(string: "https://www.iubenda.com/privacy-policy/36559478")!) {
+                        HStack(spacing: 20.0) {
+                            Image(systemName: "lock.shield")
+                                
+                            Text("Privacy policy")
+                                .font(.custom("Ubuntu-Medium", size: 20))
+                                .foregroundColor(.accentColor)
+                                .lineLimit(1)
+                                .allowsTightening(true)
+                                .minimumScaleFactor(0.5)
+                                .multilineTextAlignment(.leading)
+                            
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                
+                        }
                     }
                     .padding()
 //                    NavigationLink {

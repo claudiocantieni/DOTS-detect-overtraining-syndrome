@@ -20,7 +20,7 @@ struct BluetoothListView: View {
         List {
 
             ForEach(BleModel.peripherals, id: \.self) { peripheral in
-                HStack() {
+                HStack {
                     Text(peripheral.name ?? "unnamed device")
                         .font(.custom("Ubuntu-Medium", size: 18))
                         .padding(.horizontal)

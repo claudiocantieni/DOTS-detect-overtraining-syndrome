@@ -39,7 +39,9 @@ struct GaugeIOS16View: View {
             VStack(alignment: .leading) {
                 if currentTab == 28 || currentTab == 7 {
                     VStack(alignment: .leading, spacing: 12) {
+                        // Chart for 7 and 28 days
                         HStack {
+                            // if form is lower than .. show a label
                             if model.calculateMeanLoad14() < 0.2 || model.calculateMeanLoad28() < 0.4 {
                                 AttentionPopoverView()
                             }
@@ -55,7 +57,7 @@ struct GaugeIOS16View: View {
                             .padding(.leading, 80)
                             
                         }
-                        
+                        // calculate averages
                         let totalValue = loads.reduce(0.0) { partialResult, item in
                             
                             item.load*100 + partialResult
@@ -124,7 +126,7 @@ struct GaugeIOS16View: View {
                         }
                         
                         
-                        
+                    
                         
                         Chart(loads) { item in
                             
@@ -148,6 +150,7 @@ struct GaugeIOS16View: View {
                                                             
                             .interpolationMethod(.monotone)
                             
+                            // is shown when dragged across the screen with the finger
                             if let currentActiveItem,currentActiveItem.timestamp == item.timestamp{
                                 PointMark(x: .value("Date", currentActiveItem.timestamp, unit: .hour),
                                           y: .value("State", Int(round(item.load*100)))
@@ -178,6 +181,7 @@ struct GaugeIOS16View: View {
                             }
                             
                         }
+                        // custom XAxis, every day
                         .chartXAxis {
                             if loads == model.loads7 {
                                 AxisMarks(values: .stride(by: .day)) { value in
@@ -192,6 +196,7 @@ struct GaugeIOS16View: View {
                                 }
                             }
                         }
+                        // 0-100 always
                         .chartYScale(domain: 0...100)
                         .chartOverlay(content: { proxy in
                             GeometryReader{innerProxy in
@@ -234,6 +239,7 @@ struct GaugeIOS16View: View {
                     }
                 }
                 else {
+                    // Chart for a year basically the same but with weekly averages
                     VStack(alignment: .leading, spacing: 12) {
                         Picker("", selection: $currentTab)
                         {

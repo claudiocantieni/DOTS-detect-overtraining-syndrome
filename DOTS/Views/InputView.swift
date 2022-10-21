@@ -59,6 +59,7 @@ struct InputView: View {
                 
             manager.scheduleNotificationRhr()
             
+            if  NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputRhr() as Date && NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputHrv() as Date { model.createLoad()}
             
             self.presentationMode.wrappedValue.dismiss()
             
