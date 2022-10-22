@@ -102,7 +102,7 @@ struct HRChartIOS16HrvView: View {
                                     .symbolSize(250)
                                     .annotation(position: .top){
                                         VStack(alignment: .leading, spacing: 6) {
-                                            Text("\(Int(currentActiveItem.hrv ?? 152)) ms")
+                                            Text("\(Int(currentActiveItem.hrv!)) ms")
                                                 .foregroundColor(.black)
                                                 .font(.custom("Ubuntu-Regular", size: 18))
                                             Text("\(currentActiveItem.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day().weekday())")

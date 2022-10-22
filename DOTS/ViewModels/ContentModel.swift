@@ -10,11 +10,9 @@ import SwiftUI
 import CoreData
 class ContentModel: ObservableObject {
     
-    
-
-    
     let managedObjectContext = PersistenceController.shared.container.viewContext
     
+    // Core Data for Hearts(rhr,hrv) is stored here, with different time spans
     @Published var hearts7: [Hearts] = []
     @Published var hearts0: [Hearts] = []
     @Published var hearts14: [Hearts] = []
@@ -28,9 +26,10 @@ class ContentModel: ObservableObject {
     @Published var heartsrhrbasecalc: [Hearts] = []
     @Published var heartshrvbasecalc: [Hearts] = []
     
+    // Core Data for answers of questionnaire
     @Published var questions: [Questionnaire] = []
 
-    
+    // Core Data for load
     @Published var loads7: [Loads] = []
     @Published var loads14: [Loads] = []
     @Published var loads28: [Loads] = []
@@ -38,6 +37,7 @@ class ContentModel: ObservableObject {
     @Published var loads0: [Loads] = []
     @Published var loadsToday: [Loads] = []
     
+    // Data for weekly averages
     @Published var weekLoads = [WeekLoads]()
     @Published var weekHeartsRhr = [WeekHeartsRhr]()
     @Published var weekHeartsHrv = [WeekHeartsHrv]()
@@ -60,11 +60,13 @@ class ContentModel: ObservableObject {
         weekMeanHeartsHrv()
         
     }
+    // All Fetch request for Hearts
     func fetchHearts() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
         let sortAll = NSSortDescriptor(key: "timestamp", ascending: false)
         
+        // different predicates for all timespans from different timestamps
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate14 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
@@ -138,6 +140,8 @@ class ContentModel: ObservableObject {
             
         }
     }
+    
+    // Fetchrequest for predicates of other fetchRequest
     func fetchHeartsFirst() {
         let request = NSFetchRequest<Hearts>(entityName: "Hearts")
         let sortfirst = NSSortDescriptor(key: "timestamp", ascending: true)
@@ -163,10 +167,12 @@ class ContentModel: ObservableObject {
             
         }
     }
+    // Fetch Request for Questionnaire
     func fetchQuestionnaire() {
         let request = NSFetchRequest<Questionnaire>(entityName: "Questionnaire")
         let sort = NSSortDescriptor(key: "timestamp", ascending: false)
         
+        // Data of questionnaire is icluded from load for 14 days
         let predicate = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -14, to: NSDate() as Date)!) as CVarArg, NSDate())
         
         
@@ -183,11 +189,13 @@ class ContentModel: ObservableObject {
         
     }
     
+    // Fetch Request for Load/Shape
     func fetchLoads() {
         let request = NSFetchRequest<Loads>(entityName: "Loads")
         let sort = NSSortDescriptor(key: "timestamp", ascending: true)
         let sortToday = NSSortDescriptor(key: "timestamp", ascending: false)
         
+        // different predicates for all timespans from different timestamps
         let predicate7 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate14 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) as CVarArg, NSDate())
         let predicate28 = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -27, to: NSDate() as Date)!) as CVarArg, NSDate())
@@ -244,6 +252,7 @@ class ContentModel: ObservableObject {
         }
     }
     
+    // needed creation of arrays before ios 16
     func createArrayRhr(selectedTimeRange: Int) -> [Double]{
         var hrArray:[Double] = []
         
@@ -268,9 +277,10 @@ class ContentModel: ObservableObject {
                     }
                 }
             }
-        
+        // returns an array for the old graphs
         return hrArray
     }
+    // needed creation of arrays before ios 16
     func createArrayHrv(selectedTimeRange:Int) -> [Double]{
         var hrArray:[Double] = []
         
@@ -296,9 +306,10 @@ class ContentModel: ObservableObject {
                     }
                 }
             }
-        
+        // returns an array for the old graphs
         return hrArray
     }
+    // creates the timestamps which belong to the data from createArrayRhr
     func createTimestampsRhr(selectedTimeRange: Int) -> [Date]{
         var timestamps:[Date] = []
         
@@ -326,6 +337,7 @@ class ContentModel: ObservableObject {
         
         return timestamps
     }
+    // creates the timestamps which belong to the data from createArrayHrv
     func createTimestampsHrv(selectedTimeRange: Int) -> [Date]{
             var timestamps:[Date] = []
             
@@ -353,6 +365,7 @@ class ContentModel: ObservableObject {
             
             return timestamps
         }
+    // < ios 16
     func createTodayRhr() -> Double {
     var HrToday:Double = 0
         for f in hearts0 {
@@ -362,6 +375,7 @@ class ContentModel: ObservableObject {
         }
         return HrToday
     }
+    // < ios 16
     func createTodayHrv() -> Double {
     var HrToday:Double = 0
         for f in hearts0 {
@@ -371,6 +385,7 @@ class ContentModel: ObservableObject {
         }
         return HrToday
     }
+    // < ios 16
     func calculateMeanRhr() -> Double {
         var array:[Double] = []
         for f in hearts7 {
@@ -387,6 +402,7 @@ class ContentModel: ObservableObject {
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
+    // < ios 16
     func calculateMeanHrv() -> Double {
         var array:[Double] = []
         for f in hearts7 {
@@ -403,7 +419,7 @@ class ContentModel: ObservableObject {
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
-    
+    // < ios 16
     func calculateMeanRhr28() -> Double {
         var array:[Double] = []
         for f in hearts28 {
@@ -420,6 +436,7 @@ class ContentModel: ObservableObject {
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
+    // < ios 16
     func calculateMeanHrv28() -> Double {
         var array:[Double] = []
         for f in hearts28 {
@@ -436,103 +453,7 @@ class ContentModel: ObservableObject {
         let meanRound = Double(round(100 * mean) / 100)
         return Double(meanRound)
     }
-    
-//    func calculateMeanRhr14() -> Double {
-//        var array:[Double] = []
-//        for f in hearts14 {
-//            if f.rhr != nil {
-//                array.append(f.rhr as! Double)
-//            }
-//        }
-//        // Calculate sum ot items with reduce function
-//        let sum = array.reduce(0, { a, b in
-//            return a + b
-//        })
-//
-//        let mean = Double(sum) / Double(array.count)
-//        let meanRound = Double(round(100 * mean) / 100)
-//        return Double(meanRound)
-//    }
-//    func calculateMeanHrv14() -> Double {
-//        var array:[Double] = []
-//        for f in hearts14 {
-//            if f.hrv != nil {
-//                array.append(f.hrv as! Double)
-//            }
-//        }
-//        // Calculate sum ot items with reduce function
-//        let sum = array.reduce(0, { a, b in
-//            return a + b
-//        })
-//
-//        let mean = Double(sum) / Double(array.count)
-//        let meanRound = Double(round(100 * mean) / 100)
-//        return Double(meanRound)
-//    }
-//
-//    func calculateRhrFirstBase() -> Double {
-//        var array:[Double] = []
-//        for f in heartsrhrbase {
-//            if f.rhr != nil {
-//                array.append(f.rhr as! Double)
-//            }
-//        }
-//        // Calculate sum ot items with reduce function
-//        let sum = array.reduce(0, { a, b in
-//            return a + b
-//        })
-//
-//        let mean = Double(sum) / Double(array.count)
-//        let meanRound = Double(round(100 * mean) / 100)
-//        return Double(meanRound)
-//    }
-//    func calculateHrvFirstBase() -> Double{
-//        var array:[Double] = []
-//        for f in heartshrvbase {
-//            if f.hrv != nil {
-//                array.append(f.hrv as! Double)
-//            }
-//
-//        }
-//        // Calculate sum ot items with reduce function
-//        let sum = array.reduce(0, { a, b in
-//            return a + b
-//        })
-//
-//        let mean = Double(sum) / Double(array.count)
-//        let meanRound = Double(round(100 * mean) / 100)
-//        return Double(meanRound)
-//    }
-//
-//    func calculateRhrBase() -> Double {
-//        if firstInputRhr() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
-//            return calculateRhrFirstBase()
-//        }
-//        else {
-//            if calculateMeanRhr14() < calculateRhrFirstBase() {
-//                calculateRhrFirstBase() == calculateMeanRhr14()
-//                return calculateMeanRhr14()
-//
-//            }
-//            else {
-//                return calculateRhrFirstBase()
-//            }
-//        }
-//    }
-//    func calculateHrvBase() -> Double {
-//        if firstInputHrv() as Date >=  NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -13, to: NSDate() as Date)!) {
-//            return calculateHrvFirstBase()
-//        }
-//        else {
-//            if calculateMeanHrv14() > calculateHrvFirstBase() {
-//                calculateHrvFirstBase() == calculateMeanHrv14()
-//                return calculateMeanHrv14()
-//            }
-//            else {
-//                return calculateHrvFirstBase()
-//            }
-//        }
-//    }
+    // to sum up the answers from the questionnaire
     func calculateTotalQuestionnaire() -> Int {
         var sum:Int = 0
         for i in questions {
@@ -546,9 +467,11 @@ class ContentModel: ObservableObject {
         
         
     }
-    
+    // calculate the daily load
     func calculateLoad() -> Double {
+        // 0...3
         var loadSum:Double = 0
+        // Questionnaire
         if calculateTotalQuestionnaire() >= 25 {
             loadSum += 1
         }
@@ -582,6 +505,7 @@ class ContentModel: ObservableObject {
         else if calculateTotalQuestionnaire() <= 15 {
             loadSum += 0
         }
+        // RHR with all percentages
         if calculateMeanRhr() <= calculateRhrBase() {
             loadSum += 1
         }
@@ -618,7 +542,7 @@ class ContentModel: ObservableObject {
         if calculateMeanHrv() >= calculateHrvBase() {
             loadSum += 1
         }
-        // TODO: Change to bigger percentage 1.1 & 1.2 Gioni
+        // HRV with different percentages
         else if calculateMeanHrv() >= calculateHrvBase() / 1.01 {
             loadSum += 0.9
         }
@@ -649,11 +573,12 @@ class ContentModel: ObservableObject {
         else if calculateMeanHrv() <= calculateHrvBase() / 1.1 {
             loadSum += 0
         }
+        // get average
         let load = loadSum / 3
         
         return load
     }
-
+    // get the first Date of Input for Rhr
     func firstInputRhr() -> NSDate {
         var firstDate:Date?
         for i in heartsfirstrhr {
@@ -668,6 +593,7 @@ class ContentModel: ObservableObject {
             return NSDate()
         }
     }
+    // get the first Date of Input for Hrv
     func firstInputHrv() -> NSDate {
         var firstDate:Date?
         for i in heartsfirsthrv {
@@ -682,7 +608,7 @@ class ContentModel: ObservableObject {
             return NSDate()
         }
     }
-    
+    // get last timestamp of questionnaire
     func timestampQuestionnaire() -> Date {
         var timestamp:Date?
         for i in questions {
@@ -692,6 +618,7 @@ class ContentModel: ObservableObject {
         }
         return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
     }
+    // get last timestamp of Rhr
     func lastTimestampRhr() -> Date {
         var timestamp:Date?
         for i in hearts365 {
@@ -701,6 +628,7 @@ class ContentModel: ObservableObject {
         }
         return timestamp ?? NSCalendar.current.date(byAdding: .day, value: -10, to: NSDate() as Date)!
     }
+    // get last timestamp of Hrv
     func lastTimestampHrv() -> Date {
         var timestamp:Date?
         for i in hearts365 {
@@ -712,7 +640,7 @@ class ContentModel: ObservableObject {
     }
     
     
-    
+    // create daily load
     func createTodayLoad() -> Double {
     var loadToday:Double = 0
         for f in loadsToday {
@@ -723,6 +651,7 @@ class ContentModel: ObservableObject {
         return loadToday
     }
     
+    // calculate average load for < ios 16
     func calculateMeanLoad() -> Double {
         var array:[Double] = []
         for f in loads7 {
@@ -740,6 +669,7 @@ class ContentModel: ObservableObject {
         return Double(meanRound)
     }
     
+    // calculate average load for < ios 16
     func calculateMeanLoad14() -> Double {
         var array:[Double] = []
         for f in loads14 {
@@ -757,6 +687,7 @@ class ContentModel: ObservableObject {
         return Double(meanRound)
     }
     
+    // calculate average load for < ios 16
     func calculateMeanLoad28() -> Double {
         var array:[Double] = []
         for f in loads28 {
@@ -774,6 +705,7 @@ class ContentModel: ObservableObject {
         return Double(meanRound)
     }
     
+    // create arrays for < ios 16
     func createArrayLoad(selectedTimeRange:Int) -> [Double]{
         var loadArray:[Double] = []
         
@@ -800,6 +732,8 @@ class ContentModel: ObservableObject {
         
         return loadArray 
     }
+    
+    // create timestamps arrays for createArrayLoad
     func createTimestampsLoad(selectedTimeRange: Int) -> [Date]{
         var timestamps:[Date] = []
         
@@ -827,9 +761,12 @@ class ContentModel: ObservableObject {
         
         return timestamps
     }
+    
+    // save daily Load/Form to Core Data
     func createLoad() {
        
         let loads = Loads(context: managedObjectContext)
+        // save only once a day
         if loads0.isEmpty {
             loads.timestamp = NSCalendar.current.startOfDay(for: Date())
             loads.load = calculateLoad()
@@ -852,6 +789,8 @@ class ContentModel: ObservableObject {
         
         
     }
+    
+    // calculate the base for Rhr
     func calculateRhrBase() -> Double {
         
         var array:[Double] = []
@@ -864,7 +803,7 @@ class ContentModel: ObservableObject {
 
         let components = calendar.dateComponents([.day], from: date1, to: date2)
         let range = 1...components.day! - 14
-        
+        // get for every data the array for the data - 14
         for _ in range {
             
             let request = NSFetchRequest<Hearts>(entityName: "Hearts")
@@ -881,7 +820,7 @@ class ContentModel: ObservableObject {
             catch {
                 
             }
-            
+            // get the array for the data -14
             var arrayrhr:[Double] = []
             for f in heartsrhrbasecalc {
                 if f.rhr != nil {
@@ -895,15 +834,20 @@ class ContentModel: ObservableObject {
             
             let mean = Double(sum) / Double(arrayrhr.count)
             
+            // only valid if more than 5 numbers, to not have random numbers
             if arrayrhr.count >= 5 {
                 array.append(Double(mean))
             }
                          
             date = Calendar.current.date(byAdding: .day, value: 1, to: date as Date)!
         }
+        // get the lowest of the array
         let min = array.min() ?? 0
         return min
     }
+    
+    // calculate the base for Hrv
+    // exactly same logic as calculateRhrBase
     func calculateHrvBase() -> Double {
         
         var array:[Double] = []
@@ -956,6 +900,8 @@ class ContentModel: ObservableObject {
         let max = array.max() ?? 0
         return max
     }
+    
+    // delete one data row at a time for DeleteList
     func deleteHearts(at offsets: IndexSet) {
         for offset in offsets {
             let hr = heartsAll[offset]
@@ -970,13 +916,15 @@ class ContentModel: ObservableObject {
         
         
     }
+    
+    // create weekly averages for Load/Form
     func weekMeanLoads() {
         var array:[Double] = []
         var endOfWeek: Date?
         for i in loads365 {
             
                 let weekday = Calendar.current.component(.weekday, from: i.timestamp)
-                
+                // when end of week is reached -> make array
                 if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
                     
                     
@@ -995,7 +943,7 @@ class ContentModel: ObservableObject {
                 }
             
                 if weekday == 1 {
-                    
+                    // set end of the week and save to array, for every day
                         array.append(i.load)
                     endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
                     
@@ -1044,6 +992,8 @@ class ContentModel: ObservableObject {
             
         }
     }
+    
+    // create weekly averages for Rhr
     func weekMeanHeartsRhr() {
     
         var array:[Double] = []
@@ -1051,7 +1001,7 @@ class ContentModel: ObservableObject {
         for i in hearts365 {
             if i.rhr != nil {
                 let weekday = Calendar.current.component(.weekday, from: i.timestamp)
-                
+                // when end of week is reached -> make array
                 if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
                     
                     
@@ -1070,7 +1020,7 @@ class ContentModel: ObservableObject {
                 }
             
                 if weekday == 1 {
-                    
+                    // set end of the week and save to array, for every day
                         array.append(i.rhr as! Double)
                     endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
                     
@@ -1119,6 +1069,7 @@ class ContentModel: ObservableObject {
             
         }
     }
+    // create weekly averages for Hrv
     func weekMeanHeartsHrv() {
     
         var array:[Double] = []
@@ -1126,7 +1077,7 @@ class ContentModel: ObservableObject {
         for i in hearts365 {
             if i.hrv != nil {
                 let weekday = Calendar.current.component(.weekday, from: i.timestamp)
-                
+                // when end of week is reached -> make array
                 if endOfWeek ?? NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 2, to: i.timestamp)!) <= NSCalendar.current.startOfDay(for: i.timestamp)  {
                     
                     
@@ -1145,7 +1096,7 @@ class ContentModel: ObservableObject {
                 }
             
                 if weekday == 1 {
-                    
+                    // set end of the week and save to array, for every day
                         array.append(i.hrv as! Double)
                     endOfWeek = NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 7, to: i.timestamp)!)
                     
@@ -1195,123 +1146,6 @@ class ContentModel: ObservableObject {
         }
     }
     
-    /*func deleteHearts(at offsets: IndexSet) {
-     for offset in offsets {
-         let hr = heartsAll[offset]
-         managedObjectContext.delete(hr)
-     }
-     
-     
-     
-     
-     
- }
- func mocSave() {
-     try? managedObjectContext.save()
-     
-     fetchHearts()
-     fetchHeartsFirst()
- }*/
-//    func fetchHeartsBase() {
-//        let request = NSFetchRequest<Hearts>(entityName: "Hearts")
-//        let sort = NSSortDescriptor(key: "timestamp", ascending: true)
-//
-//
-//        let predicatebaserhr = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputRhr(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputRhr() as Date)!) as CVarArg)
-//        let predicatebasehrv = NSPredicate(format:"(timestamp >= %@) AND (timestamp < %@)", firstInputHrv(), NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: 14, to: firstInputHrv() as Date)!) as CVarArg)
-//        request.sortDescriptors = [sort]
-//        request.predicate = predicate7
-//        do {
-//            hearts7 = try managedObjectContext.fetch(request)
-//        }
-//        catch {
-//
-//        }
-//
-    
-//    static func getLocalData() -> [Model] {
-//
-//        let pathString = Bundle.main.path(forResource: "questions", ofType: "json")
-//
-//        guard pathString != nil else {
-//            return [Model]()
-//        }
-//
-//        let url = URL(fileURLWithPath: pathString!)
-//
-//        do {
-//            let data = try Data(contentsOf: url)
-//
-//                let decoder = JSONDecoder()
-//            do {
-//
-//                let questionData = try decoder.decode([Model].self, from: data)
-//
-//                for r in questionData {
-//                    r.id = UUID()
-//
-//                }
-//                return questionData
-//            }
-//            catch {
-//                print(error)
-//            }
-//        }
-//        catch {
-//
-//            print(error)
-//        }
-//        return [Model]()
-//    }
 }
 
-/*import ObjcFIT
-import SwiftFIT
 
-
-
-    /**
-     Test decoding a FIT file using the FITListener and FITMessages classes.
-     - Note: FITListener is a Swift class that implements each message type's delegate.
-     - Note: FITMessages is a Swift class that contains a mutable array for each message type.
-     - Attention: FITListener routes the decoded messages to their corresponding array in FITMessages. After the file is decoded, all of the messages will be in an instance of a FITMessages class.
-     */
-class ContentModel: ObservableObject {
-        
-        func testDecoder() throws {
-        let filename = ""
-
-        try XCTSkipIf(filename.count == 0, "8586194076_ACTIVITY.fit") // noch nicht vorhanden API?
-
-        let decoder = FITDecoder()
-        let listener = FITListener()
-        decoder.mesgDelegate = listener
-
-        XCTAssertTrue(decoder.decodeFile(filename))
-
-        let messages = listener.messages;
-        XCTAssertEqual(messages.getFileIdMesgs().count,1)
-    }
-
-    func testListener() {
-        let listener = FITListener()
-        listener.onMesg(FITFileIdMesg())
-        listener.onMesg(FITActivityMesg())
-        listener.onMesg(FITSessionMesg())
-        listener.onMesg(FITLapMesg())
-        listener.onMesg(FITRecordMesg())
-
-        XCTAssertEqual(listener.messages.getFileIdMesgs().count,1)
-        XCTAssertEqual(listener.messages.getActivityMesgs().count,1)
-        XCTAssertEqual(listener.messages.getSessionMesgs().count,1)
-        XCTAssertEqual(listener.messages.getLapMesgs().count,1)
-        XCTAssertEqual(listener.messages.getRecordMesgs().count,1)
-    }
-
-
-    static var allTests = [
-        ("testDecoder",testDecoder),
-        ("testDecoder",testListener)
-    ]
-}
-*/

@@ -20,7 +20,7 @@ class NotificationManager: ObservableObject {
     @Published var HrvIdentifier = ["HrvIdentifier"]
     @Published var QuestIdentifier = ["QuestIdentifier"]
 
-    
+    // Authorization is requested at first launch of app
     func requestAuthorization() {
         let options: UNAuthorizationOptions = [.alert, .sound, .badge]
         UNUserNotificationCenter.current().requestAuthorization(options: options) { success, error in
@@ -35,7 +35,7 @@ class NotificationManager: ObservableObject {
     }
     
     
-    
+    // Notification of questionnaire every 3 days is scheduled, is scheduled every time
     func scheduleNotificationQuestionnaire() {
         
         //        let center = UNUserNotificationCenter.current()
@@ -69,6 +69,8 @@ class NotificationManager: ObservableObject {
         
         
     }
+    // Notification for Rhr is scheduled, should be scheduled for every day
+    // TODO: is sent after day off
     func scheduleNotificationRhr() {
         //        let center = UNUserNotificationCenter.current()
         
@@ -101,6 +103,8 @@ class NotificationManager: ObservableObject {
         //            }
         //        }
     }
+    // Notification for Hrv is scheduled, should be scheduled for every day
+    // TODO: is sent after day off
     func scheduleNotificationHrv() {
         //        let center = UNUserNotificationCenter.current()
         
@@ -132,27 +136,27 @@ class NotificationManager: ObservableObject {
     //        }
     //    }
     
-    func testNotification() {
-        
-        let content = UNMutableNotificationContent()
-        content.title = "DOTS"
-        content.body = "Herzfrequenzvariabilität erfassen"
-        content.sound = .default
-        badgeNumber = 1
-        content.badge = (badgeNumber) as NSNumber
-        
-        //let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
-        
-        var dateComponents = DateComponents()
-        dateComponents.hour = 22
-        dateComponents.minute = 52
-        
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        
-        let request = UNNotificationRequest(identifier: HrvIdentifier.first!, content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request)
-    }
+//    func testNotification() {
+//        
+//        let content = UNMutableNotificationContent()
+//        content.title = "DOTS"
+//        content.body = "Herzfrequenzvariabilität erfassen"
+//        content.sound = .default
+//        badgeNumber = 1
+//        content.badge = (badgeNumber) as NSNumber
+//        
+//        //let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
+//        
+//        var dateComponents = DateComponents()
+//        dateComponents.hour = 22
+//        dateComponents.minute = 52
+//        
+//        
+//        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+//        
+//        let request = UNNotificationRequest(identifier: HrvIdentifier.first!, content: content, trigger: trigger)
+//        UNUserNotificationCenter.current().add(request)
+//    }
     
 }
 

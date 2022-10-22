@@ -18,6 +18,8 @@ class HRV: ObservableObject, HeartRateDelegate {
     var heartRateHRIntervalDatas = [Double]()
     var duration = 0.0
     var heartRateRRCount = 0
+    
+    // get Data from measurement and save
     func analyzeIntervals() {
         
         

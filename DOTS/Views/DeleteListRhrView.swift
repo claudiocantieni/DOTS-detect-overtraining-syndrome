@@ -12,6 +12,7 @@ struct DeleteListRhrView: View {
     
     
     var body: some View {
+        // List of all rhr data
         List {
             ForEach(model.heartsAll) { item in
                 if item.rhr != nil {

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+// same as InputView but for hrv
 struct InputHrvView: View {
     enum FocusField: Hashable {
             case field
@@ -23,6 +23,7 @@ struct InputHrvView: View {
     @EnvironmentObject var manager:NotificationManager
     
     var SaveButton: some View {
+        
         Button("Save") {
             var dateComponents = DateComponents()
             

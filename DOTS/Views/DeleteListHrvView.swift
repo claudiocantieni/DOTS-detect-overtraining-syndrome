@@ -12,6 +12,7 @@ struct DeleteListHrvView: View {
     
     var body: some View {
         List {
+            // list of all hrv data
             ForEach(model.heartsAll) { item in
                 if item.hrv != nil {
                     

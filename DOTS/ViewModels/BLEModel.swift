@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 import UIKit
 
-
+// Services and characteristics to look for
 let heartRateServiceCBUUID = CBUUID(string: "0x180D")
 let heartRateMeasurementCharacteristicCBUUID = CBUUID(string: "2A37")
 let bodySensorLocationCharacteristicCBUUID = CBUUID(string: "2A38")
@@ -31,6 +31,7 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
     
     @Published var peripherals: [CBPeripheral] = []
     @Published var bpm: Int?
+    // search for peripherals and find them
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch (central.state) {
         case .unknown:
@@ -70,9 +71,10 @@ class BLEModel: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripher
             
         }
         else {
+            // append peripheral to list to show in BluetoothListView
             self.peripherals.append(peripheral)
         }
-        // we need to store reference to peripheral
+
         
         
 

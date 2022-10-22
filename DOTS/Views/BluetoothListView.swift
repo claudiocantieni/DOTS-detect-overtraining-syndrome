@@ -18,7 +18,7 @@ struct BluetoothListView: View {
     @ObservedObject var BleModel = BLEModel()
     var body: some View {
         List {
-
+            // list shows all available peripherals
             ForEach(BleModel.peripherals, id: \.self) { peripheral in
                 HStack {
                     Text(peripheral.name ?? "unnamed device")
@@ -27,7 +27,7 @@ struct BluetoothListView: View {
                     Spacer()
 
                     Button {
-    //
+    // connect to peripheral and remember it for next time
                         UserDefaults.standard.set(peripheral.identifier.uuidString, forKey: "PUUID")
                             UserDefaults.standard.synchronize()
                         HRVModel.connect()
@@ -54,7 +54,7 @@ struct BluetoothListView: View {
                
 
             }
-
+// delete peripheral
             .onDelete { _ in
                 UserDefaults.standard.removeObject(forKey: "PUUID")
                 HRVModel.stopMeasure2()

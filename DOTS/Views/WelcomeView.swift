@@ -70,7 +70,7 @@ struct WelcomeView: View {
                 
                     
                 Text("""
-                    Die DOTS App zeigt einen Formzustand an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.
+                    The DOTS app displays a shape. The displayed diagnosis should be compared with the current training load.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -140,7 +140,7 @@ struct WelcomeView: View {
                     .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                 }
                 Text("""
-                    Die DOTS App kann helfen, eine mögliche Überbelastung frühzeitig zu erkennen.
+                    The DOTS app can help to detect a possible overload at an early stage.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -193,7 +193,7 @@ struct WelcomeView: View {
                     
                 }
                 Text("""
-                    Damit die Analyse aussagekräftig ist, muss täglich morgens die Ruheherzfrequenz und die Herzfrequenzvariabilität erfasst werden. Die Messung kann in der App durchgeführt werden.
+                    For the analysis to be representative, the resting heart rate and heart rate variability have to be recorded daily in the morning. The measurement can be done in the app.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -233,7 +233,7 @@ struct WelcomeView: View {
                     
                 }
                 Text("""
-                    Die manuelle Eingabe ist auch möglich.
+                    Manual input is also available.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -287,7 +287,7 @@ struct WelcomeView: View {
                     
                 }
                 Text("""
-                    Alle drei Tage ist ein psychometrischer Fragebogen auszufüllen.
+                    A psychometric questionnaire has to be filled out every three days.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -315,7 +315,7 @@ struct WelcomeView: View {
                     .font(.system(size: 100))
                     .foregroundColor(.accentColor)
                 Text("""
-                    Die Daten sind lokal auf dem Gerät gespeichert.
+                    The data is stored locally on the device.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))

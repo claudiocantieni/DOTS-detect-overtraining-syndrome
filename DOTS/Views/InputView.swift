@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InputView: View {
-    
+    // keyboard pops up directly
     enum FocusField: Hashable {
             case field
           }
@@ -24,9 +24,9 @@ struct InputView: View {
     @EnvironmentObject var manager:NotificationManager
     
     var SaveButton: some View {
-        
+        // Button for toolbar
         Button("Save") {
-            
+            // check when last notification was sent, delete or leave it
             var dateComponents = DateComponents()
             
             dateComponents.calendar = Calendar.current
@@ -58,7 +58,7 @@ struct InputView: View {
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: manager.RhrIdentifier)
                 
             manager.scheduleNotificationRhr()
-            
+            // update load
             if  NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputRhr() as Date && NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputHrv() as Date { model.createLoad()}
             
             self.presentationMode.wrappedValue.dismiss()
@@ -92,10 +92,10 @@ struct InputView: View {
                     .allowsTightening(true)
                     .minimumScaleFactor(0.5)
                     .padding()
-                //TODO: textfields possible to copy paste letters -> prevent:https://programmingwithswift.com/numbers-only-textfield-with-swiftui/
+                
                 HStack {
                     
-                    // TODO: textxfield appear automatically
+                    
                     TextField("", text: $rhr)
                         .keyboardType(.decimalPad)
                         .frame(width: 50)

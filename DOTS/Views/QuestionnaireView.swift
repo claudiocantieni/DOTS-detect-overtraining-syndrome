@@ -49,7 +49,7 @@ struct QuestionnaireView: View {
                 }
                 else {
                     if index == 1{
-                        Text("In den letzten 3 Tagen habe ich mich entspannt gefühlt")
+                        Text("In the last 3 days I have felt relaxed")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
@@ -60,35 +60,35 @@ struct QuestionnaireView: View {
                     //                Slider(value: $value, in: 1...5, step: 1)
                     //                    .padding()
                     else if index == 2 {
-                        Text("In den letzten 3 Tagen konnte ich mich gut konzentrieren")
+                        Text("In the last 3 days I could concentrate well")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 3 {
-                        Text("In den letzten 3 Tagen hatte ich genügend Schlaf")
+                        Text("In the last 3 days I had enough sleep")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 4 {
-                        Text("In den letzten 3 Tagen war ich guter Laune")
+                        Text("In the last 3 days I was in a good mood")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 5 {
-                        Text("In den letzten 3 Tagen fühlte ich mich unter Druck gesetzt")
+                        Text("In the last 3 days I felt under pressure")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
                             .padding()
                     }
                     else if index == 6 {
-                        Text("In den letzten 3 Tagen fühlte ich mich leistungsfähig")
+                        Text("In the last 3 days I felt able to perform well")
                             .padding()
                             .font(.custom("Ubuntu-Regular", size: 18))
                         Slider(value: $value, in: 1...5, step: 1)
@@ -214,6 +214,7 @@ struct QuestionnaireView: View {
                     }
                     else if index == 7 {
                         Button {
+                            // save to coredata
                             let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.timestampQuestionnaire())!))
                             //let date = model.lastTimestampRhr()
                             var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
@@ -263,7 +264,7 @@ struct QuestionnaireView: View {
     func addToAnswers() {
         answerRow.append(Int(value))
     }
-    
+    // for go back button
     func deleteAnswer() {
         answerRow.removeLast()
         

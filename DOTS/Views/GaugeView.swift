@@ -37,11 +37,11 @@ struct GaugeView: View {
         
         .popover(isPresented: $showingPopover) {
             Text("""
-                Die Form wird zu je einem Drittel aus Ruheherzfrequenz, Herzfrequenzvariabilität und psychometrischem Fragebogen berechnet.
+                The shape is calculated in thirds from resting heart rate, heart rate variability and psychometric questionnaire.
                 
-                Die Auswertung des Fragebogens folgt einem Punktesystem für die gegebenen Antworten.
+                The evaluation of the questionnaire follows a point system for the given answers.
                 
-                Die Herzfrequenzdaten werden mit einer Basis verglichen, welche aus einer Ruhephase stammt. Die Basis wird angepasst, wenn sie sich verbessert.
+                The heart rate data is compared to a baseline, which is taken from a resting phase. The baseline is adjusted if it improves.
                 """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
