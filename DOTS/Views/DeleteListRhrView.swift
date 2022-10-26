@@ -23,7 +23,7 @@ struct DeleteListRhrView: View {
                             .padding(.horizontal)
                         Spacer()
                         
-                        Text("\(item.rhr!)")
+                        Text("\(Int(item.rhr!))")
                             .font(.custom("Ubuntu-Regular", size: 18))
                             .padding(.horizontal)
                     }

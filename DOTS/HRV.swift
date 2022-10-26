@@ -94,9 +94,8 @@ class HRV: ObservableObject, HeartRateDelegate {
         bpm = Int(hr)
         
     }
-    // MARK: Change to average
+    // MARK: Changed to average
     func getMinHR() {
-        hr = heartRateHRIntervalDatas.min() ?? 0
         
         // Calculate sum ot items with reduce function
         let sum = heartRateHRIntervalDatas.reduce(0, { a, b in

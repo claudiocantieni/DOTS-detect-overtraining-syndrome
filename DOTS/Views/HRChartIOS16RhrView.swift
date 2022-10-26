@@ -187,29 +187,29 @@ struct HRChartIOS16RhrView: View {
                     }
                     .pickerStyle(.segmented)
                     .padding(.leading, 80)
-                    
-                    if isAnyRhr() == true {
-                        
-                        
-                        let totalValue = weekHearts.reduce(0.0) { partialResult, item in
+                    if model.weekHeartsRhr.first != nil {
+                        if isAnyRhr() == true {
                             
-                            item.rhr + partialResult
                             
+                            let totalValue = weekHearts.reduce(0.0) { partialResult, item in
+                                
+                                item.rhr + partialResult
+                                
+                            }
+                            
+                            let nonNilCount = weekHearts.reduce(0) { count, item in
+                                1 + count
+                            }
+                            
+                            let mean = Double(totalValue) / Double(nonNilCount)
+                            let meanRound = Int(round(mean))
+                            
+                            Text("Ø \(meanRound) bpm")
+                                .font(.custom("Ubuntu-Medium", size: 26))
                         }
                         
-                        let nonNilCount = weekHearts.reduce(0) { count, item in
-                             1 + count
-                        }
-                        
-                        let mean = Double(totalValue) / Double(nonNilCount)
-                        let meanRound = Int(round(mean))
-                        
-                        Text("Ø \(meanRound) bpm")
-                            .font(.custom("Ubuntu-Medium", size: 26))
-                    }
-                    
-                    Chart(weekHearts) { item in
-                        
+                        Chart(weekHearts) { item in
+                            
                             LineMark(x: .value("Date", item.timestamp,unit: .hour),
                                      y: .value("Resting HR", Int(round(item.rhr)))
                             )
@@ -246,8 +246,8 @@ struct HRChartIOS16RhrView: View {
                                             Text("\(currentActiveItem2.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day())")
                                         }
                                         
-                                            .font(.custom("Ubuntu-Regular", size: 12))
-                                            .foregroundColor(.black.opacity(0.8))
+                                        .font(.custom("Ubuntu-Regular", size: 12))
+                                        .foregroundColor(.black.opacity(0.8))
                                     }
                                     .padding(.horizontal,5)
                                     .padding(.vertical, 4)
@@ -259,34 +259,35 @@ struct HRChartIOS16RhrView: View {
                                 }
                                 
                             }
-                        
-                    }
-                    
-                    .chartOverlay(content: { proxy in
-                        GeometryReader{innerProxy in
-                            Rectangle()
-                                .fill(.clear).contentShape(Rectangle())
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged{ value in
-                                            let location = value.location
-                                            
-                                            if let date: Date = proxy.value(atX: location.x){
-                                                let calendar = Calendar.current
-                                                let day = calendar.component(.weekOfYear ,from: date)
-                                                if let currentItem2 = weekHearts.first(where: { item in
-                                                    calendar.component(.weekOfYear, from: item.timestamp) == day
-                                                }){
-                                                    self.currentActiveItem2 = currentItem2
-                                                }
-                                            }
-                                        }.onEnded{value in
-                                            self.currentActiveItem2 = nil
-                                        }
-                                )
+                            
                         }
-                    })
-                    .frame(height: 300)
+                        
+                        .chartOverlay(content: { proxy in
+                            GeometryReader{innerProxy in
+                                Rectangle()
+                                    .fill(.clear).contentShape(Rectangle())
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged{ value in
+                                                let location = value.location
+                                                
+                                                if let date: Date = proxy.value(atX: location.x){
+                                                    let calendar = Calendar.current
+                                                    let day = calendar.component(.weekOfYear ,from: date)
+                                                    if let currentItem2 = weekHearts.first(where: { item in
+                                                        calendar.component(.weekOfYear, from: item.timestamp) == day
+                                                    }){
+                                                        self.currentActiveItem2 = currentItem2
+                                                    }
+                                                }
+                                            }.onEnded{value in
+                                                self.currentActiveItem2 = nil
+                                            }
+                                    )
+                            }
+                        })
+                        .frame(height: 300)
+                    }
                 }
                 .padding()
                 .background {

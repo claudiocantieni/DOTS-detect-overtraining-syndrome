@@ -30,15 +30,15 @@ struct InputView: View {
             var dateComponents = DateComponents()
             
             dateComponents.calendar = Calendar.current
-            dateComponents.hour = 7
-            dateComponents.minute = 0
+            dateComponents.hour = UserDefaults.standard.integer(forKey: "notificationHour")
+            dateComponents.minute = UserDefaults.standard.integer(forKey: "notificationMinute")
             
             let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.timestampQuestionnaire())!))
             //let date = model.lastTimestampRhr()
             var dateComponents2 = Calendar.current.dateComponents([.year, .month, .day], from: date)
             dateComponents2.calendar = Calendar.current
-            dateComponents2.hour = 7
-            dateComponents2.minute = 0
+            dateComponents2.hour = UserDefaults.standard.integer(forKey: "notificationHour")
+            dateComponents2.minute = UserDefaults.standard.integer(forKey: "notificationMinute")
             
             if dateComponents.date! < Date() && dateComponents2.date! > Date() {
                 manager.badgeNumber = 0
@@ -54,10 +54,10 @@ struct InputView: View {
             model.fetchHeartsFirst()
             
 
-            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: manager.RhrIdentifier)
+
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: manager.RhrIdentifier)
                 
-            manager.scheduleNotificationRhr()
+            
             // update load
             if  NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputRhr() as Date && NSCalendar.current.date(byAdding: .day, value: -7, to: NSDate() as Date)! > model.firstInputHrv() as Date { model.createLoad()}
             

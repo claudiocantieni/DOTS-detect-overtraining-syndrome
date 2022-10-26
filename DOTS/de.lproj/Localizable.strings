@@ -67,17 +67,23 @@
 "Fill out questionnaire today" = "Fragebogen heute ausfüllen";
 "Done" = "Fertig";
 "Privacy policy" = "Datenschutzerklärung";
+
 "The DOTS app displays a shape. The displayed diagnosis should be compared with the current training load." = "Die DOTS App zeigt eine Form an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.";
 "The DOTS app can help to detect a possible overload at an early stage." = "Die DOTS App kann helfen, eine mögliche Überbelastung frühzeitig zu erkennen.";
+
 "For the analysis to be representative, the resting heart rate and heart rate variability have to be recorded daily in the morning. The measurement can be done in the app." = "Damit die Analyse aussagekräftig ist, muss täglich morgens die Ruheherzfrequenz und die Herzfrequenzvariabilität erfasst werden. Die Messung kann in der App durchgeführt werden.";
+
 "Manual input is also available." = "Die manuelle Eingabe ist auch möglich.";
+
 "A psychometric questionnaire has to be filled out every three days." = "Alle drei Tage ist ein psychometrischer Fragebogen auszufüllen.";
 "The data is stored locally on the device." = "Die Daten sind lokal auf dem Gerät gespeichert.";
+
 "The shape displays the status “loaded” for several weeks.
                     
                     This suggests a possible overreaching. If there is no logical reason, such as illness or deliberate supercompensation, it should be clarified with the coach whether action should be taken. In this case, the training is usually reduced." = "Die Form zeigt seit mehreren Wochen den Status ”belastet” an.
 
 Das deutet auf eine mögliche Überbelastung hin. Falls kein logischer Grund vorliegt, wie Krankheit oder gewollte Superkompensation, sollte mit dem Coach abgeklärt werden, ob zu handeln ist. In diesem Fall wird meistens das Training reduziert.";
+
 "The measurement should be taken in the morning lying down in a relaxed state.
 
 If you feel the urge to urinate, you should relieve yourself of water before taking the measurement, as retention can affect the pulse." =
@@ -106,6 +112,8 @@ Die Herzfrequenzdaten werden mit einer Basis verglichen, welche aus einer Ruheph
 "In the last 3 days I felt under pressure" = "In den letzten 3 Tagen fühlte ich mich unter Druck gesetzt";
 "In the last 3 days I felt able to perform well" = "In den letzten 3 Tagen fühlte ich mich leistungsfähig";
 
+"Time of notification" = "Uhrzeit der Mitteilung";
+"Cancel" = "Abbrechen";
 
 
 

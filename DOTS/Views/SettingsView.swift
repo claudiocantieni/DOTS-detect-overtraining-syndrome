@@ -32,17 +32,12 @@ struct SettingsView: View {
         NavigationView {
             ScrollView {
                 LazyVStack(alignment: .leading) {
-                    Button {
-                        if let appSettings = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(appSettings) {
-                            UIApplication.shared.open(appSettings)
-                        }
-                    }
-                    label: {
-                        
-                                
+                    NavigationLink {
+                        NotificationsView()
+                    } label: {
                             HStack(spacing: 20.0) {
                                 Image(systemName: "bell")
-
+                                    
                                 Text("Bluetooth & notifications")
                                     .font(.custom("Ubuntu-Medium", size: 20))
                                     .foregroundColor(.accentColor)
@@ -50,11 +45,11 @@ struct SettingsView: View {
                                     .allowsTightening(true)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.leading)
+                                
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     
                             }
-                        
                         
                     }
                     .padding()

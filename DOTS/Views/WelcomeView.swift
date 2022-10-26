@@ -12,6 +12,8 @@ struct WelcomeView: View {
     
     @AppStorage("welcomeViewShown")
     var welcomeViewShown: Bool = false
+    @AppStorage("notificationHour") var notificationHour: Int = 7
+    @AppStorage("notificationMinute") var notificationMinute: Int = 0
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @Binding var tabSelection: Int
@@ -325,6 +327,8 @@ struct WelcomeView: View {
                     index += 1
                     if welcomeViewShown == false {
                         tabSelection = 1
+                        notificationHour = 7
+                        notificationMinute = 0
                         welcomeViewShown = true
                     }
                     else {

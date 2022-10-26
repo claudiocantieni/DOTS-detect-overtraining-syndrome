@@ -53,7 +53,8 @@ class NotificationManager: ObservableObject {
         let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 3, to: self.model.timestampQuestionnaire())!))
         
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        dateComponents.hour = 7
+        dateComponents.hour = UserDefaults.standard.integer(forKey: "notificationHour")
+        dateComponents.minute = UserDefaults.standard.integer(forKey: "notificationMinute")
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         
@@ -84,11 +85,11 @@ class NotificationManager: ObservableObject {
         badgeNumber = 1
         content.badge = (badgeNumber) as NSNumber
         
-        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampRhr())!))
-        //let date = model.lastTimestampRhr()
-        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        dateComponents.hour = 7
         
+        //let date = model.lastTimestampRhr()
+        var dateComponents = DateComponents()
+        dateComponents.hour = UserDefaults.standard.integer(forKey: "notificationHour")
+        dateComponents.minute = UserDefaults.standard.integer(forKey: "notificationMinute")
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         
@@ -117,10 +118,9 @@ class NotificationManager: ObservableObject {
         badgeNumber = 1
         content.badge = (badgeNumber) as NSNumber
         
-        let date = NSCalendar.current.startOfDay(for:(NSCalendar.current.date(byAdding: .day, value: 1, to: self.model.lastTimestampHrv())!))
-        
-        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        dateComponents.hour = 7
+        var dateComponents = DateComponents()
+        dateComponents.hour = UserDefaults.standard.integer(forKey: "notificationHour")
+        dateComponents.minute = UserDefaults.standard.integer(forKey: "notificationMinute")
         
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)

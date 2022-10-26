@@ -239,6 +239,7 @@ struct GaugeIOS16View: View {
                     }
                 }
                 else {
+                    
                     // Chart for a year basically the same but with weekly averages
                     VStack(alignment: .leading, spacing: 12) {
                         Picker("", selection: $currentTab)
@@ -249,162 +250,163 @@ struct GaugeIOS16View: View {
                         }
                         .pickerStyle(.segmented)
                         .padding(.leading, 80)
-                        
-                        
-                        let totalValue = weekLoads.reduce(0.0) { partialResult, item in
+                        if model.weekLoads.first != nil {
                             
-                            item.load*100 + partialResult
-                            
-                        }
-                        
-                        let nonNilCount = weekLoads.reduce(0) { count, item in
-                            1 + count
-                        }
-                        
-                        let mean = Double(totalValue) / Double(nonNilCount)
-                        let meanRound = Int(round(mean))
-                        HStack() {
-                            VStack(alignment: .leading) {
-                                Text("Ø \(meanRound) %")
-                                    .font(.custom("Ubuntu-Medium", size: 26))
-                                if meanRound >= 75 {
-                                    Text("recovered")
-                                        .foregroundColor(Color.green)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if meanRound >= 50 {
-                                    Text("rather recovered")
-                                        .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if meanRound >= 25 {
-                                    Text("slightly loaded")
-                                        .foregroundColor(Color.orange)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if meanRound < 25 {
-                                    Text("loaded")
-                                        .foregroundColor(Color.red)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                            }
-                            Spacer()
-                            
-                            VStack(alignment: .leading) {
-                                Text("Today")
-                                    .font(.custom("Ubuntu-Medium", size: 26))
-                                if  model.createTodayLoad() >= 0.75 {
-                                    Text("recovered")
-                                        .foregroundColor(Color.green)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if model.createTodayLoad() >= 0.50 {
-                                    Text("rather recovered")
-                                        .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if model.createTodayLoad() >= 0.25 {
-                                    Text("slightly loaded")
-                                        .foregroundColor(Color.orange)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                                else if model.createTodayLoad() < 0.25 {
-                                    Text("loaded")
-                                        .foregroundColor(Color.red)
-                                        .font(.custom("Ubuntu-Regular", size: 18))
-                                }
-                            }
-                            .padding(.trailing)
-                            
-                        }
-                        
-                       
-                        
-                        
-                        Chart(weekLoads) { item in
-                            
-                            LineMark(x: .value("Date", item.timestamp,unit: .hour),
-                                     y: .value("Stare", Int(round(item.load*100)))
-                            )
-                            .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
-                            .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
-                            .interpolationMethod(.monotone)
-                            
-                            AreaMark(x: .value("Date", item.timestamp,unit: .hour),
-                                     y: .value("State", Int(round(item.load*100)))
-                            )
-                            .foregroundStyle(.linearGradient(colors: [
-                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
-                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
-                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
-                                Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
-                                .clear
-                            ], startPoint: .top, endPoint: .bottom))
-                            .interpolationMethod(.monotone)
-                            
-                            
-                            if let currentActiveItem2,currentActiveItem2.timestamp == item.timestamp{
-                                PointMark(x: .value("Date", currentActiveItem2.timestamp, unit: .hour),
-                                          y: .value("State", Int(round(item.load*100)))
-                                )
-                                .foregroundStyle(Color.yellow)
-                                .symbolSize(250)
-                                //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                            let totalValue = weekLoads.reduce(0.0) { partialResult, item in
                                 
+                                item.load*100 + partialResult
                                 
-                                .annotation(position: .top){
-                                    VStack(alignment: .leading, spacing: 6) {
-                                        Text("\(Int(currentActiveItem2.load*100)) %")
-                                            .foregroundColor(.black)
+                            }
+                            
+                            let nonNilCount = weekLoads.reduce(0) { count, item in
+                                1 + count
+                            }
+                            
+                            let mean = Double(totalValue) / Double(nonNilCount)
+                            let meanRound = Int(round(mean))
+                            HStack() {
+                                VStack(alignment: .leading) {
+                                    Text("Ø \(meanRound) %")
+                                        .font(.custom("Ubuntu-Medium", size: 26))
+                                    if meanRound >= 75 {
+                                        Text("recovered")
+                                            .foregroundColor(Color.green)
                                             .font(.custom("Ubuntu-Regular", size: 18))
-                                        VStack() {
-                                            Text("\(NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: currentActiveItem2.timestamp)!), format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits) .day()) -")
-                                            Text("\(currentActiveItem2.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day())")
-                                        }
-                                        
+                                    }
+                                    else if meanRound >= 50 {
+                                        Text("rather recovered")
+                                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                    else if meanRound >= 25 {
+                                        Text("slightly loaded")
+                                            .foregroundColor(Color.orange)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                    else if meanRound < 25 {
+                                        Text("loaded")
+                                            .foregroundColor(Color.red)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                }
+                                Spacer()
+                                
+                                VStack(alignment: .leading) {
+                                    Text("Today")
+                                        .font(.custom("Ubuntu-Medium", size: 26))
+                                    if  model.createTodayLoad() >= 0.75 {
+                                        Text("recovered")
+                                            .foregroundColor(Color.green)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                    else if model.createTodayLoad() >= 0.50 {
+                                        Text("rather recovered")
+                                            .foregroundColor(Color.init(cgColor: .init(red: 0.55, green: 0.8, blue: 0.3, alpha: 1)))
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                    else if model.createTodayLoad() >= 0.25 {
+                                        Text("slightly loaded")
+                                            .foregroundColor(Color.orange)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                    else if model.createTodayLoad() < 0.25 {
+                                        Text("loaded")
+                                            .foregroundColor(Color.red)
+                                            .font(.custom("Ubuntu-Regular", size: 18))
+                                    }
+                                }
+                                .padding(.trailing)
+                                
+                            }
+                            
+                            
+                            
+                            
+                            Chart(weekLoads) { item in
+                                
+                                LineMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("Stare", Int(round(item.load*100)))
+                                )
+                                .lineStyle(.init(lineWidth: 3, lineCap: .round, miterLimit: 3))
+                                .foregroundStyle(Color(red: 0.14, green: 0.45, blue: 0.73))
+                                .interpolationMethod(.monotone)
+                                
+                                AreaMark(x: .value("Date", item.timestamp,unit: .hour),
+                                         y: .value("State", Int(round(item.load*100)))
+                                )
+                                .foregroundStyle(.linearGradient(colors: [
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.6),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.5),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.3),
+                                    Color(red: 0.14, green: 0.45, blue: 0.73).opacity(0.1),
+                                    .clear
+                                ], startPoint: .top, endPoint: .bottom))
+                                .interpolationMethod(.monotone)
+                                
+                                
+                                if let currentActiveItem2,currentActiveItem2.timestamp == item.timestamp{
+                                    PointMark(x: .value("Date", currentActiveItem2.timestamp, unit: .hour),
+                                              y: .value("State", Int(round(item.load*100)))
+                                    )
+                                    .foregroundStyle(Color.yellow)
+                                    .symbolSize(250)
+                                    //.lineStyle(.init(lineWidth: 2, miterLimit: 2, dash: [2], dashPhase: 5))
+                                    
+                                    
+                                    .annotation(position: .top){
+                                        VStack(alignment: .leading, spacing: 6) {
+                                            Text("\(Int(currentActiveItem2.load*100)) %")
+                                                .foregroundColor(.black)
+                                                .font(.custom("Ubuntu-Regular", size: 18))
+                                            VStack() {
+                                                Text("\(NSCalendar.current.startOfDay(for:NSCalendar.current.date(byAdding: .day, value: -6, to: currentActiveItem2.timestamp)!), format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits) .day()) -")
+                                                Text("\(currentActiveItem2.timestamp, format: Date.FormatStyle().year(.twoDigits).month(.defaultDigits).day())")
+                                            }
+                                            
                                             .font(.custom("Ubuntu-Regular", size: 12))
                                             .foregroundColor(.black.opacity(0.8))
-                                    }
-                                    .padding(.horizontal,5)
-                                    .padding(.vertical, 4)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 6, style: .continuous)
-                                            .fill(.yellow.shadow(.drop(radius:2)))
+                                        }
+                                        .padding(.horizontal,5)
+                                        .padding(.vertical, 4)
+                                        .background {
+                                            RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                                .fill(.yellow.shadow(.drop(radius:2)))
+                                        }
+                                        
                                     }
                                     
                                 }
                                 
                             }
                             
-                        }
-                        
-                        .chartYScale(domain: 0...100)
-                        .chartOverlay(content: { proxy in
-                            GeometryReader{innerProxy in
-                                Rectangle()
-                                    .fill(.clear).contentShape(Rectangle())
-                                    .gesture(
-                                        DragGesture()
-                                            .onChanged{ value in
-                                                let location = value.location
-                                                
-                                                if let date: Date = proxy.value(atX: location.x){
-                                                    let calendar = Calendar.current
-                                                    let day = calendar.component(.weekOfYear, from: date)
-                                                    if let currentItem2 = weekLoads.first(where: { item in
-                                                        calendar.component(.weekOfYear, from: item.timestamp) == day
-                                                    }){
-                                                        self.currentActiveItem2 = currentItem2
-                                                        
+                            .chartYScale(domain: 0...100)
+                            .chartOverlay(content: { proxy in
+                                GeometryReader{innerProxy in
+                                    Rectangle()
+                                        .fill(.clear).contentShape(Rectangle())
+                                        .gesture(
+                                            DragGesture()
+                                                .onChanged{ value in
+                                                    let location = value.location
+                                                    
+                                                    if let date: Date = proxy.value(atX: location.x){
+                                                        let calendar = Calendar.current
+                                                        let day = calendar.component(.weekOfYear, from: date)
+                                                        if let currentItem2 = weekLoads.first(where: { item in
+                                                            calendar.component(.weekOfYear, from: item.timestamp) == day
+                                                        }){
+                                                            self.currentActiveItem2 = currentItem2
+                                                            
+                                                        }
                                                     }
+                                                }.onEnded{value in
+                                                    self.currentActiveItem2 = nil
                                                 }
-                                            }.onEnded{value in
-                                                self.currentActiveItem2 = nil
-                                            }
-                                    )
-                            }
-                        })
-                        .frame(height: 300)
+                                        )
+                                }
+                            })
+                            .frame(height: 300)
+                        }
                     }
                     .padding()
                     
