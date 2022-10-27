@@ -28,13 +28,20 @@ struct PersistenceController {
         return result
     }()
 
-    let container: NSPersistentContainer
+    let container: NSPersistentCloudKitContainer
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Core Data Model")
+        container = NSPersistentCloudKitContainer(name: "Core Data Model")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("Unresolved error")
+        }
+        description.setOption(true as NSObject, forKey:
+        NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -52,5 +59,48 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.processUpdate), name: .NSPersistentStoreRemoteChange, object: nil)
+        
     }
+    
+//    @objc
+//    func processUpdate(notification: NSNotification) {
+//        operationQueue.addOperation {
+//            let context = self.container.newBackgroundContext()
+//            context.performAndWait {
+//                let hearts: [Hearts]
+//                let quest: [Questionnaire]
+//                let loads: [Loads]
+//                do {
+//                    try hearts = context.fetch(Hearts.fetchRequest())
+//                    try quest = context.fetch(Questionnaire.fetchRequest())
+//                    try loads = context.fetch(Loads.fetchRequest())
+//                } catch {
+//                    let nserror = error as NSError
+//                    fatalError("Unresolved error \(nserror)")
+//                }
+//
+//
+//
+//                if context.hasChanges {
+//                    do {
+//                        try context.save()
+//
+//                    } catch {
+//                        let nserror = error as NSError
+//                        fatalError("Unresolved error \(nserror)")
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+//
+//    lazy var operationQueue: OperationQueue = {
+//        var queue = OperationQueue()
+//        queue.maxConcurrentOperationCount = 1
+//        return queue
+//    }()
 }

@@ -25,8 +25,9 @@ struct MeasurePopoverView: View {
         .sheet(isPresented: $showingPopover) {
             if #available(iOS 16.0, *) {
                 Text("""
+                    A heart rate monitor with Bluetooth support has to be used for measurement.
+
                     The measurement should be taken in the morning lying down in a relaxed state.
-                    
                     If you feel the urge to urinate, you should relieve yourself of water before taking the measurement, as retention can affect the pulse.
                     """)
                 .multilineTextAlignment(.leading)
@@ -36,8 +37,9 @@ struct MeasurePopoverView: View {
                 .presentationDetents([.medium])
             } else {
                 Text("""
+                    A heart rate monitor with Bluetooth support has to be used for measurement.
+
                     The measurement should be taken in the morning lying down in a relaxed state.
-                    
                     If you feel the urge to urinate, you should relieve yourself of water before taking the measurement, as retention can affect the pulse.
                     """)
                 .multilineTextAlignment(.leading)

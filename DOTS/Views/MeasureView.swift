@@ -49,28 +49,40 @@ struct MeasureView: View {
                         }
                             .foregroundColor(colorScheme)
                             .font(.custom("Ubuntu-Medium", size: 50))
-                        Button {
-                            
-                            index = 4
-                            UIApplication.shared.isIdleTimerDisabled = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 28) {
-                                HRVModel.startMeasure()
-                                index = 2
-                                
-                            }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 86) {
-                                HRVModel.stopMeasure()
-                                AudioServicesPlaySystemSound(1050)
-                                index = 3
-                            }
-                        } label: {
+                        if HRVModel.bpm == nil {
                             ZStack {
                                 ButtonView(color: .accentColor)
+                                    .opacity(0.2)
                                 Text("Start")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
                         }
+                        else {
+                            Button {
+                                
+                                index = 4
+                                UIApplication.shared.isIdleTimerDisabled = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 28) {
+                                    HRVModel.startMeasure()
+                                    index = 2
+                                    
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 86) {
+                                    HRVModel.stopMeasure()
+                                    AudioServicesPlaySystemSound(1050)
+                                    index = 3
+                                }
+                            } label: {
+                                ZStack {
+                                    ButtonView(color: .accentColor)
+                                    Text("Start")
+                                        .foregroundColor(colorScheme)
+                                        .font(.custom("Ubuntu-Medium", size: 18))
+                                }
+                            }
+                        }
+                        
                         NavigationLink {
                             BluetoothListView()
                         } label: {

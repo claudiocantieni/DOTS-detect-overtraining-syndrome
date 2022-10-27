@@ -42,13 +42,15 @@
 		6B739CC428EF6F4B00F48DD1 /* BluetoothListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B739CC328EF6F4B00F48DD1 /* BluetoothListView.swift */; };
 		6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B76CCA627FEE3A100E9CD88 /* HRView.swift */; };
 		6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B773B8127FE0D600016B16B /* ContentModel.swift */; };
+		6B818A92290960C700C38758 /* Questionnaire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B818A8E290960C700C38758 /* Questionnaire+CoreDataProperties.swift */; };
+		6B818A93290960C700C38758 /* Hearts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B818A8F290960C700C38758 /* Hearts+CoreDataProperties.swift */; };
+		6B818A94290960C700C38758 /* Questionnaire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B818A90290960C700C38758 /* Questionnaire+CoreDataClass.swift */; };
+		6B818A95290960C700C38758 /* Hearts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B818A91290960C700C38758 /* Hearts+CoreDataClass.swift */; };
 		6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */; };
 		6B83929F28437ED800826522 /* Loads+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B83929D28437ED800826522 /* Loads+CoreDataProperties.swift */; };
 		6B8392A12843A88F00826522 /* GaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8392A02843A88F00826522 /* GaugeView.swift */; };
 		6B8392B9284B6E6700826522 /* LineChartView in Frameworks */ = {isa = PBXBuildFile; productRef = 6B8392B8284B6E6700826522 /* LineChartView */; };
 		6B88526C282BF8A9006EE3A4 /* QuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */; };
-		6B885291282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B88528F282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift */; };
-		6B885292282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B885290282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift */; };
 		6B9C011628FDC531005E9557 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9C011528FDC531005E9557 /* WelcomeView.swift */; };
 		6B9C011A29033EBF005E9557 /* MeasurePopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9C011929033EBF005E9557 /* MeasurePopoverView.swift */; };
 		6BBCA6972908459E0048AF47 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BBCA6952908459E0048AF47 /* HomeView.swift */; };
@@ -58,8 +60,6 @@
 		6BDB4E1128A3FDF6008DF32E /* Ubuntu-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BDB4E1028A3FDF6008DF32E /* Ubuntu-Regular.ttf */; };
 		6BDB4E1528A43EDD008DF32E /* Ubuntu-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BDB4E1428A43EDD008DF32E /* Ubuntu-Bold.ttf */; };
 		6BDB4E1728A4471D008DF32E /* Ubuntu-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6BDB4E1628A4471D008DF32E /* Ubuntu-Medium.ttf */; };
-		6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */; };
-		6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */; };
 		6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3527FA06C80023A867 /* DOTSApp.swift */; };
 		6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3727FA06C80023A867 /* TabsView.swift */; };
 		6BFFFE3A27FA06C90023A867 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BFFFE3927FA06C90023A867 /* Assets.xcassets */; };
@@ -102,12 +102,15 @@
 		6B739CC328EF6F4B00F48DD1 /* BluetoothListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothListView.swift; sourceTree = "<group>"; };
 		6B76CCA627FEE3A100E9CD88 /* HRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRView.swift; sourceTree = "<group>"; };
 		6B773B8127FE0D600016B16B /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		6B818A8D29095E7200C38758 /* DOTS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DOTS.entitlements; sourceTree = "<group>"; };
+		6B818A8E290960C700C38758 /* Questionnaire+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6B818A8F290960C700C38758 /* Hearts+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		6B818A90290960C700C38758 /* Questionnaire+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6B818A91290960C700C38758 /* Hearts+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Loads+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6B83929D28437ED800826522 /* Loads+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Loads+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B8392A02843A88F00826522 /* GaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GaugeView.swift; sourceTree = "<group>"; };
 		6B88526B282BF8A9006EE3A4 /* QuestionnaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireView.swift; sourceTree = "<group>"; };
-		6B88528F282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6B885290282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Questionnaire+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6B9C011528FDC531005E9557 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		6B9C011929033EBF005E9557 /* MeasurePopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurePopoverView.swift; sourceTree = "<group>"; };
 		6BBCA6952908459E0048AF47 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -117,8 +120,6 @@
 		6BDB4E1028A3FDF6008DF32E /* Ubuntu-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Regular.ttf"; sourceTree = "<group>"; };
 		6BDB4E1428A43EDD008DF32E /* Ubuntu-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Bold.ttf"; sourceTree = "<group>"; };
 		6BDB4E1628A4471D008DF32E /* Ubuntu-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Ubuntu-Medium.ttf"; sourceTree = "<group>"; };
-		6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataClass.swift"; sourceTree = "<group>"; };
-		6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Hearts+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6BFFFE3227FA06C80023A867 /* DOTS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BFFFE3527FA06C80023A867 /* DOTSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOTSApp.swift; sourceTree = "<group>"; };
 		6BFFFE3727FA06C80023A867 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
@@ -223,6 +224,7 @@
 		6BFFFE3427FA06C80023A867 /* DOTS */ = {
 			isa = PBXGroup;
 			children = (
+				6B818A8D29095E7200C38758 /* DOTS.entitlements */,
 				6B3354AE28C6893900933B0F /* HRVMeasurement */,
 				6BFFFE3527FA06C80023A867 /* DOTSApp.swift */,
 				6BFFFE4427FA07420023A867 /* Views */,
@@ -289,10 +291,10 @@
 			children = (
 				6B281F0B2822B2CA0079DE7E /* Persistence.swift */,
 				6B281F282822B4AC0079DE7E /* Core Data Model.xcdatamodeld */,
-				6BF4F8C728294C0A00352BF5 /* Hearts+CoreDataClass.swift */,
-				6BF4F8C828294C0A00352BF5 /* Hearts+CoreDataProperties.swift */,
-				6B88528F282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift */,
-				6B885290282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift */,
+				6B818A91290960C700C38758 /* Hearts+CoreDataClass.swift */,
+				6B818A8F290960C700C38758 /* Hearts+CoreDataProperties.swift */,
+				6B818A90290960C700C38758 /* Questionnaire+CoreDataClass.swift */,
+				6B818A8E290960C700C38758 /* Questionnaire+CoreDataProperties.swift */,
 				6B83929C28437ED800826522 /* Loads+CoreDataClass.swift */,
 				6B83929D28437ED800826522 /* Loads+CoreDataProperties.swift */,
 			);
@@ -385,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B739C9928DD0BD900F48DD1 /* HRHomeChartView.swift in Sources */,
-				6BF4F8CA28294C0A00352BF5 /* Hearts+CoreDataProperties.swift in Sources */,
 				6B83929F28437ED800826522 /* Loads+CoreDataProperties.swift in Sources */,
 				6B281F0C2822B2CA0079DE7E /* Persistence.swift in Sources */,
 				6B739C8E28D6534A00F48DD1 /* HRChartIOS16RhrView.swift in Sources */,
@@ -403,34 +404,35 @@
 				6BDB4E0E289445D2008DF32E /* ButtonView.swift in Sources */,
 				6B33554C28C68AC500933B0F /* BeatsData.swift in Sources */,
 				6B5CD727283954D000A3CE7D /* SettingsView.swift in Sources */,
-				6BF4F8C928294C0A00352BF5 /* Hearts+CoreDataClass.swift in Sources */,
 				6B33555428C68AC500933B0F /* BalanceIndexAnalyzer.swift in Sources */,
 				6B8392A12843A88F00826522 /* GaugeView.swift in Sources */,
 				6B33554D28C68AC500933B0F /* SampleInterpolator.swift in Sources */,
 				6B76CCA727FEE3A100E9CD88 /* HRView.swift in Sources */,
 				6B33554F28C68AC500933B0F /* SpectrumData.swift in Sources */,
 				6B33554E28C68AC500933B0F /* LogSpectrumData.swift in Sources */,
+				6B818A93290960C700C38758 /* Hearts+CoreDataProperties.swift in Sources */,
 				6B9C011628FDC531005E9557 /* WelcomeView.swift in Sources */,
 				6B739C9B28DF232D00F48DD1 /* DeleteListRhrView.swift in Sources */,
 				6B739CC228ECAB9200F48DD1 /* AttentionPopoverView.swift in Sources */,
 				6B33554A28C68AC500933B0F /* HeartRateCenter.swift in Sources */,
 				6B33555828C68AC500933B0F /* SpectrumAnalyzer.swift in Sources */,
 				6B739CC428EF6F4B00F48DD1 /* BluetoothListView.swift in Sources */,
+				6B818A95290960C700C38758 /* Hearts+CoreDataClass.swift in Sources */,
 				6BBCA6972908459E0048AF47 /* HomeView.swift in Sources */,
+				6B818A92290960C700C38758 /* Questionnaire+CoreDataProperties.swift in Sources */,
 				6B9C011A29033EBF005E9557 /* MeasurePopoverView.swift in Sources */,
 				6B83929E28437ED800826522 /* Loads+CoreDataClass.swift in Sources */,
 				6BFFFE3827FA06C80023A867 /* TabsView.swift in Sources */,
-				6B885292282D6D35006EE3A4 /* Questionnaire+CoreDataProperties.swift in Sources */,
 				6BFFFE3627FA06C80023A867 /* DOTSApp.swift in Sources */,
 				6B773B8227FE0D600016B16B /* ContentModel.swift in Sources */,
 				6B739CC028EAD4AA00F48DD1 /* Model.swift in Sources */,
+				6B818A94290960C700C38758 /* Questionnaire+CoreDataClass.swift in Sources */,
 				6B739C9228DBB14900F48DD1 /* GaugeIOS16View.swift in Sources */,
 				6B603C97285DE67C00D7911D /* AnalyzeView.swift in Sources */,
 				6B281F2A2822B4AC0079DE7E /* Core Data Model.xcdatamodeld in Sources */,
 				6B5CD7232839299D00A3CE7D /* NotificationManager.swift in Sources */,
 				6B4F07F9281F18C200E4CC31 /* InputView.swift in Sources */,
 				6BBCA6982908459E0048AF47 /* MeasureView.swift in Sources */,
-				6B885291282D6D35006EE3A4 /* Questionnaire+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +577,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DOTS/DOTS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -615,6 +618,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DOTS/DOTS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

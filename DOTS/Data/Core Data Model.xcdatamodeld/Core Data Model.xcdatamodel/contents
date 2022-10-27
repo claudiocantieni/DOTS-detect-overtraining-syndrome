@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Hearts" representedClassName="Hearts" syncable="YES">
         <attribute name="hrv" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
         <attribute name="rhr" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
-        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timestamp" attributeType="Date" defaultDateTimeInterval="688480200" usesScalarValueType="NO"/>
     </entity>
     <entity name="Loads" representedClassName="Loads" syncable="YES">
         <attribute name="load" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -11,6 +11,6 @@
     </entity>
     <entity name="Questionnaire" representedClassName="Questionnaire" syncable="YES">
         <attribute name="answers" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName" customClassName="[Int]"/>
-        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timestamp" attributeType="Date" defaultDateTimeInterval="688480200" usesScalarValueType="NO"/>
     </entity>
 </model>

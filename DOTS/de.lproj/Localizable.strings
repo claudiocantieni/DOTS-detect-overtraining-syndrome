@@ -68,15 +68,27 @@
 "Done" = "Fertig";
 "Privacy policy" = "Datenschutzerklärung";
 
-"The DOTS app displays a shape. The displayed diagnosis should be compared with the current training load." = "Die DOTS App zeigt eine Form an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.";
-"The DOTS app can help to detect a possible overload at an early stage." = "Die DOTS App kann helfen, eine mögliche Überbelastung frühzeitig zu erkennen.";
+"DOTS supports athletes of all levels in assessing their form.
+The DOTS app displays a shape. The displayed diagnosis should be compared with the current training load." = "DOTS unterstützt Sportler aller Niveaus bei der Beurteilung ihrer Form.
+Die DOTS App zeigt eine Form an. Die angezeigte Diagnose ist mit der aktuellen Trainingsbelastung abzugleichen.";
+
+"The DOTS app can help to detect a possible overreaching at an early stage." = "Die DOTS App kann helfen, eine mögliche Überbelastung frühzeitig zu erkennen.";
 
 "For the analysis to be representative, the resting heart rate and heart rate variability have to be recorded daily in the morning. The measurement can be done in the app." = "Damit die Analyse aussagekräftig ist, muss täglich morgens die Ruheherzfrequenz und die Herzfrequenzvariabilität erfasst werden. Die Messung kann in der App durchgeführt werden.";
+
+"When measuring heart rate variability, the length of time between heartbeats is determined. The DOTS app uses the value RMSSD. The more irregularly the heart beats (higher value), the more recovered the body is.
+
+A low resting heart rate indicates a recovered state. However, both measurement numbers differ from person to person, only the comparison to the values of a resting phase is relevant." =
+"Bei der Messung der Herzfrequenzvariabilität wird die Zeitdauer zwischen den Herzschlägen bestimmt. Die DOTS App arbeitet mit dem Wert RMSSD. Je unregelmässiger das Herz schlägt (höherer Wert), desto erholter ist der Körper.
+
+Eine tiefe Ruheherzfrequenz weist auf einen erholten Zustand hin. Beide Messzahlen sind aber von Mensch zu Mensch unterschiedlich, relevant ist nur der Vergleich zu den Werten einer Ruhephase.";
+
 
 "Manual input is also available." = "Die manuelle Eingabe ist auch möglich.";
 
 "A psychometric questionnaire has to be filled out every three days." = "Alle drei Tage ist ein psychometrischer Fragebogen auszufüllen.";
-"The data is stored locally on the device." = "Die Daten sind lokal auf dem Gerät gespeichert.";
+
+"The data is stored locally on the device and on iCloud in case of a device change." = "Die Daten sind lokal auf dem Gerät und auf iCloud, für den Fall eines Gerätewechsels, gespeichert.";
 
 "The shape displays the status “loaded” for several weeks.
                     
@@ -84,12 +96,14 @@
 
 Das deutet auf eine mögliche Überbelastung hin. Falls kein logischer Grund vorliegt, wie Krankheit oder gewollte Superkompensation, sollte mit dem Coach abgeklärt werden, ob zu handeln ist. In diesem Fall wird meistens das Training reduziert.";
 
-"The measurement should be taken in the morning lying down in a relaxed state.
+"A heart rate monitor with Bluetooth support has to be used for measurement.
 
+The measurement should be taken in the morning lying down in a relaxed state.
 If you feel the urge to urinate, you should relieve yourself of water before taking the measurement, as retention can affect the pulse." =
 
-"Die Messung sollte am Morgen liegend in entspanntem Zustand durchgeführt werden.
+"Zur Messung ist ein Pulsgurt mit Bluetooth Unterstützung zu benutzen.
 
+Die Messung sollte am Morgen liegend in entspanntem Zustand durchgeführt werden.
 Bei Harndrang sollte vor dem Messsen Wasser gelassen werden, weil das Zurückhalten den Puls beeinflussen kann.";
 
 "The shape is calculated in thirds from resting heart rate, heart rate variability and psychometric questionnaire.

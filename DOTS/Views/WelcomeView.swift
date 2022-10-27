@@ -72,6 +72,7 @@ struct WelcomeView: View {
                 
                     
                 Text("""
+                    DOTS supports athletes of all levels in assessing their form.
                     The DOTS app displays a shape. The displayed diagnosis should be compared with the current training load.
                     """)
                 .multilineTextAlignment(.leading)
@@ -142,7 +143,7 @@ struct WelcomeView: View {
                     .aspectRatio(CGSize(width: 335, height: 250), contentMode: .fit)
                 }
                 Text("""
-                    The DOTS app can help to detect a possible overload at an early stage.
+                    The DOTS app can help to detect a possible overreaching at an early stage.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
@@ -215,6 +216,62 @@ struct WelcomeView: View {
             else if index == 4 {
                 ZStack {
                     Rectangle()
+                        .foregroundColor(Color.yellow)
+                        .cornerRadius(10)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                        
+                        //.aspectRatio(CGSize(width: 75, height: 220), contentMode: .fill)
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.yellow, lineWidth: 2)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 60)
+                   
+                    HStack {
+                        Text("HR measurement")
+                            .foregroundColor(Color.black)
+                            .font(.custom("Ubuntu-Regular", size: 22))
+                            .lineLimit(1)
+                            .allowsTightening(true)
+                            .minimumScaleFactor(0.5)
+                            .padding(.horizontal)
+                        Spacer()
+                        Image(systemName: "stopwatch")
+                            .foregroundColor(Color.black)
+                            .font(.system(size: 30))
+                            .padding(.horizontal)
+                            
+                        
+                    }
+                            
+                    
+                    
+                    
+                }
+                Text("""
+                    When measuring heart rate variability, the length of time between heartbeats is determined. The DOTS app uses the value RMSSD. The more irregularly the heart beats (higher value), the more recovered the body is.
+
+                    A low resting heart rate indicates a recovered state. However, both measurement numbers differ from person to person, only the comparison to the values of a resting phase is relevant.
+                    """)
+                .multilineTextAlignment(.leading)
+                .font(.custom("Ubuntu-Regular", size: 16))
+                .padding()
+                .lineSpacing(5)
+                Button {
+                    index += 1
+                } label: {
+                    ZStack {
+                        ButtonView(color: .accentColor)
+                        Text("Next")
+                            .foregroundColor(.black)
+                            .font(.custom("Ubuntu-Medium", size: 18))
+                    }
+                }
+                
+            }
+            else if index == 5 {
+                ZStack {
+                    Rectangle()
                         .foregroundColor(Color(red: 0.14, green: 0.45, blue: 0.73))
                         .cornerRadius(10)
                         .frame(width: 40)
@@ -252,7 +309,7 @@ struct WelcomeView: View {
                     }
                 }
             }
-            else if index == 5 {
+            else if index == 6 {
                 ZStack {
                     Rectangle()
                         .foregroundColor(Color.yellow)
@@ -312,12 +369,12 @@ struct WelcomeView: View {
                 }
             }
             
-            else if index == 6 {
+            else if index == 7 {
                 Image(systemName: "lock.shield")
                     .font(.system(size: 100))
                     .foregroundColor(.accentColor)
                 Text("""
-                    The data is stored locally on the device.
+                    The data is stored locally on the device and on iCloud in case of a device change.
                     """)
                 .multilineTextAlignment(.leading)
                 .font(.custom("Ubuntu-Regular", size: 16))
