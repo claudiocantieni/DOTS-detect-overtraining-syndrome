@@ -586,8 +586,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Diese App verwendet Bluethooth";
-				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Diese App verwendet Bluethooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Turning on Bluetooth allows the App to connect to a heart rate monitor to measure the heart rate data during the measurement.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Turning on Bluetooth allows the App to connect to a heart rate monitor to measure the heart rate data during the measurement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -627,8 +627,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DOTS/Info.plist;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Diese App verwendet Bluethooth";
-				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Diese App verwendet Bluethooth";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Turning on Bluetooth allows the App to connect to a heart rate monitor to measure the heart rate data during the measurement.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Turning on Bluetooth allows the App to connect to a heart rate monitor to measure the heart rate data during the measurement.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

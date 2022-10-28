@@ -247,7 +247,7 @@ struct MeasureView: View {
                         } label: {
                             ZStack {
                                 ButtonView(color: .accentColor)
-                                Text("Speichern")
+                                Text("Save")
                                     .foregroundColor(colorScheme)
                                     .font(.custom("Ubuntu-Medium", size: 18))
                             }
